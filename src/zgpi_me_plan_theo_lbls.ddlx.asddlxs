@@ -1,0 +1,8 @@
+@Metadata.layer: #CORE
+// ------------------------------------------------------------------------------------------------
+annotate entity ZI_PLAN_THEO    with 
+{
+    @EndUserText.label: 'Description'               Description;         
+    @EndUserText.label: 'Date de commencement'      Datestart;
+    @EndUserText.label: 'Nombre de participants'    AttendeeAmount;   
+}

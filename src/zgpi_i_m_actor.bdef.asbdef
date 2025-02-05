@@ -1,0 +1,24 @@
+managed; //  implementation in class zbp_gpi_i_m_actor unique;
+//strict ( 2 );
+
+define behavior for ZGPI_I_M_ACTOR //alias <alias_name>
+persistent table zgpi_db_actor
+lock master
+//authorization master ( instance )
+//etag master <field_name>
+
+{
+  create;
+  update;
+  delete;
+
+    field (readonly, numbering: managed ) ActorUuid;
+
+  mapping for zgpi_db_actor
+  {
+  NameFirst = name_first;
+  ActorUuid = actor_uuid;
+  NameLast = name_last;
+  }
+
+}

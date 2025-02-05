@@ -1,0 +1,66 @@
+@Metadata.layer: #CORE
+// ------------------------------------------------------------------------------------------------
+@UI:{ 
+    headerInfo:{ 
+        title           : {  label:'Panification théorique' },
+        typeName        :  'Planification',
+        typeNamePlural  : 'Planifications'
+    }
+}
+// ------------------------------------------------------------------------------------------------
+annotate entity ZI_PLAN_THEO    with 
+{
+/*
+annotate service.PlanningTheorical with @(UI: {
+  Facets                                      : [
+    {
+      $Type : 'UI.CollectionFacet',
+      Label : 'Détails',
+      Facets: [
+        {$Type : 'UI.ReferenceFacet',Target: '@UI.FieldGroup#FG_Data_Basic',      Label : 'Données de base',              }, 
+        {$Type : 'UI.ReferenceFacet',Target: '@UI.FieldGroup#FG_Data_Course',     Label : 'Données liés à la formation',  }, 
+        {$Type : 'UI.ReferenceFacet',Target: '@UI.FieldGroup#FG_Data_Technical',  Label : 'Données administratives',      },   
+      ]
+    },
+    {$Type : 'UI.ReferenceFacet',Target: 'CalendarItems/@UI.LineItem',        Label : 'Calendrier', }, 
+  ],
+});
+*/
+    // --------------------------------------------------------------------------------------------
+    @UI.facet:  [   
+        {   
+            id      : 'Facet_Main',
+            label   : 'Détails',
+            type    : #COLLECTION,
+            position: 10
+        },
+        {   
+            label           : 'Données de base',
+            type            : #FIELDGROUP_REFERENCE,
+            parentId        : 'Facet_Main',
+            targetQualifier : 'TQ_DataBasic'
+        },
+        {   
+            label           : 'Données liées à la formation',
+            type            : #FIELDGROUP_REFERENCE,
+            parentId        : 'Facet_Main',
+            targetQualifier : 'TQ_DataCourse'
+        },        
+        {   
+            label           : 'Données administratives',
+            type            : #FIELDGROUP_REFERENCE,
+            parentId        : 'Facet_Main',
+            targetQualifier : 'TQ_DataAdmin'
+        },
+        {   
+            label           : 'Calendrier',
+            type            : #LINEITEM_REFERENCE,
+            targetElement   : '_CalendarItem',
+            position        : 20
+        }  
+     ]
+    // --------------------------------------------------------------------------------------------
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] }    Uuid;
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }    Description; 
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }    Datestart;     
+}

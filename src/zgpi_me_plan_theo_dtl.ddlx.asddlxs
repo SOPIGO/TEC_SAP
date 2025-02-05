@@ -1,0 +1,9 @@
+@Metadata.layer: #CORE
+// ------------------------------------------------------------------------------------------------
+annotate entity ZI_PLAN_THEO    with 
+{
+    @UI: { lineItem : [{ position: 10 } ]}    Uuid;  
+    @UI: { lineItem : [{ position: 20 } ]}    Description;    
+    @UI: { lineItem : [{ position: 30 } ]}    Datestart;    
+   
+}

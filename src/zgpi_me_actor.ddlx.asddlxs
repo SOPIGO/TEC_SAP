@@ -1,0 +1,46 @@
+@Metadata.layer: #CORE
+
+@UI:{ 
+headerInfo:{ 
+                typeNamePlural: 'Actors',
+                typeName: 'Actor',
+                title: {  label: 'Hello Actor' }
+           }
+}
+
+annotate entity ZGPI_I_M_ACTOR
+    with 
+{
+
+@UI.facet: [ 
+                { 
+                    id:              'Detail',
+                    purpose:         #STANDARD,
+                    type:            #IDENTIFICATION_REFERENCE,
+                    label:           'Employee Detail',
+                    position:        10 
+                 } ]
+                 
+
+
+
+@UI: { 
+  lineItem: [{ position: 10 } ],
+  identification: [ { label: 'ID',position: 10 } ]
+   }
+ ActorUuid;
+
+@UI: { 
+  lineItem: [{ position: 20 } ],
+  identification: [ { label: 'Name-First',position: 20 } ]
+    }
+NameFirst;
+
+@UI: { 
+  lineItem: [{ position: 30 } ],
+  identification: [ { label: 'Name-Last',position: 30 } ]
+    }
+
+NameLast; 
+    
+}
