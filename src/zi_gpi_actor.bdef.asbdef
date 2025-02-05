@@ -1,0 +1,23 @@
+managed ; //implementation in class zbp_i_gpi_actor unique;
+//strict ( 2 );
+
+define behavior for ZI_GPI_ACTOR //alias <alias_name>
+persistent table zdb_actor
+lock master
+//authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) Uuid;
+
+  mapping for zdb_actor
+    {
+      Uuid      = uuid;
+      NameFirst = name_first;
+      NameLast  = name_last;
+    }
+
+}

@@ -4,42 +4,29 @@
 headerInfo:{
                 typeNamePlural: 'Actors',
                 typeName: 'Actor',
-                title: {  label: 'Hello Actor' }
+                title: {  label: 'Actor' }
            }
 }
 
 annotate entity ZI_GPI_ACTOR with
 {
-
-  @UI.facet: [
-                  {
-                      id:              'Detail',
-                      purpose:         #STANDARD,
-                      type:            #IDENTIFICATION_REFERENCE,
-                      label:           'Employee Detail',
-                      position:        10
-                   } ]
-
-
-
-
-  @UI: {
-    lineItem: [{ position: 10 } ],
-    identification: [ { label: 'ID',position: 10 } ]
-     }
-  actoruuid;
-
-  @UI: {
-    lineItem: [{ position: 20 } ],
-    identification: [ { label: 'Name-First',position: 20 } ]
-      }
-  NameFirst;
-
-  @UI: {
-    lineItem: [{ position: 30 } ],
-    identification: [ { label: 'Name-Last',position: 30 } ]
-      }
-
-  NameLast;
-
+ // --------------------------------------------------------------------------------------------
+    @UI.facet:  [   
+        {   
+            id      : 'Facet_Main',
+            label   : 'Détails',
+            type    : #COLLECTION,
+            position: 10
+        },
+        {   
+            label           : 'Données de base',
+            type            : #FIELDGROUP_REFERENCE,
+            parentId        : 'Facet_Main',
+            targetQualifier : 'TQ_DataBasic'
+        }       
+     ]
+    // --------------------------------------------------------------------------------------------
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] ,  lineItem : [{ position: 10 }] }    Uuid;
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] ,  lineItem : [{ position: 20 }] }    NameFirst; 
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] ,  lineItem : [{ position: 30 }] }    NameLast;        
 }

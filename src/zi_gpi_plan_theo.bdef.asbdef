@@ -1,0 +1,22 @@
+managed;   //implementation in class zbp_i_plan_theo unique;
+//strict ( 2 );
+
+define behavior for ZI_GPI_PLAN_THEO //alias <alias_name>
+persistent table zdb_plan_theo
+lock master
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) Uuid;
+
+  mapping for zdb_plan_theo
+    {
+      Description    = description;
+      Uuid           = uuid;
+      Datestart      = datestart;
+      AttendeeAmount = attendee_amount;
+      CourseUuid     = course_uuid;
+    }
+}
