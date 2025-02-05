@@ -3,7 +3,7 @@
 {
 "FROM":
 [
-"ZGPI_DB_ACTOR"
+"ZDB_CALENDAR"
 ],
 "ASSOCIATED":
 [],

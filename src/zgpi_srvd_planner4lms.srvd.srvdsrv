@@ -1,6 +1,7 @@
 @EndUserText.label: 'Service Definition - Planner 4 LMS'
 define service ZGPI_SRVD_PLANNER4LMS {
-  expose ZGPI_I_M_ACTOR;
-  expose ZI_PLAN_THEO;
-  expose ZI_CALENDAR;
+  expose ZI_GPI_ACTOR;
+  expose ZI_GPI_PLAN_THEO;
+  expose ZI_GPI_CALENDAR;
+  expose ZI_GPI_PLAN_THEO2COURSE;
 }

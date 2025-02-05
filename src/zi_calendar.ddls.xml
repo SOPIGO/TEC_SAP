@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZI_CALENDAR</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>ddd</DDTEXT>
+    <DDTEXT>Calendar</DDTEXT>
     <SOURCE_TYPE>W</SOURCE_TYPE>
    </DDLS>
   </asx:values>

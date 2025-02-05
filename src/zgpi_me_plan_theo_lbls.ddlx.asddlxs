@@ -1,6 +1,6 @@
 @Metadata.layer: #CORE
 // ------------------------------------------------------------------------------------------------
-annotate entity ZI_PLAN_THEO    with 
+annotate entity ZI_GPI_PLAN_THEO    with 
 {
     @EndUserText.label: 'Description'               Description;         
     @EndUserText.label: 'Date de commencement'      Datestart;

@@ -8,7 +8,7 @@
     }
 }
 // ------------------------------------------------------------------------------------------------
-annotate entity ZI_PLAN_THEO    with 
+annotate entity ZI_GPI_PLAN_THEO    with 
 {
 /*
 annotate service.PlanningTheorical with @(UI: {
