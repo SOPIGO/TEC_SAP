@@ -52,6 +52,13 @@ annotate service.PlanningTheorical with @(UI: {
             parentId        : 'Facet_Main',
             targetQualifier : 'TQ_DataAdmin'
         },
+
+        {   
+            label           : 'Cours liés',
+            type            : #LINEITEM_REFERENCE,
+            targetElement   : '_Courses',
+            position        : 15
+        }  ,        
         {   
             label           : 'Calendrier',
             type            : #LINEITEM_REFERENCE,

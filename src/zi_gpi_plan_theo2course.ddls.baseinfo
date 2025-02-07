@@ -3,10 +3,14 @@
 {
 "FROM":
 [
-"ZDB_PLAN_THEO"
+"ZI_GPI_COURSE",
+"ZDB_PLAN_TH2CRS"
 ],
 "ASSOCIATED":
-[],
+[
+"ZI_GPI_COURSE",
+"ZI_GPI_PLAN_THEO"
+],
 "BASE":
 [],
 "ANNO_REF":
