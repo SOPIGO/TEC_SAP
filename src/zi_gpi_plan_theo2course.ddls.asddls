@@ -22,13 +22,15 @@ define  view entity ZI_GPI_PLAN_THEO2COURSE
 {
   key uuid               as Uuid,
       uuid_planning_theo as UuidPlanningTheo,
-      uuid_course        as UuidCourse,
+      
+
+     @Consumption.valueHelpDefinition: [{  entity: {   name: 'ZI_GPI_COURSE' , 
+                                                       element: 'Uuid'  }     }]  
+     uuid_course        as UuidCourse,
       
       _Course.Text as CourseTxt,
        _Course ,
        _PlanningTheo
-      
-      
      
       
 }

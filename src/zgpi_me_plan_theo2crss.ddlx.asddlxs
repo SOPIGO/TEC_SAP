@@ -43,5 +43,5 @@ annotate entity ZI_GPI_PLAN_THEO2COURSE    with
     @UI: { lineItem : [{ position: 40 } ]} 
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 40 } ] }   CourseTxt;
     
-                 
+
 }

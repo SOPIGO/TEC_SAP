@@ -1,0 +1,11 @@
+@Metadata.layer: #CORE
+annotate entity ZI_GPI_PLAN_THEO2COURSE    with 
+{
+    // --------------------------------------------------------------------------------------------
+    //  LABELS
+    // --------------------------------------------------------------------------------------------
+    @EndUserText.label: 'ID'                    Uuid;         
+    @EndUserText.label: 'ID-Course'             UuidCourse;
+    @EndUserText.label: 'ID-Planning'           UuidPlanningTheo;   
+    // -------------------------------------------------------------------------------------------- 
+}

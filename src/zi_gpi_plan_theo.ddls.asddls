@@ -6,7 +6,7 @@
     serviceQuality: #X,
     sizeCategory: #S,
     dataClass: #MIXED
-}  
+}   
 @Metadata.allowExtensions: true 
 define root view entity ZI_GPI_PLAN_THEO
   as select from zdb_plan_theo
