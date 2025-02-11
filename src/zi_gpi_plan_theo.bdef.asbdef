@@ -1,12 +1,14 @@
-managed;
+managed implementation in class zbp_plan_theo unique;
 // ------------------------------------------------------------------------------------------------
-define behavior for ZI_GPI_PLAN_THEO //alias <alias_name>
+define behavior for ZI_GPI_PLAN_THEO
 persistent table zdb_plan_theo
 lock master
 {
   create;
   update;
   delete;
+  action CreateCalendar;
+
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
   mapping for zdb_plan_theo

@@ -64,10 +64,12 @@ annotate service.PlanningTheorical with @(UI: {
             type            : #LINEITEM_REFERENCE,
             targetElement   : '_CalendarItem',
             position        : 20
-        }  
+        }                                    
      ]
-    // --------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------    
+    @UI.identification: [  { type: #FOR_ACTION, dataAction: 'CreateCalendar', label: 'Générer calendrier' }]                
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] }    Uuid;
+    
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }    Description; 
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }    Datestart;     
 }
