@@ -1,6 +1,5 @@
-managed;   //implementation in class zbp_i_plan_theo unique;
-//strict ( 2 );
-
+managed;
+// ------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_PLAN_THEO //alias <alias_name>
 persistent table zdb_plan_theo
 lock master
@@ -8,12 +7,8 @@ lock master
   create;
   update;
   delete;
-
   field ( readonly, numbering : managed ) Uuid;
-
   association _Courses { create; }
-
-
   mapping for zdb_plan_theo
     {
       Description    = description;
@@ -23,17 +18,17 @@ lock master
       CourseUuid     = course_uuid;
     }
 }
-
-
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_PLAN_THEO2COURSE alias PlanTheo2Courses
 persistent table zdb_plan_th2crs
 lock dependent by _PlanningTheo
 {
+  update;
+  delete;
   field ( readonly, numbering : managed ) Uuid;
   field ( readonly ) UuidPlanningTheo;
-
   association _PlanningTheo;
-
   mapping for zdb_plan_th2crs
     {
       Uuid             = uuid;
@@ -42,3 +37,5 @@ lock dependent by _PlanningTheo
     }
 
 }
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
