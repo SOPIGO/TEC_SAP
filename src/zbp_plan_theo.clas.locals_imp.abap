@@ -1,24 +1,26 @@
-CLASS lhc_ZI_GPI_PLAN_THEO DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS lhc_ZI_GPI_PLAN_THEO DEFINITION INHERITING FROM CL_ABAP_BEHAVIOR_HANDLER.
   PRIVATE SECTION.
 
     METHODS CreateCalendar FOR MODIFY
-      IMPORTING keys FOR ACTION zi_gpi_plan_theo~CreateCalendar.
+      IMPORTING KEYS FOR ACTION ZI_GPI_PLAN_THEO~CreateCalendar.
 
 ENDCLASS.
 
 CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   METHOD CreateCalendar.
+* -------------------------------------------------------------------------------------------------
+    READ ENTITIES OF ZI_GPI_PLAN_THEO
+    ENTITY ZI_GPI_PLAN_THEO
+    ALL FIELDS  WITH CORRESPONDING #( KEYS )
+    RESULT DATA(Lt_Entities).
+    IF LINES( Lt_Entities ) > 0 .
+      DATA(Ls_Planning) = Lt_Entities[ 1 ].
+      DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning-Uuid ).
+      data(lt_xx) = Lo_Planning->GET_COURSES(  ).
+    ENDIF.
 
 
-
-    " Read travel instances to approve
-    READ ENTITIES OF zi_gpi_plan_theo
-    ENTITY zi_gpi_plan_theo
-    ALL FIELDS  WITH CORRESPONDING #( keys )
-    RESULT DATA(LT_entities).
-
-data(eee) =  LINES( LT_entities ).
 
 *    " Update status to 'Approved'
 *    MODIFY ENTITIES OF ZI_Travel_M

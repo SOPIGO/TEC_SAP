@@ -1,4 +1,4 @@
-CLASS zgpi_planning4lms_tools DEFINITION
+CLASS zcls_gpi_planning4lms_tools DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zgpi_planning4lms_tools IMPLEMENTATION.
+CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
     DATA: l_uuid_x16 TYPE sysuuid_x16.
@@ -91,7 +91,7 @@ CLASS zgpi_planning4lms_tools IMPLEMENTATION.
 
     ls_row_calendar-uuid            = system_uuid->create_uuid_x16( ).
     ls_row_calendar-pl_theo_uuid    = ls_row_plan_theo-uuid.
-    ls_row_calendar-coursedate      = sy-datum.
+    ls_row_calendar-coursedate      = cl_abap_context_info=>get_system_date( ).
     ls_row_plan_theo-course_uuid    = ls_row_course1-uuid.
     INSERT  zdb_calendar FROM @ls_row_calendar.
 
