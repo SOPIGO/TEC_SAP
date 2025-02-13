@@ -1,7 +1,9 @@
 managed implementation in class zbp_plan_theo unique;
+//strict ( 2 );
 // ------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_PLAN_THEO
 persistent table zdb_plan_theo
+//authorization master ( instance )
 lock master
 {
   create;
@@ -12,6 +14,8 @@ lock master
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
   association _CalendarItem { create; }
+
+  // side effects { action CreateCalendar affects entity _CalendarItem, messages; }
 
   mapping for zdb_plan_theo
     {
@@ -26,6 +30,7 @@ lock master
 // ------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_PLAN_THEO2COURSE alias PlanTheo2Courses
 persistent table zdb_plan_th2crs
+//authorization dependent
 lock dependent by _PlanningTheo
 {
   update;
@@ -46,6 +51,7 @@ lock dependent by _PlanningTheo
 define behavior for ZI_GPI_CALENDAR alias Calendar
 persistent table zdb_calendar
 lock dependent by _PlanningTheo
+//authorization dependent
 {
   update;
   delete;
@@ -55,10 +61,10 @@ lock dependent by _PlanningTheo
   association _PlanningTheo;
   mapping for zdb_calendar
     {
-      Uuid             = uuid;
-      PlTheoUuid       = pl_theo_uuid;
-      CourseUuid       = course_uuid;
-      CourseDate       = course_date;
+      Uuid       = uuid;
+      PlTheoUuid = pl_theo_uuid;
+      CourseUuid = course_uuid;
+      CourseDate = course_date;
     }
 
 }

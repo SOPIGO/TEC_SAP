@@ -4,7 +4,12 @@ CLASS zcls_gpi_planning4lms_tools DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    TYPES: TT_string TYPE TABLE OF string WITH DEFAULT KEY.
+
     INTERFACES if_oo_adt_classrun.
+    CLASS-METHODS get_list_of_actors
+      RETURNING
+        value(ret_results) TYPE TT_string.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -37,6 +42,17 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
     ls_row_actor-name_first = 'Jean'.
     ls_row_actor-name_last  = 'Aimarre'.
     INSERT  zdb_actor FROM @ls_row_actor.
+    Data(lt_actors) = me->GET_LIST_OF_ACTORS(  ).
+    loop at LT_ACTORS into Data(lv_actor).
+    SPLIT LV_ACTOR at ' ' INTO TABLE data(lt_actor_names).
+
+        ls_row_actor-uuid       = system_uuid->create_uuid_x16( ).
+        ls_row_actor-name_first = LT_ACTOR_NAMES[  1 ].
+        ls_row_actor-name_last  = LT_ACTOR_NAMES[  2 ].
+        INSERT  zdb_actor FROM @ls_row_actor.
+    endloop.
+
+
 
 
 *   -----------------------------------------------------------------------------------------------
@@ -101,5 +117,66 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
 
     COMMIT WORK.
     out->write( 'DATA CREATED' ).
+
+
+    GET_LIST_OF_ACTORS( ).
   ENDMETHOD.
+
+
+
+
+  METHOD GET_LIST_OF_ACTORS.
+        append 'Madison Rush' to Ret_Results.
+        append 'Kaiser Hubbard' to Ret_Results.
+        append 'Rosie Hall' to Ret_Results.
+        append 'Thomas McLaughlin' to Ret_Results.
+        append 'Stephanie Gould' to Ret_Results.
+        append 'Blaine Velazquez' to Ret_Results.
+        append 'Jaliyah Griffin' to Ret_Results.
+        append 'Ayden Brandt' to Ret_Results.
+        append 'Loretta Medina' to Ret_Results.
+        append 'George Rosales' to Ret_Results.
+        append 'Kinley Bailey' to Ret_Results.
+        append 'Axel McMahon' to Ret_Results.
+        append 'Belen Hammond' to Ret_Results.
+        append 'Francis Crawford' to Ret_Results.
+        append 'Aubree Griffin' to Ret_Results.
+        append 'Ayden Johnston' to Ret_Results.
+        append 'Laila Zimmerman' to Ret_Results.
+        append 'Sergio Avery' to Ret_Results.
+        append 'Meghan McIntyre' to Ret_Results.
+        append 'Eliseo Juarez' to Ret_Results.
+        append 'Juliet Jensen' to Ret_Results.
+        append 'Cash Benjamin' to Ret_Results.
+        append 'Jianna Haynes' to Ret_Results.
+        append 'Kason May' to Ret_Results.
+        append 'Adriana Blankenship' to Ret_Results.
+        append 'Ernesto Doyle' to Ret_Results.
+        append 'Annalise Warner' to Ret_Results.
+        append 'Jaxton Knapp' to Ret_Results.
+        append 'Linda Cardenas' to Ret_Results.
+        append 'Johnathan Stephens' to Ret_Results.
+        append 'Millie Carlson' to Ret_Results.
+        append 'Paul Shaw' to Ret_Results.
+        append 'Emersyn Banks' to Ret_Results.
+        append 'Martin Stark' to Ret_Results.
+        append 'Kamilah Huber' to Ret_Results.
+        append 'Mac Proctor' to Ret_Results.
+        append 'Chandler Maddox' to Ret_Results.
+        append 'Lyric Skinner' to Ret_Results.
+        append 'Mara Fernandez' to Ret_Results.
+        append 'Bentley Floyd' to Ret_Results.
+        append 'Yaretzi McLean' to Ret_Results.
+        append 'Crosby Hickman' to Ret_Results.
+        append 'Scarlette Sloan' to Ret_Results.
+        append 'Ocean Patton' to Ret_Results.
+        append 'Lorelei Sierra' to Ret_Results.
+        append 'Dayton Cuevas' to Ret_Results.
+        append 'Adele Reid' to Ret_Results.
+        append 'Josue Schneider' to Ret_Results.
+        append 'Delaney Jensen' to Ret_Results.
+        append 'Natalia Bond' to Ret_Results.
+
+  ENDMETHOD.
+
 ENDCLASS.

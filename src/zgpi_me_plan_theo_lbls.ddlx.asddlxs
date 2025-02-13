@@ -4,5 +4,5 @@ annotate entity ZI_GPI_PLAN_THEO    with
 {
     @EndUserText.label: 'Description'               Description;         
     @EndUserText.label: 'Date de commencement'      Datestart;
-    @EndUserText.label: 'Nombre de participants'    AttendeeAmount;   
+    @EndUserText.label: 'Nombre de participants'    AttendeeAmount;
 }

@@ -10,12 +10,16 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   METHOD CreateCalendar.
 * -------------------------------------------------------------------------------------------------
+    data ls_planning type   ZI_GPI_PLAN_THEO.
+    data lt_planning type TABLE of  ZI_GPI_PLAN_THEO.
+
     READ ENTITIES OF ZI_GPI_PLAN_THEO
     ENTITY ZI_GPI_PLAN_THEO
     ALL FIELDS  WITH CORRESPONDING #( KEYS )
-    RESULT DATA(Lt_Entities).
+    RESULT data(Lt_Entities) .
     IF LINES( Lt_Entities ) > 0 .
-      DATA(Ls_Planning) = Lt_Entities[ 1 ].
+"      ls_planning = conv #( Lt_Entities[ 1 ] ).
+ MOVE-CORRESPONDING Lt_Entities[ 1 ] to LS_PLANNING.
       DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning ).
       " data(lt_xx) = Lo_Planning->GET_COURSES(  ).
     "  Lo_Planning->DB_read( ).

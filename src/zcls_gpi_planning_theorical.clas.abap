@@ -111,13 +111,11 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
 
   MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
   ENTITY ZI_GPI_PLAN_THEO
-
     CREATE BY \_CalendarItem
     FIELDS ( CourseDate CourseUuid   ) WITH
     VALUE #(
     ( %key-Uuid = me->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
       %target = VALUE #( (
-    "    %cid = 'CID_CHILD1_1'
         CourseDate = IM_COUSE_DATE
         CourseUuid = IM_COURSE_UUID
       ) )
