@@ -1,4 +1,4 @@
-CLASS zcls_gpi_planning4lms_tools DEFINITION
+CLASS zcls_gpi_planning_theo_builder DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -16,7 +16,7 @@ ENDCLASS.
 
 
 
-CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
+CLASS zcls_gpi_planning_theo_builder IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
     DATA: l_uuid_x16 TYPE sysuuid_x16.
@@ -37,6 +37,10 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
 *   -----------------------------------------------------------------------------------------------
 *   ACTORS
 *   -----------------------------------------------------------------------------------------------
+    DATA lv_leaner_id_01 TYPE zdb_course-UUID.
+    DATA lv_leaner_id_02 TYPE zdb_course-UUID.
+    DATA lv_leaner_id_03 TYPE zdb_course-UUID.
+    DATA lv_leaner_id_04 TYPE zdb_course-UUID.
     DATA ls_row_Actor TYPE zdb_actor.
     ls_row_actor-uuid       = system_uuid->create_uuid_x16( ).
     ls_row_actor-name_first = 'Jean'.
@@ -44,12 +48,17 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
     INSERT  zdb_actor FROM @ls_row_actor.
     Data(lt_actors) = me->GET_LIST_OF_ACTORS(  ).
     loop at LT_ACTORS into Data(lv_actor).
-    SPLIT LV_ACTOR at ' ' INTO TABLE data(lt_actor_names).
-
+        SPLIT LV_ACTOR at ' ' INTO TABLE data(lt_actor_names).
         ls_row_actor-uuid       = system_uuid->create_uuid_x16( ).
         ls_row_actor-name_first = LT_ACTOR_NAMES[  1 ].
         ls_row_actor-name_last  = LT_ACTOR_NAMES[  2 ].
         INSERT  zdb_actor FROM @ls_row_actor.
+        case sy-tabix.
+          when 1. LV_LEANER_ID_01 = ls_row_actor-uuid  .
+          when 2. LV_LEANER_ID_02 = ls_row_actor-uuid  .
+          when 3. LV_LEANER_ID_03 = ls_row_actor-uuid  .
+        endcase.
+
     endloop.
 
 
@@ -91,6 +100,7 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
     DATA ls_row_plan_theo        TYPE zdb_plan_theo.
     DATA ls_row_plan_theo2Crs1   TYPE zdb_plan_th2crs.
     DATA ls_row_calendar         TYPE zdb_calendar.
+    DATA ls_row_plan_theo2Lrnr   TYPE ZDB_PLAN_TH2ACS.
 
     ls_row_plan_theo-uuid            = system_uuid->create_uuid_x16( ).
     ls_row_plan_theo-description     = 'Planning recyclage'.
@@ -105,6 +115,9 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
     INSERT  zdb_plan_th2crs FROM @ls_row_plan_theo2crs1.
 
 
+*   --------------------------------------------------------------------------------------
+*   CALENDAR
+*   --------------------------------------------------------------------------------------
     ls_row_calendar-uuid            = system_uuid->create_uuid_x16( ).
     ls_row_calendar-pl_theo_uuid    = ls_row_plan_theo-uuid.
     ls_row_calendar-course_date     = cl_abap_context_info=>get_system_date( ).
@@ -114,6 +127,18 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
     ls_row_calendar-uuid            = system_uuid->create_uuid_x16( ).
     ls_row_calendar-course_date     = ls_row_calendar-course_date + 1.
     INSERT  zdb_calendar FROM @ls_row_calendar.
+*   --------------------------------------------------------------------------------------
+
+
+*   --------------------------------------------------------------------------------------
+*   LEARNER
+*   --------------------------------------------------------------------------------------
+     ls_row_plan_theo2Lrnr-uuid                 = system_uuid->create_uuid_x16( ).
+     ls_row_plan_theo2Lrnr-UUID_PLANNING_THEO   = ls_row_plan_theo-uuid.
+     ls_row_plan_theo2Lrnr-UUID_LEARNER         = LV_LEANER_ID_01.
+     INSERT  ZDB_PLAN_TH2ACS FROM @ls_row_plan_theo2Lrnr.
+*   --------------------------------------------------------------------------------------
+
 
     COMMIT WORK.
     out->write( 'DATA CREATED' ).

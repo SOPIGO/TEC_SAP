@@ -13,6 +13,7 @@ lock master
 
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
+  association _Learners { create; }
   association _CalendarItem { create; }
 
   // side effects { action CreateCalendar affects entity _CalendarItem, messages; }
@@ -43,6 +44,26 @@ lock dependent by _PlanningTheo
       Uuid             = uuid;
       UuidPlanningTheo = uuid_planning_theo;
       UuidCourse       = uuid_course;
+    }
+
+}
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+define behavior for ZI_GPI_PLAN_THEO2ACTOR alias PlanTheo2Actors
+persistent table zdb_plan_th2acs
+//authorization dependent
+lock dependent by _PlanningTheo
+{
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) UuidPlanningTheo;
+  association _PlanningTheo;
+  mapping for zdb_plan_th2acs
+    {
+      Uuid             = uuid;
+      UuidPlanningTheo = uuid_planning_theo;
+      UuidLearner = uuid_learner;
     }
 
 }

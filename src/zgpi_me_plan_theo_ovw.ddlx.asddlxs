@@ -3,10 +3,10 @@
 @UI:{
     headerInfo:{
         title           : {  label:'Panification théorique' },
-        typeName        :  'Planification',
+        typeName        : 'Planification',
         typeNamePlural  : 'Planifications'
     }
-}
+}  
 // ------------------------------------------------------------------------------------------------
 annotate entity ZI_GPI_PLAN_THEO with
 {
@@ -16,8 +16,9 @@ annotate entity ZI_GPI_PLAN_THEO with
       { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataBasic'    , parentId : 'Facet_Main'   , label : 'Données de base'                 },
       { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataCourse'   , parentId : 'Facet_Main'   , label : 'Données liées à la formation'    },     
       { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataAdmin'    , parentId : 'Facet_Main'   , label : 'Données administratives'         },
-      { type : #LINEITEM_REFERENCE  , targetElement     : '_Courses'        , position : 15             , label : 'Cours liés'                      },
-      { type : #LINEITEM_REFERENCE  , targetElement     : '_CalendarItem'   , position : 20             , label : 'Calendrier'                      }
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_Courses'        , position : 20             , label : 'Cours liés'                      },
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_Learners'       , position : 30             , label : 'Apprenants'                      },
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_CalendarItem'   , position : 40             , label : 'Calendrier'                      }
    ]
   // --------------------------------------------------------------------------------------------
   @UI.identification: [  { type: #FOR_ACTION, dataAction: 'CreateCalendar', label: 'Générer calendrier' }]
