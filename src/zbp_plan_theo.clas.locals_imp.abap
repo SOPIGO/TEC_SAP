@@ -16,8 +16,10 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
     RESULT DATA(Lt_Entities).
     IF LINES( Lt_Entities ) > 0 .
       DATA(Ls_Planning) = Lt_Entities[ 1 ].
-      DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning-Uuid ).
-      data(lt_xx) = Lo_Planning->GET_COURSES(  ).
+      DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning ).
+      " data(lt_xx) = Lo_Planning->GET_COURSES(  ).
+    "  Lo_Planning->DB_read( ).
+      LO_PLANNING->CREATECALENDAR(  ).
     ENDIF.
 
 

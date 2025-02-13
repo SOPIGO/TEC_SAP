@@ -6,7 +6,10 @@
 "ZDB_CALENDAR"
 ],
 "ASSOCIATED":
-[],
+[
+"ZI_GPI_COURSE",
+"ZI_GPI_PLAN_THEO"
+],
 "BASE":
 [],
 "ANNO_REF":

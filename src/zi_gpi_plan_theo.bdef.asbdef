@@ -11,6 +11,8 @@ lock master
 
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
+  association _CalendarItem { create; }
+
   mapping for zdb_plan_theo
     {
       Description    = description;
@@ -36,6 +38,26 @@ lock dependent by _PlanningTheo
       Uuid             = uuid;
       UuidPlanningTheo = uuid_planning_theo;
       UuidCourse       = uuid_course;
+    }
+
+}
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+define behavior for ZI_GPI_CALENDAR alias Calendar
+persistent table zdb_calendar
+lock dependent by _PlanningTheo
+{
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) PlTheoUuid;
+  association _PlanningTheo;
+  mapping for zdb_calendar
+    {
+      Uuid             = uuid;
+      PlTheoUuid       = pl_theo_uuid;
+      CourseUuid       = course_uuid;
     }
 
 }
