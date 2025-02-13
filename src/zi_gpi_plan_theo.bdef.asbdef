@@ -58,6 +58,7 @@ lock dependent by _PlanningTheo
       Uuid             = uuid;
       PlTheoUuid       = pl_theo_uuid;
       CourseUuid       = course_uuid;
+      CourseDate       = course_date;
     }
 
 }

@@ -112,35 +112,21 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
   MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
   ENTITY ZI_GPI_PLAN_THEO
 
-    CREATE BY \_CalendarItem   FROM VALUE #(
+    CREATE BY \_CalendarItem
+    FIELDS ( CourseDate CourseUuid   ) WITH
+    VALUE #(
     ( %key-Uuid = me->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
       %target = VALUE #( (
-        %cid = 'CID_CHILD1_1'
-        Coursedate = IM_COUSE_DATE
+    "    %cid = 'CID_CHILD1_1'
+        CourseDate = IM_COUSE_DATE
         CourseUuid = IM_COURSE_UUID
       ) )
     )
-  ).
+  )
+   MAPPED DATA(mapped)
+          FAILED DATA(failed)
+          REPORTED DATA(reported).
 
-
-*        MODIFY ENTITIES OF ZI_GPI_PLAN_THEO
-*          ENTITY
-*          CREATE BY \ FROM VALUE #(
-*            ( %key-id = '1001'
-*              %target = VALUE #( (
-*                %cid = 'CID_CHILD_1'
-*                child_id = 'C001'
-*                name = 'Child Item 1'
-*                %control = VALUE #(
-*                  child_id = if_abap_behv=>mk-on
-*                  name = if_abap_behv=>mk-on
-*                )
-*              ) )
-*            )
-*          )
-*          MAPPED DATA(mapped)
-*          FAILED DATA(failed)
-*          REPORTED DATA(reported).
 
   ENDMETHOD.
 

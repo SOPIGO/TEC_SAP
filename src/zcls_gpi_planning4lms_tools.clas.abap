@@ -91,12 +91,12 @@ CLASS zcls_gpi_planning4lms_tools IMPLEMENTATION.
 
     ls_row_calendar-uuid            = system_uuid->create_uuid_x16( ).
     ls_row_calendar-pl_theo_uuid    = ls_row_plan_theo-uuid.
-    ls_row_calendar-coursedate      = cl_abap_context_info=>get_system_date( ).
+    ls_row_calendar-course_date     = cl_abap_context_info=>get_system_date( ).
     ls_row_plan_theo-course_uuid    = ls_row_course1-uuid.
     INSERT  zdb_calendar FROM @ls_row_calendar.
 
     ls_row_calendar-uuid            = system_uuid->create_uuid_x16( ).
-    ls_row_calendar-coursedate      = ls_row_calendar-coursedate + 1.
+    ls_row_calendar-course_date     = ls_row_calendar-course_date + 1.
     INSERT  zdb_calendar FROM @ls_row_calendar.
 
     COMMIT WORK.
