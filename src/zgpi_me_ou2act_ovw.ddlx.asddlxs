@@ -1,0 +1,61 @@
+// ------------------------------------------------------------------------------------------------
+//  AUTHOR      : PIERRE GODART
+//  DESCRIPTION : 
+// ------------------------------------------------------------------------------------------------
+@Metadata.layer: #CUSTOMER
+// ------------------------------------------------------------------------------------------------
+@UI.headerInfo.description.label            : 'Acteur'
+@UI.headerInfo.description.value            : 'NameLast'
+@UI.headerInfo.typeName                     : 'Acteur'
+@UI.headerInfo.typeNamePlural               : 'Acteurs'
+@UI.headerInfo.title.value                  : 'NameLast'
+// ------------------------------------------------------------------------------------------------ 
+
+//@UI.presentationVariant                     : [{
+//        sortOrder      : [{ by              : 'association_visible',  
+//                            direction       : #DESC      },                      
+//                          { by              : 'association_indx',
+//                            direction       : #DESC      }
+//                            ],
+//        maxItems       : 500                  ,     // Not working here ... ?
+//        visualizations : [{ type: #AS_LINEITEM }]   // Not working here ... ?
+//}]
+
+
+annotate entity ZI_GPI_OU2ACTOR with
+{
+  // ----------------------------------------------------------------------------------------------
+  @UI.facet:  [
+      {
+          id      : 'Facet_Main',
+          label   : 'Détails',
+          type    : #COLLECTION,
+          position: 10
+      },
+      {
+          label           : 'Données de base',
+          type            : #FIELDGROUP_REFERENCE,
+          parentId        : 'Facet_Main',
+          targetQualifier : 'TQ_DataBasic'
+      }
+   ]
+  // ----------------------------------------------------------------------------------------------
+  @EndUserText.label: 'Unité structurelle'  OrgUnitTxt;
+  @EndUserText.label: 'Nom'                 NameLast;
+  @EndUserText.label: 'Prénom'              NameFirst;
+  // ----------------------------------------------------------------------------------------------
+  @UI.fieldGroup: [
+    { type:#STANDARD , position: 10 , qualifier: 'TQ_DataBasic', value: 'OrgUnitTxt'    },
+    { type:#STANDARD , position: 20 , qualifier: 'TQ_DataBasic', value: 'NameLast'      },
+    { type:#STANDARD , position: 30 , qualifier: 'TQ_DataBasic', value: 'NameFirst'     }
+  ]
+  // ----------------------------------------------------------------------------------------------
+  @UI.lineItem: [
+    { type:#STANDARD , position: 10 , value: 'OrgUnitTxt'   },
+    { type:#STANDARD , position: 20 , value: 'NameLast'     },
+    { type:#STANDARD , position: 30 , value: 'NameFirst'    }
+  ]
+  // ----------------------------------------------------------------------------------------------
+  Uuid;
+  // ----------------------------------------------------------------------------------------------
+}

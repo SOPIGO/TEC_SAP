@@ -37,9 +37,11 @@ annotate entity ZI_GPI_PLAN_THEO2ACTOR    with
     @UI: { lineItem : [{ position: 30 } ]}    
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }    UuidPlanningTheo;    
    
-    @UI: { lineItem : [{ position: 40 } ]} 
+    @EndUserText.label: 'Nom'  
+    @UI: { lineItem : [{ position: 40 } ]}     
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 40 } ] }   Learner_NameF;
     
+    @EndUserText.label: 'Prénom'
     @UI: { lineItem : [{ position: 50 } ]} 
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 50 } ] }   Learner_NameL;
     
