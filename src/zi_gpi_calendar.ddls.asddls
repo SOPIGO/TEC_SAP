@@ -20,16 +20,23 @@ define view entity ZI_GPI_CALENDAR
 {
   key uuid            as Uuid,
       pl_theo_uuid    as PlTheoUuid,      
-      course_date     as CourseDate,
-      course_uuid     as CourseUuid,
+      course_date     as CourseDate,    
       course_tainer   as CourseTainer, 
       course_trainees as CourseTrainees,
       course_id_sf    as CourseIdSf,
-      session_id_sf   as SessionIdSf,
+      session_id_sf   as SessionIdSf, 
       created_by      as CreatedBy,
       created_at      as CreatedAt,
       last_changed_by as LastChangedBy,
       last_changed_at as LastChangedAt,
+      
+
+      @Consumption.valueHelpDefinition: [{
+      entity: {     name    : 'ZI_GPI_COURSE' ,
+                    element : 'Uuid'  }     }]
+      course_uuid        as CourseUuid,
+      _Course.Text       as CourseText,      
+      
       
       _Course,
       _PlanningTheo

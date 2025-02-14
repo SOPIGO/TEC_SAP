@@ -11,7 +11,8 @@
 annotate entity  ZI_GPI_CALENDAR    with 
 { 
     @UI:{lineItem:[{ position: 10 } ]}    Uuid;     
-    @UI:{lineItem:[{ position: 20 } ]}    CourseDate;        
+    @UI:{lineItem:[{ position: 20 } ]}    CourseDate;          
+    @UI:{lineItem:[{ position: 30 } ]}    CourseText;
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZI_GPI_COURSE",
 "ZDB_CALENDAR"
 ],
 "ASSOCIATED":
