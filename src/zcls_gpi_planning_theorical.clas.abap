@@ -12,6 +12,10 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL DEFINITION
 
     TYPES: TT_Courses TYPE TABLE OF ZI_GPI_COURSE WITH DEFAULT KEY.
     DATA:  ST_DATA TYPE ZDB_PLAN_THEO.
+    DATA LO_SYSTEM_UUID         TYPE REF TO IF_SYSTEM_UUID.
+
+
+
 
     CLASS-METHODS GET_INSTANCE_FROM_ID
       IMPORTING
@@ -19,19 +23,23 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL DEFINITION
       RETURNING
         VALUE(RET_RESULT) TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL  .
 
-CLASS-METHODS GET_INSTANCE
+    CLASS-METHODS GET_INSTANCE
       IMPORTING
-        IM_PLANNING  TYPE  ZI_GPI_PLAN_THEO
+        IM_PLANNING       TYPE  ZI_GPI_PLAN_THEO
       RETURNING
         VALUE(RET_RESULT) TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL  .
 
+    METHODS: CONSTRUCTOR.
     METHODS  :   CreateCalendar.
     METHODS  :   GET_Courses   RETURNING
                                  VALUE(RET_RESULTS) TYPE TT_Courses ,
       CALENDAR_ADDITEM
         IMPORTING
-          IM_COURSE_UUID TYPE sysuuid_x16
-          IM_COUSE_DATE  TYPE D.
+          IM_COURSE_UUID TYPE SYSUUID_X16
+          IM_COUSE_DATE  TYPE D,
+      ADD_LEARNER
+        IMPORTING
+          IM_S_Learner_UUID TYPE SYSUUID_X16.
 
 
 
@@ -44,14 +52,84 @@ ENDCLASS.
 
 CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
 
-  METHOD GET_INSTANCE.
+
+  METHOD Add_Learner.
 * -------------------------------------------------------------------------------------------------
-    CREATE OBJECT RET_RESULT.
-    MOVE-CORRESPONDING IM_PLANNING to RET_RESULT->ST_DATA.
-    RETURN RET_RESULT.
+    DATA LS_PLAN2LEARNER TYPE ZDB_PLAN_TH2ACS.
+    LS_PLAN2LEARNER-UUID               = LO_SYSTEM_UUID->CREATE_UUID_X16( ).
+    LS_PLAN2LEARNER-UUID_LEARNER       = IM_S_LEARNER_UUID.
+    LS_PLAN2LEARNER-UUID_PLANNING_THEO = ME->ST_DATA-UUID.
+    INSERT  ZDB_PLAN_TH2ACS from @LS_PLAN2LEARNER.
+*   COMMIT WORK.
+
+
+*    MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
+*    ENTITY ZI_GPI_PLAN_THEO
+*      CREATE BY \_Learners
+*      FIELDS ( UuidLearner   ) WITH
+*      VALUE #(
+*      ( %KEY-Uuid =  ME->ST_DATA-UUID
+*        %TARGET   = VALUE #( ( UuidLearner = IM_S_LEARNER_UUID  ) )
+*      )
+*    )
+*     MAPPED DATA(MAPPED)
+*            FAILED DATA(FAILED)
+*            REPORTED DATA(REPORTED).
+
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
+
+  METHOD CALENDAR_ADDITEM.
+* -------------------------------------------------------------------------------------------------
+**       direct DB update ==>
+*        data system_uuid TYPE REF TO if_system_uuid.
+*        data ls_calendar_item type ZDB_CALENDAR.
+*        system_uuid = cl_uuid_factory=>create_system_uuid( ).
+*        LS_CALENDAR_ITEM-UUID =  system_uuid->create_uuid_x16( ).
+*        LS_CALENDAR_ITEM-COURSEDATE = IM_COUSE_DATE.
+*        LS_CALENDAR_ITEM-COURSE_UUID = IM_COURSE_UUID.
+*        LS_CALENDAR_ITEM-PL_THEO_UUID = me->ST_DATA-UUID.
+*        INSERT ZDB_CALENDAR from  @LS_CALENDAR_ITEM.
+
+
+    MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
+    ENTITY ZI_GPI_PLAN_THEO
+      CREATE BY \_CalendarItem
+      FIELDS ( CourseDate CourseUuid   ) WITH
+      VALUE #(
+      ( %KEY-Uuid = ME->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
+        %TARGET   = VALUE #( (
+                         CourseDate = IM_COUSE_DATE
+                         CourseUuid = IM_COURSE_UUID
+                         ) )
+      )
+    )
+     MAPPED DATA(MAPPED)
+            FAILED DATA(FAILED)
+            REPORTED DATA(REPORTED).
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+  METHOD CONSTRUCTOR.
+* -------------------------------------------------------------------------------------------------
+    ME->LO_SYSTEM_UUID = CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+  METHOD CreateCalendar.
+* -------------------------------------------------------------------------------------------------
+    DATA(LT_COURSES) = ME->GET_COURSES(  ).
+    DATA LV_DATE TYPE D.
+    LV_DATE = ME->ST_DATA-DATESTART.
+    LOOP AT LT_COURSES INTO DATA(LS_COURSE).
+      ME->CALENDAR_ADDITEM( IM_Course_UUID = LS_COURSE-Uuid
+                            IM_COUSE_DATE  = LV_DATE ).
+    ENDLOOP.
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
 
 
   METHOD GET_Courses.
@@ -78,61 +156,20 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-  METHOD CreateCalendar.
+  METHOD GET_INSTANCE.
 * -------------------------------------------------------------------------------------------------
-    DATA(LT_COURSES) = ME->GET_COURSES(  ).
-    DATA LV_DATE TYPE D.
-
-    LV_DATE = ME->ST_DATA-DATESTART.
-    LOOP AT LT_COURSES INTO DATA(LS_COURSE).
-      ME->CALENDAR_ADDITEM( IM_Course_UUID = LS_COURSE-Uuid
-                            IM_COUSE_DATE  = LV_DATE ).
-
-    ENDLOOP.
-
-
+    CREATE OBJECT RET_RESULT.
+    MOVE-CORRESPONDING IM_PLANNING TO RET_RESULT->ST_DATA.
+    RETURN RET_RESULT.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
-
-
-  METHOD CALENDAR_ADDITEM.
-**       direct DB update ==>
-*        data system_uuid TYPE REF TO if_system_uuid.
-*        data ls_calendar_item type ZDB_CALENDAR.
-*        system_uuid = cl_uuid_factory=>create_system_uuid( ).
-*        LS_CALENDAR_ITEM-UUID =  system_uuid->create_uuid_x16( ).
-*        LS_CALENDAR_ITEM-COURSEDATE = IM_COUSE_DATE.
-*        LS_CALENDAR_ITEM-COURSE_UUID = IM_COURSE_UUID.
-*        LS_CALENDAR_ITEM-PL_THEO_UUID = me->ST_DATA-UUID.
-*        INSERT ZDB_CALENDAR from  @LS_CALENDAR_ITEM.
-
-
-  MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
-  ENTITY ZI_GPI_PLAN_THEO
-    CREATE BY \_CalendarItem
-    FIELDS ( CourseDate CourseUuid   ) WITH
-    VALUE #(
-    ( %key-Uuid = me->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
-      %target = VALUE #( (
-        CourseDate = IM_COUSE_DATE
-        CourseUuid = IM_COURSE_UUID
-      ) )
-    )
-  )
-   MAPPED DATA(mapped)
-          FAILED DATA(failed)
-          REPORTED DATA(reported).
-
-
-  ENDMETHOD.
 
   METHOD GET_INSTANCE_FROM_ID.
+* -------------------------------------------------------------------------------------------------
     CREATE OBJECT RET_RESULT.
     RET_RESULT->ST_DATA-UUID = IM_PLANNING_UUID.
     RETURN RET_RESULT.
-  ENDMETHOD.
-
-ENDCLASS.
 * -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+ENDCLASS.

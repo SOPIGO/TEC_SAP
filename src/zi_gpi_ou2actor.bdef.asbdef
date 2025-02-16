@@ -1,0 +1,19 @@
+managed implementation in class zbp_ou2actor unique;
+//strict ( 2 );
+
+define behavior for ZI_GPI_OU2ACTOR //alias <alias_name>
+//persistent table <???>
+persistent table zdb_ou2actor
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  action AddToPlanning  parameter ZI_GPI_PARAM_PLAN_THEO ;
+
+  field ( readonly, numbering : managed ) Uuid;
+
+}

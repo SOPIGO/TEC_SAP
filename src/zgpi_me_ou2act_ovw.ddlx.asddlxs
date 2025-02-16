@@ -51,11 +51,12 @@ annotate entity ZI_GPI_OU2ACTOR with
   ]
   // ----------------------------------------------------------------------------------------------
   @UI.lineItem: [
-    { type:#STANDARD , position: 10 , value: 'OrgUnitTxt'   },
-    { type:#STANDARD , position: 20 , value: 'NameLast'     },
-    { type:#STANDARD , position: 30 , value: 'NameFirst'    }
+    { type:#STANDARD    , position: 10 , value: 'OrgUnitTxt'   },
+    { type:#STANDARD    , position: 20 , value: 'NameLast'     },
+    { type:#STANDARD    , position: 30 , value: 'NameFirst'    },
+    { type:#FOR_ACTION  , position: 40 , value: 'Uuid', dataAction: 'AddToPlanning', label: 'Ajouter planification' }
   ]
-  // ----------------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------------   
   Uuid;
   // ----------------------------------------------------------------------------------------------
 }

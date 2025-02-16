@@ -6,11 +6,11 @@
     serviceQuality: #X,
     sizeCategory: #S,
     dataClass: #MIXED
-}
+} 
 @Metadata.allowExtensions   : true
 @Search.searchable          : true
 // ------------------------------------------------------------------------------------------------
-define view entity ZI_GPI_OU2ACTOR
+define root view entity ZI_GPI_OU2ACTOR
   // ----------------------------------------------------------------------------------------------
   as select from zdb_ou2actor
   // ----------------------------------------------------------------------------------------------
@@ -20,6 +20,7 @@ define view entity ZI_GPI_OU2ACTOR
   association [0..1] to ZI_GPI_ORG_UNIT as _OrgUnit on $projection.UuidOrgUnit = _OrgUnit.Uuid
   // ----------------------------------------------------------------------------------------------
 {
+
   key uuid             as Uuid,
       uuid_org_unit    as UuidOrgUnit,
       uuid_actor       as UuidActor,
