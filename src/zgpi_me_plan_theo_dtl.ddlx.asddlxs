@@ -3,7 +3,8 @@
 annotate entity ZI_GPI_PLAN_THEO    with 
 {
     @UI: { lineItem : [ { position: 10 } ,
-                        {  type: #FOR_ACTION, dataAction: 'CreateCalendar', label: 'Générer calendrier' }
+                        {  type: #FOR_ACTION, dataAction: 'CreateCalendar'  , label: 'Générer calendrier'       },
+                        {  type: #FOR_ACTION, dataAction: 'BuildData'       , label: 'Générer données(test)'    }
                       ]}    
     Uuid;
     

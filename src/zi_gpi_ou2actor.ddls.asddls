@@ -6,7 +6,7 @@
     serviceQuality: #X,
     sizeCategory: #S,
     dataClass: #MIXED
-} 
+}    
 @Metadata.allowExtensions   : true
 @Search.searchable          : true
 // ------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ define root view entity ZI_GPI_OU2ACTOR
   // ----------------------------------------------------------------------------------------------
 {
 
-  key uuid             as Uuid,
+  key uuid             as Uuid,  
       uuid_org_unit    as UuidOrgUnit,
       uuid_actor       as UuidActor,
 

@@ -1,6 +1,6 @@
 // ------------------------------------------------------------------------------------------------
 //  AUTHOR      : PIERRE GODART
-//  DESCRIPTION : 
+//  DESCRIPTION :
 // ------------------------------------------------------------------------------------------------
 @Metadata.layer: #CUSTOMER
 // ------------------------------------------------------------------------------------------------
@@ -9,11 +9,11 @@
 @UI.headerInfo.typeName                     : 'Acteur'
 @UI.headerInfo.typeNamePlural               : 'Acteurs'
 @UI.headerInfo.title.value                  : 'NameLast'
-// ------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------
 
 //@UI.presentationVariant                     : [{
-//        sortOrder      : [{ by              : 'association_visible',  
-//                            direction       : #DESC      },                      
+//        sortOrder      : [{ by              : 'association_visible',
+//                            direction       : #DESC      },
 //                          { by              : 'association_indx',
 //                            direction       : #DESC      }
 //                            ],
@@ -40,9 +40,16 @@ annotate entity ZI_GPI_OU2ACTOR with
       }
    ]
   // ----------------------------------------------------------------------------------------------
-  @EndUserText.label: 'Unité structurelle'  OrgUnitTxt;
-  @EndUserText.label: 'Nom'                 NameLast;
-  @EndUserText.label: 'Prénom'              NameFirst;
+  @EndUserText.label: 'Unité structurelle'
+  @UI.selectionField: [ { position: 10 } ] 
+  @Consumption.valueHelpDefinition: [{         entity: { name: 'ZI_GPI_ORG_UNIT', element: 'Uuid' }      }]
+  UuidOrgUnit;
+  @EndUserText.label: 'Unité structurelle'
+  OrgUnitTxt;
+  @EndUserText.label: 'Nom'  
+  NameLast;
+  @EndUserText.label: 'Prénom'
+  NameFirst;
   // ----------------------------------------------------------------------------------------------
   @UI.fieldGroup: [
     { type:#STANDARD , position: 10 , qualifier: 'TQ_DataBasic', value: 'OrgUnitTxt'    },
@@ -54,9 +61,11 @@ annotate entity ZI_GPI_OU2ACTOR with
     { type:#STANDARD    , position: 10 , value: 'OrgUnitTxt'   },
     { type:#STANDARD    , position: 20 , value: 'NameLast'     },
     { type:#STANDARD    , position: 30 , value: 'NameFirst'    },
-    { type:#FOR_ACTION  , position: 40 , value: 'Uuid', dataAction: 'AddToPlanning', label: 'Ajouter planification' }
+    { type:#FOR_ACTION  , position: 40 , value: 'Uuid',         dataAction         : 'AddToPlanning',
+                                                                invocationGrouping : #CHANGE_SET ,
+                                                                label              : 'Ajouter planification' }
   ]
-  // ----------------------------------------------------------------------------------------------   
+  // ----------------------------------------------------------------------------------------------
   Uuid;
   // ----------------------------------------------------------------------------------------------
 }

@@ -10,6 +10,7 @@ lock master
   update;
   delete;
   action CreateCalendar;
+   static action BuildData;
 
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
@@ -24,7 +25,6 @@ lock master
       Uuid           = uuid;
       Datestart      = datestart;
       AttendeeAmount = attendee_amount;
-      CourseUuid     = course_uuid;
     }
 }
 // ------------------------------------------------------------------------------------------------

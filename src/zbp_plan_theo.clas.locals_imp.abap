@@ -3,6 +3,8 @@ CLASS lhc_ZI_GPI_PLAN_THEO DEFINITION INHERITING FROM CL_ABAP_BEHAVIOR_HANDLER.
 
     METHODS CreateCalendar FOR MODIFY
       IMPORTING KEYS FOR ACTION ZI_GPI_PLAN_THEO~CreateCalendar.
+    METHODS BuildData FOR MODIFY
+      IMPORTING keys FOR ACTION ZI_GPI_PLAN_THEO~BuildData.
 
 ENDCLASS.
 
@@ -39,4 +41,10 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
 
   ENDMETHOD.
 * -------------------------------------------------------------------------------------------------
+  METHOD BuildData.
+   data Lo_DataBuilder type REF TO   ZCLS_GPI_PLANNING_THEO_BUILDER.
+   CREATE OBJECT LO_DATABUILDER.
+        LO_DATABUILDER->BUILD_DATA(  ).
+  ENDMETHOD.
+
 ENDCLASS.

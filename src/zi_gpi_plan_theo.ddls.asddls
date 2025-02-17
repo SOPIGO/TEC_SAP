@@ -18,7 +18,6 @@ define root view entity ZI_GPI_PLAN_THEO
   // ----------------------------------------------------------------------------------------------
 {
   key uuid            as Uuid,
-      course_uuid     as CourseUuid,
       description     as Description,
       datestart       as Datestart,
       attendee_amount as AttendeeAmount,
