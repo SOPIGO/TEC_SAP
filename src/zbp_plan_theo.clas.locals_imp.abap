@@ -4,7 +4,7 @@ CLASS lhc_ZI_GPI_PLAN_THEO DEFINITION INHERITING FROM CL_ABAP_BEHAVIOR_HANDLER.
     METHODS CreateCalendar FOR MODIFY
       IMPORTING KEYS FOR ACTION ZI_GPI_PLAN_THEO~CreateCalendar.
     METHODS BuildData FOR MODIFY
-      IMPORTING keys FOR ACTION ZI_GPI_PLAN_THEO~BuildData.
+      IMPORTING KEYS FOR ACTION ZI_GPI_PLAN_THEO~BuildData.
 
 ENDCLASS.
 
@@ -12,19 +12,16 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   METHOD CreateCalendar.
 * -------------------------------------------------------------------------------------------------
-    data ls_planning type   ZI_GPI_PLAN_THEO.
-    data lt_planning type TABLE of  ZI_GPI_PLAN_THEO.
+    DATA LS_PLANNING TYPE   ZI_GPI_PLAN_THEO.
+    DATA LT_PLANNING TYPE TABLE OF  ZI_GPI_PLAN_THEO.
 
     READ ENTITIES OF ZI_GPI_PLAN_THEO
     ENTITY ZI_GPI_PLAN_THEO
     ALL FIELDS  WITH CORRESPONDING #( KEYS )
-    RESULT data(Lt_Entities) .
+    RESULT DATA(Lt_Entities) .
     IF LINES( Lt_Entities ) > 0 .
-"      ls_planning = conv #( Lt_Entities[ 1 ] ).
- MOVE-CORRESPONDING Lt_Entities[ 1 ] to LS_PLANNING.
+      MOVE-CORRESPONDING Lt_Entities[ 1 ] TO LS_PLANNING.
       DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning ).
-      " data(lt_xx) = Lo_Planning->GET_COURSES(  ).
-    "  Lo_Planning->DB_read( ).
       LO_PLANNING->CREATECALENDAR(  ).
     ENDIF.
 
@@ -42,9 +39,9 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
   ENDMETHOD.
 * -------------------------------------------------------------------------------------------------
   METHOD BuildData.
-   data Lo_DataBuilder type REF TO   ZCLS_GPI_PLANNING_THEO_BUILDER.
-   CREATE OBJECT LO_DATABUILDER.
-        LO_DATABUILDER->BUILD_DATA(  ).
+    DATA Lo_DataBuilder TYPE REF TO   ZCLS_GPI_PLANNING_THEO_BUILDER.
+    CREATE OBJECT LO_DATABUILDER.
+    LO_DATABUILDER->BUILD_DATA(  ).
   ENDMETHOD.
 
 ENDCLASS.

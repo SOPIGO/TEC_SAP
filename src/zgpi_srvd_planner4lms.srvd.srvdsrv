@@ -4,7 +4,7 @@ define service ZGPI_SRVD_PLANNER4LMS {
   expose ZI_GPI_ORG_UNIT;
   expose ZI_GPI_COURSE;
   expose ZI_GPI_PLAN_THEO;
-  expose ZI_GPI_CALENDAR;
+  expose ZI_GPI_Schedule_item;
   expose ZI_GPI_PLAN_THEO2COURSE;
   expose ZI_GPI_PLAN_THEO2ACTOR;
   expose ZI_GPI_OU2ACTOR;

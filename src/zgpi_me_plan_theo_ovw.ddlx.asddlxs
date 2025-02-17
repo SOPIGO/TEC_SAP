@@ -18,7 +18,7 @@ annotate entity ZI_GPI_PLAN_THEO with
       { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataAdmin'    , parentId : 'Facet_Main'   , label : 'Données administratives'         },
       { type : #LINEITEM_REFERENCE  , targetElement     : '_Courses'        , position : 20             , label : 'Cours liés'                      },
       { type : #LINEITEM_REFERENCE  , targetElement     : '_Learners'       , position : 30             , label : 'Apprenants'                      },
-      { type : #LINEITEM_REFERENCE  , targetElement     : '_CalendarItem'   , position : 40             , label : 'Calendrier'                      }
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_ScheduleItem'   , position : 40             , label : 'Calendrier'                      }
    ]
   // --------------------------------------------------------------------------------------------
   @UI.identification: [  { type: #FOR_ACTION, dataAction: 'CreateCalendar', label: 'Générer calendrier' }]

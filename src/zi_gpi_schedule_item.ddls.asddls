@@ -1,6 +1,6 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'Calendar'
+@EndUserText.label: 'Schedule Item'
 @Metadata.ignorePropagatedAnnotations: true
 @ObjectModel.usageType:{
     serviceQuality: #X,
@@ -9,9 +9,9 @@
 }
 @Metadata.allowExtensions: true
 // ------------------------------------------------------------------------------------------------
-define view entity ZI_GPI_CALENDAR
+define view entity ZI_GPI_Schedule_item
 // ------------------------------------------------------------------------------------------------
-  as select from zdb_calendar  
+  as select from zdb_schdle_item
   // ----------------------------------------------------------------------------------------------
   // Link to parent -> used for composition !! ==>
   association        to parent ZI_GPI_PLAN_THEO as _PlanningTheo on $projection.PlTheoUuid = _PlanningTheo.Uuid
