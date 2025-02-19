@@ -1,18 +1,43 @@
 @Metadata.layer: #CUSTOMER
 // ------------------------------------------------------------------------------------------------
-@UI:{ 
-    headerInfo:{ 
-        title           : {  label:'Calendrier' },
-        typeName        : 'Calendrier',
-        typeNamePlural  : 'Calendrier'
+@UI:{
+    headerInfo:{
+        title           : {  label:'Session de cours' },
+        typeName        : 'Session de cours',
+        typeNamePlural  : 'Sessions de cours'
     }
 }
 // ------------------------------------------------------------------------------------------------
-annotate entity  zi_gpi_schedule_item    with 
-{ 
-    @UI:{lineItem:[{ position: 10 } ]}    uuid;     
-    @UI:{lineItem:[{ position: 20 } ]}    coursedate;          
-    @UI:{lineItem:[{ position: 30 } ]}    coursetext;
+annotate entity ZI_GPI_Schedule_item with
+{
+
+  // ----------------------------------------------------------------------------------------------
+  @UI.facet:  [
+      {
+          id      : 'Facet_Main',
+          label   : 'Session-Attributs',
+          type    : #COLLECTION,
+          position: 10
+      },
+      {
+          label           : 'Données de base',
+          type            : #FIELDGROUP_REFERENCE,
+          parentId        : 'Facet_Main',
+          targetQualifier : 'TQ_DataBasic'
+      }
+   ]
+  // ----------------------------------------------------------------------------------------------
+  @UI:{lineItem:[{ position: 10 } ]}
+  @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] }    
+  Uuid;
+  
+  @UI:{lineItem:[{ position: 20 } ]}
+  @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }    
+  CourseDate;
+  
+  @UI:{lineItem:[{ position: 30 } ]}
+  @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }
+  CourseText;
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

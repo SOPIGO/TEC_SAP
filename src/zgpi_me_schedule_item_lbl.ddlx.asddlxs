@@ -1,0 +1,9 @@
+@Metadata.layer: #CORE
+// ------------------------------------------------------------------------------------------------
+annotate entity ZI_GPI_Schedule_item    with 
+{
+    @EndUserText.label: 'Date de début'     CourseDate;         
+    @EndUserText.label: 'Nom du cours'      CourseText;
+}
+
+// ------------------------------------------------------------------------------------------------

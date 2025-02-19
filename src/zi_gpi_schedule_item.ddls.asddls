@@ -16,6 +16,8 @@ define view entity ZI_GPI_Schedule_item
   // Link to parent -> used for composition !! ==>
   association        to parent ZI_GPI_PLAN_THEO as _PlanningTheo on $projection.PlTheoUuid = _PlanningTheo.Uuid
   association        to ZI_GPI_COURSE as _Course on $projection.CourseUuid = _Course.Uuid
+  
+  composition [0..*] of ZI_GPI_SCHD_ITEM2LEANER   as _Learners
 // ------------------------------------------------------------------------------------------------    
 {
   key uuid            as Uuid,
@@ -39,6 +41,7 @@ define view entity ZI_GPI_Schedule_item
       
       
       _Course,
+      _Learners,
       _PlanningTheo
 }
 // ------------------------------------------------------------------------------------------------

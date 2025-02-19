@@ -259,30 +259,42 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
 *   -----------------------------------------------------------------------------------------------
 *   COURSES
 *   -----------------------------------------------------------------------------------------------
-    DATA LS_ROW_COURSE1 TYPE ZDB_COURSE.
-    DATA LS_ROW_COURSE2 TYPE ZDB_COURSE.
-    DATA LS_ROW_COURSE3 TYPE ZDB_COURSE.
-    DATA LS_ROW_COURSE4 TYPE ZDB_COURSE.
+    DATA LV_Courses_AMOUNT      TYPE I.
+    DATA LS_ROW_COURSE          TYPE ZDB_COURSE.
 
-    LS_ROW_COURSE1-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-    LS_ROW_COURSE1-TEXT         = 'Conduite en ville - 01 (bus)'.
-    LS_ROW_COURSE1-MAXTAINEE    = 10.
-    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE1.
+        LV_Courses_AMOUNT = 5.
+    DO  LV_Courses_AMOUNT TIMES.
+        LS_ROW_COURSE-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+        LS_ROW_COURSE-TEXT = |Conduite en ville - 0{ LV_COURSES_AMOUNT } (bus)|.
+        LS_ROW_COURSE-MAXTAINEE = 5.
+        INSERT  ZDB_COURSE FROM @LS_ROW_COURSE.
+    ENDDO.
 
-    LS_ROW_COURSE2-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-    LS_ROW_COURSE2-TEXT         = 'Conduite en ville - 02 (bus)'.
-    LS_ROW_COURSE2-MAXTAINEE    = 10.
-    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE2.
 
-    LS_ROW_COURSE3-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-    LS_ROW_COURSE3-TEXT         = 'Conduite en ville - 03 (bus)'.
-    LS_ROW_COURSE3-MAXTAINEE    = 10.
-    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE3.
-
-    LS_ROW_COURSE4-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-    LS_ROW_COURSE4-TEXT         = 'Conduite en ville - 04 (bus)'.
-    LS_ROW_COURSE4-MAXTAINEE    = 10.
-    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE4.
+*    DATA LS_ROW_COURSE1 TYPE ZDB_COURSE.
+*    DATA LS_ROW_COURSE2 TYPE ZDB_COURSE.
+*    DATA LS_ROW_COURSE3 TYPE ZDB_COURSE.
+*    DATA LS_ROW_COURSE4 TYPE ZDB_COURSE.
+*
+*    LS_ROW_COURSE1-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+*    LS_ROW_COURSE1-TEXT         = 'Conduite en ville - 01 (bus)'.
+*    LS_ROW_COURSE1-MAXTAINEE    = 10.
+*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE1.
+*
+*    LS_ROW_COURSE2-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+*    LS_ROW_COURSE2-TEXT         = 'Conduite en ville - 02 (bus)'.
+*    LS_ROW_COURSE2-MAXTAINEE    = 10.
+*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE2.
+*
+*    LS_ROW_COURSE3-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+*    LS_ROW_COURSE3-TEXT         = 'Conduite en ville - 03 (bus)'.
+*    LS_ROW_COURSE3-MAXTAINEE    = 10.
+*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE3.
+*
+*    LS_ROW_COURSE4-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+*    LS_ROW_COURSE4-TEXT         = 'Conduite en ville - 04 (bus)'.
+*    LS_ROW_COURSE4-MAXTAINEE    = 10.
+*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE4.
 *   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
 

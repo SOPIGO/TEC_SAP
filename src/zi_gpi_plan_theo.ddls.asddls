@@ -14,7 +14,6 @@ define root view entity ZI_GPI_PLAN_THEO
   as select from zdb_plan_theo
   composition [0..*] of ZI_GPI_PLAN_THEO2COURSE as _Courses
   composition [0..*] of ZI_GPI_PLAN_THEO2ACTOR  as _Learners
-//  composition [0..*] of ZI_GPI_CALENDAR         as _CalendarItem
   composition [0..*] of ZI_GPI_Schedule_item    as _ScheduleItem
   // ----------------------------------------------------------------------------------------------
 {
@@ -27,11 +26,10 @@ define root view entity ZI_GPI_PLAN_THEO
       last_changed_by as LastChangedBy,
       last_changed_at as LastChangedAt,
 
-      
+      // Associations ...
       _Courses,
       _Learners,
- //     _CalendarItem,
-      _ScheduleItem
+       _ScheduleItem
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

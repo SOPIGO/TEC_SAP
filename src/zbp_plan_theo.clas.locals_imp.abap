@@ -22,7 +22,7 @@ CLASS lhc_ZI_GPI_PLAN_THEO IMPLEMENTATION.
     IF LINES( Lt_Entities ) > 0 .
       MOVE-CORRESPONDING Lt_Entities[ 1 ] TO LS_PLANNING.
       DATA(Lo_Planning) = ZCLS_GPI_PLANNING_THEORICAL=>GET_INSTANCE( Ls_Planning ).
-      LO_PLANNING->CREATECALENDAR(  ).
+      LO_PLANNING->Schedule_Build(  ).
     ENDIF.
 
 

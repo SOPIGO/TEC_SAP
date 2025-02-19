@@ -10,12 +10,11 @@ lock master
   update;
   delete;
   action CreateCalendar;
-   static action BuildData;
+  static action BuildData;
 
   field ( readonly, numbering : managed ) Uuid;
   association _Courses { create; }
   association _Learners { create; }
-//  association _CalendarItem { create; }
   association _ScheduleItem { create; }
 
   // side effects { action CreateCalendar affects entity _CalendarItem, messages; }
@@ -64,7 +63,7 @@ lock dependent by _PlanningTheo
     {
       Uuid             = uuid;
       UuidPlanningTheo = uuid_planning_theo;
-      UuidLearner = uuid_learner;
+      UuidLearner      = uuid_learner;
     }
 
 }
@@ -80,7 +79,11 @@ lock dependent by _PlanningTheo
 
   field ( readonly, numbering : managed ) Uuid;
   field ( readonly ) PlTheoUuid;
+
   association _PlanningTheo;
+//  association _Course;
+  association _Learners{ create; }
+
   mapping for zdb_schdle_item
     {
       Uuid       = uuid;
