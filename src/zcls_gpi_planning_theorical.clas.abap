@@ -11,9 +11,11 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL DEFINITION
   PUBLIC SECTION.
 * -------------------------------------------------------------------------------------------------
     TYPES: TT_Courses           TYPE TABLE OF ZI_GPI_COURSE WITH DEFAULT KEY.
+    TYPES: TT_Learners          TYPE TABLE OF ZI_GPI_COURSE WITH DEFAULT KEY.
     DATA ST_DATA                TYPE ZDB_PLAN_THEO.
-    DATA Ptr2_System_UUID         TYPE REF TO IF_SYSTEM_UUID.
+    DATA Ptr2_System_UUID       TYPE REF TO IF_SYSTEM_UUID.
     DATA Tbl_Schedule           TYPE TABLE OF REF TO ZCLS_GPI_SCHEDULE_ITEM.
+    DATA Tbl_o_Learners         TYPE ZCLS_GPI_ACTOR=>TT_O_ACTORS.
 * -------------------------------------------------------------------------------------------------
 
 
@@ -31,7 +33,10 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL DEFINITION
         VALUE(RET_RESULT) TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL  .
 
     METHODS: CONSTRUCTOR.
-    METHODS  :   Schedule_Build.
+
+    METHODS  :      Schedule_Build,
+      Schedule_Reset.
+
     METHODS  :   GET_Courses   RETURNING
                                  VALUE(RET_RESULTS) TYPE TT_Courses ,
       Schedule_Add_Item
@@ -45,7 +50,8 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL DEFINITION
           IM_S_Learner_UUID TYPE SYSUUID_X16,
       Schedule_Save.
 
-
+    METHODS  :   GET_Leaners   RETURNING
+                                 VALUE(RET_RESULTS) TYPE TT_Courses .
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -126,8 +132,25 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
   ENDMETHOD.
 
 
+
+  METHOD Schedule_Reset.
+*   -----------------------------------------------------------------------------------------------
+*   RESET
+*   -----------------------------------------------------------------------------------------------
+    DELETE  FROM ZDB_SCHDLE_ITEM WHERE  PL_THEO_UUID = @ME->ST_DATA-UUID.
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+
   METHOD Schedule_Build.
 * -------------------------------------------------------------------------------------------------
+*   Reset first previous
+    ME->SCHEDULE_RESET( ).
+
+*   Learners should be loaded
+    ME->GET_LEANERS(  ).
+
     DATA LO_ScheduleItem TYPE REF TO ZCLS_GPI_SCHEDULE_ITEM.
     DATA(LT_COURSES) = ME->GET_COURSES(  ).
     DATA LV_DATE TYPE D.
@@ -137,7 +160,9 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
         EXPORTING
           IM_COURSE_UUID = LS_COURSE-Uuid
           IM_DATE        = LV_DATE
-          IM_o_planning  = me.
+          IM_o_planning  = ME.
+      LO_SCHEDULEITEM->LEARNERS_ADD(  ).
+      LO_SCHEDULEITEM->LEARNERS_DB_SAVE(  ).
 
       APPEND LO_SCHEDULEITEM TO ME->TBL_SCHEDULE.
     ENDLOOP.
@@ -148,8 +173,6 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
 
   METHOD GET_Courses.
 * -------------------------------------------------------------------------------------------------
-    "  DATA: lt_result TYPE TABLE OF ZI_GPI_PLAN_THEO2COURSE.
-
     READ ENTITIES OF ZI_GPI_PLAN_THEO
     ENTITY ZI_GPI_PLAN_THEO BY \_Courses
     ALL FIELDS WITH VALUE #( ( Uuid = ME->ST_DATA-UUID ) )
@@ -164,8 +187,6 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
         APPEND LS_COURSE TO RET_RESULTS.
       ENDIF.
     ENDLOOP.
-
-
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
@@ -187,26 +208,62 @@ CLASS ZCLS_GPI_PLANNING_THEORICAL IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
+
+
   METHOD Schedule_Save.
+* -------------------------------------------------------------------------------------------------
+    DATA lv_Save_via_RAP        TYPE BOOLEAN.
+    lv_Save_via_RAP  = ''.
+
     LOOP AT ME->TBL_SCHEDULE INTO DATA(LO_ScheduleItem).
-
-      MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
-      ENTITY ZI_GPI_PLAN_THEO
-        CREATE BY \_ScheduleItem
-        FIELDS ( CourseDate CourseUuid   ) WITH
-        VALUE #(
-        ( %KEY-Uuid = ME->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
-          %TARGET   = VALUE #( (
-                           CourseDate = LO_SCHEDULEITEM->ST_DATA-COURSE_DATE
-                           CourseUuid = LO_SCHEDULEITEM->ST_DATA-COURSE_UUID
-                           ) )
+*       -------------------------------------------------------------------------------------------------
+      IF LV_SAVE_VIA_RAP = 'X'.
+        MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
+        ENTITY ZI_GPI_PLAN_THEO
+          CREATE BY \_ScheduleItem
+          FIELDS ( CourseDate CourseUuid   ) WITH
+          VALUE #(
+          ( %KEY-Uuid = ME->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
+            %TARGET   = VALUE #( (
+                             CourseDate = LO_SCHEDULEITEM->ST_DATA-COURSE_DATE
+                             CourseUuid = LO_SCHEDULEITEM->ST_DATA-COURSE_UUID
+                             ) )
+          )
         )
-      )
-       MAPPED DATA(MAPPED)
-              FAILED DATA(FAILED)
-              REPORTED DATA(REPORTED).
-
+         MAPPED DATA(MAPPED)
+                FAILED DATA(FAILED)
+                REPORTED DATA(REPORTED).
+      ELSE.
+        DATA LS_DB_ROW TYPE ZDB_SCHDLE_ITEM.
+        LS_DB_ROW-UUID         = LO_SCHEDULEITEM->ST_DATA-UUID.
+        LS_DB_ROW-PL_THEO_UUID = ME->ST_DATA-UUID.
+        LS_DB_ROW-Course_Date  = LO_SCHEDULEITEM->ST_DATA-COURSE_DATE.
+        LS_DB_ROW-Course_Uuid  = LO_SCHEDULEITEM->ST_DATA-COURSE_UUID.
+        INSERT  ZDB_SCHDLE_ITEM FROM @LS_DB_ROW.
+      ENDIF.
+* -------------------------------------------------------------------------------------------------
     ENDLOOP.
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+
+
+
+  METHOD GET_LEANERS.
+* -------------------------------------------------------------------------------------------------
+    DATA LO_LEARNER TYPE REF TO ZCLS_GPI_ACTOR.
+
+    READ ENTITIES OF ZI_GPI_PLAN_THEO
+    ENTITY ZI_GPI_PLAN_THEO BY \_Learners
+    ALL FIELDS WITH VALUE #( ( Uuid = ME->ST_DATA-UUID ) )
+    RESULT DATA(LT_LEARNERS).
+
+    LOOP AT LT_LEARNERS INTO DATA(LS_LEARNER).
+      LO_LEARNER ?= ZCLS_GPI_LEARNER=>GET_INSTANCE_FROM_ID( LS_LEARNER-UuidLearner ).
+      APPEND LO_LEARNER TO ME->Tbl_o_Learners.
+    ENDLOOP.
+* -------------------------------------------------------------------------------------------------
 
   ENDMETHOD.
 

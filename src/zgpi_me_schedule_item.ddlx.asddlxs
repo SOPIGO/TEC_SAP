@@ -4,17 +4,17 @@
     headerInfo:{
         title           : {  label:'Session de cours' },
         typeName        : 'Session de cours',
-        typeNamePlural  : 'Sessions de cours'
+        typeNamePlural  : 'Sessions de cours' 
     }
 }
 // ------------------------------------------------------------------------------------------------
-annotate entity ZI_GPI_Schedule_item with
+annotate entity ZI_GPI_SCHEDULE_ITEM with
 {
 
   // ----------------------------------------------------------------------------------------------
   @UI.facet:  [
       {
-          id      : 'Facet_Main',
+          id      : 'Facet_Main', 
           label   : 'Session-Attributs',
           type    : #COLLECTION,
           position: 10
@@ -24,7 +24,12 @@ annotate entity ZI_GPI_Schedule_item with
           type            : #FIELDGROUP_REFERENCE,
           parentId        : 'Facet_Main',
           targetQualifier : 'TQ_DataBasic'
-      }
+      },
+      {     type            : #LINEITEM_REFERENCE  , 
+            targetElement   : '_Learners'       , 
+            position        : 30             , 
+//            parentId        : 'Facet_Main',
+            label           : 'Apprenants'                      }
    ]
   // ----------------------------------------------------------------------------------------------
   @UI:{lineItem:[{ position: 10 } ]}

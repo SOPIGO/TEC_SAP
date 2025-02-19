@@ -7,6 +7,7 @@
     sizeCategory: #S,
     dataClass: #MIXED
 }
+@Metadata.allowExtensions: true
 // ------------------------------------------------------------------------------------------------
 define view entity ZI_GPI_SCHD_ITEM2LEANER
   as select from zdb_schditm2lrnr
@@ -20,7 +21,7 @@ define view entity ZI_GPI_SCHD_ITEM2LEANER
       uuid_schedule_item as UuidScheduleItem,
       uuid_learner       as UuidLearner,
 
-      _ScheduleItem,
+      _ScheduleItem, 
       _Learner
 }
 // ------------------------------------------------------------------------------------------------

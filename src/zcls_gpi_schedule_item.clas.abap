@@ -16,6 +16,8 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM DEFINITION
     DATA Ptr2_system_uuid    TYPE REF TO IF_SYSTEM_UUID.
     DATA Ptr2_coursetype     TYPE REF TO ZCLS_GPI_COURSE_TYPE.
     DATA Ptr2_planning       TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL.
+*    data Tbl_o_Learners         TYPE ZCLS_GPI_LEARNER=>TT_O_LEARNERS.
+    data Tbl_o_Learners         TYPE ZCLS_GPI_ACTOR=>TT_O_ACTORS.
 * -------------------------------------------------------------------------------------------------
 
 
@@ -41,7 +43,8 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM DEFINITION
         IM_COURSE_UUID TYPE SYSUUID_X16
         IM_COUSE_DATE  TYPE D,
 
-      Add_Learners,
+      learners_add,
+      learners_db_save,
       Add_Learner
         IMPORTING
           IM_S_Learner_UUID TYPE SYSUUID_X16.
@@ -60,7 +63,7 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 
 
   METHOD Add_Learner.
-    Add_Learners(  ).
+    learners_add(  ).
 * -------------------------------------------------------------------------------------------------
     DATA LS_PLAN2LEARNER TYPE ZDB_PLAN_TH2ACS.
     LS_PLAN2LEARNER-UUID               = Ptr2_system_uuid->CREATE_UUID_X16( ).
@@ -124,12 +127,13 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 
   METHOD CONSTRUCTOR.
 * -------------------------------------------------------------------------------------------------
-    Me->Ptr2_system_uuid =   CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
-    ME->ST_DATA-UUID = ME->Ptr2_system_uuid->CREATE_UUID_X16( ) .
+    Me->Ptr2_system_uuid    = CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
+    me->PTR2_PLANNING       = IM_O_PLANNING.
+    ME->ST_DATA-UUID        = ME->Ptr2_system_uuid->CREATE_UUID_X16( ) .
     ME->ST_DATA-COURSE_UUID = IM_COURSE_UUID.
     ME->ST_DATA-COURSE_DATE = IM_DATE.
 
-    Me->PTR2_COURSETYPE = ZCLS_GPI_COURSE_TYPE=>GET_INSTANCE_FROM_ID(  IM_COURSE_UUID ).
+    Me->PTR2_COURSETYPE     = ZCLS_GPI_COURSE_TYPE=>GET_INSTANCE_FROM_ID(  IM_COURSE_UUID ).
     Me->PTR2_COURSETYPE->DB_READ( ).
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
@@ -158,25 +162,57 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
-  METHOD ADD_LEARNERS.
+  METHOD learners_add.
 * -------------------------------------------------------------------------------------------------
         Data(lv_max_learners_allowed) = me->PTR2_COURSETYPE->ST_DATA-MAXTAINEE.
+        Data lv_max_learners_4planning type I.
         data lv_continue type BOOLEAN .
         Data lv_cnt_learners type I.
+        Data lv_idx_learners type I.
 
         lv_continue = 'X'.
         lv_cnt_learners = 0.
+        lv_idx_learners = 1.
+        lv_max_learners_4planning = lines( me->PTR2_PLANNING->TBL_O_LEARNERS ).
 
         WHILE ( LV_CONTINUE =  'X').
 
+            data(lo_leaner) = PTR2_PLANNING->TBL_O_LEARNERS[ lv_idx_learners ].
+            APPEND LO_LEANER to me->Tbl_o_Learners.
 
+
+*           Stop conditions =>
+            if lv_idx_learners >= lv_max_learners_4planning.
+              LV_CONTINUE = ''.
+            endif.
             if LV_CNT_LEARNERS >= LV_MAX_LEARNERS_ALLOWED.
             LV_CONTINUE = ''.
             endif.
+
+            lv_idx_learners = lv_idx_learners + 1.
+            LV_CNT_LEARNERS = LV_CNT_LEARNERS + 1.
+
         ENDWHILE.
 
 
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
+
+
+  METHOD learners_db_save.
+* -------------------------------------------------------------------------------------------------
+    DELETE  FROM ZDB_SCHDITM2LRNR WHERE  UUID_SCHEDULE_ITEM = @me->ST_DATA-UUID.
+
+    data ls_db_row type  ZDB_SCHDITM2LRNR.
+    LOOP AT TBL_O_LEARNERS into data(lo_leaner).
+        LS_DB_ROW-UUID =  ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+        LS_DB_ROW-UUID_LEARNER = LO_LEANER->ST_DATA-UUID.
+        LS_DB_ROW-UUID_SCHEDULE_ITEM = me->ST_DATA-UUID.
+        INSERT  ZDB_SCHDITM2LRNR FROM @LS_DB_ROW.
+    ENDLOOP.
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
 
 ENDCLASS.
