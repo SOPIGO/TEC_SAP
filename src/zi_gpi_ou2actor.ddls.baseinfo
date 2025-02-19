@@ -3,15 +3,10 @@
 {
 "FROM":
 [
-"ZI_GPI_ACTOR",
-"ZI_GPI_ORG_UNIT",
 "ZDB_OU2ACTOR"
 ],
 "ASSOCIATED":
-[
-"ZI_GPI_ACTOR",
-"ZI_GPI_ORG_UNIT"
-],
+[],
 "BASE":
 [],
 "ANNO_REF":

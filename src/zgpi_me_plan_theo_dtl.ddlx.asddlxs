@@ -1,14 +1,35 @@
 @Metadata.layer: #CORE
 // ------------------------------------------------------------------------------------------------
-annotate entity ZI_GPI_PLAN_THEO    with 
+@UI:{
+    headerInfo:{
+        title           : {  label:'Panification théorique' },
+        typeName        : 'Planification théorique',
+        typeNamePlural  : 'Planifications théoriques'
+    }
+}
+// ------------------------------------------------------------------------------------------------
+annotate entity ZI_GPI_PLAN_THEO with
 {
-    @UI: { lineItem : [ { position: 10 } ,
-                        {  type: #FOR_ACTION, dataAction: 'CreateCalendar'  , label: 'Générer calendrier'       },
-                        {  type: #FOR_ACTION, dataAction: 'BuildData'       , label: 'Générer données(test)'    }
-                      ]}    
-    Uuid;
-    
-      
-    @UI: { lineItem : [{ position: 20 } ]}    Description;    
-    @UI: { lineItem : [{ position: 30 } ]}    Datestart;                                       
-} 
+  // --------------------------------------------------------------------------------------------
+  @UI.facet:  [
+      { type : #COLLECTION          , id                : 'Facet_Main'      , position: 10              , label : 'Détails'                         },
+//    { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataBasic'    , parentId : 'Facet_Main'   , label : 'Données de base'                 },
+      { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataBasic'    , parentId : 'Facet_Main'                                               },
+      { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataCourse'   , parentId : 'Facet_Main'   , label : 'Données liées à la formation'    },
+      { type : #FIELDGROUP_REFERENCE, targetQualifier   : 'TQ_DataAdmin'    , parentId : 'Facet_Main'   , label : 'Données administratives'         },
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_Courses'        , position : 20             , label : 'Cours liés'                      },
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_Learners'       , position : 30             , label : 'Apprenants'                      },
+      { type : #LINEITEM_REFERENCE  , targetElement     : '_ScheduleItem'   , position : 40             , label : 'Planification'                   }
+   ]
+  // --------------------------------------------------------------------------------------------
+  //@UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] }
+  @UI.identification: [  { type: #FOR_ACTION, dataAction: 'CreateCalendar', label: 'Générer calendrier' }]
+  Uuid;
+
+  @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }
+  Description;
+  @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }
+  Datestart;
+}
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------

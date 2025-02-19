@@ -6,12 +6,11 @@
         typeName        : 'Apprenant',
         typeNamePlural  : 'Apprenants'
     }
-}  
+}
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-annotate entity ZI_GPI_SCHD_ITEM2LEANER   with 
+annotate entity ZI_GPI_SCHD_ITEM2LEANER with
 {
-
   // --------------------------------------------------------------------------------------------
   @UI.facet:  [
       {
@@ -22,17 +21,23 @@ annotate entity ZI_GPI_SCHD_ITEM2LEANER   with
       }
    ]
   // --------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------
+  @UI.lineItem: [
+    { type:#STANDARD    , position: 10 , value: 'LearnerOrgUnit', label: 'Unité structurelle'   },
+    { type:#STANDARD    , position: 20 , value: 'LearnerNameL'  , label: 'Nom'                  },
+    { type:#STANDARD    , position: 30 , value: 'LearnerNameF'  , label: 'Prénom'               }
+    /*
+    { type:#FOR_ACTION  , position: 40 , value: 'Uuid',         dataAction         : 'AddToPlanning',
+                                                                invocationGrouping : #CHANGE_SET ,
+                                                                label              : 'Ajouter planification' }
+    */
+  ]
+  // ----------------------------------------------------------------------------------------------
+  Uuid;
 
-    
-    @UI: { lineItem : [{ position: 10 } ]} 
-    Uuid;
-    
-    @UI: { lineItem : [{ position: 20 } ]} 
-    UuidScheduleItem;
-    
-    @UI: { lineItem : [{ position: 30 } ]} 
-    UuidLearner;
-    
+  /*
+      @UI: { lineItem : [{ position: 20 } ]}    UuidScheduleItem;
+      @UI: { lineItem : [{ position: 30 } ]}    UuidLearner;
+  */
 }
-
 // ------------------------------------------------------------------------------------------------

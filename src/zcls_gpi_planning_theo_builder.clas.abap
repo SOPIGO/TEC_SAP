@@ -65,7 +65,8 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
 *   -----------------------------------------------------------------------------------------------
 *   Actors
 *   -----------------------------------------------------------------------------------------------
-    DATA LS_DB_ROW_OU2ACTOR     TYPE ZDB_OU2ACTOR.
+    " DATA LS_DB_ROW_OU2ACTOR     TYPE ZDB_OU2ACTOR.
+
     SELECT *
     FROM   ZDB_ACTOR
     INTO   TABLE @DATA(LT_DB_ROW_ACTOR).
@@ -80,14 +81,18 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     LV_INDEX_OU_MAX = LINES( LT_DB_ROW_ORG_UNIT ).
 
     LOOP AT LT_DB_ROW_ACTOR INTO DATA(LS_DB_ROW_ACTOR).
-      LS_DB_ROW_OU2ACTOR-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-      LS_DB_ROW_OU2ACTOR-UUID_ACTOR = LS_DB_ROW_ACTOR-UUID.
-      LS_DB_ROW_OU2ACTOR-UUID_ORG_UNIT = LT_DB_ROW_ORG_UNIT[ LV_INDEX_OU  ]-UUID.
-      LV_INDEX_OU = LV_INDEX_OU + 1.
-      IF LV_INDEX_OU > LV_INDEX_OU_MAX.
-        LV_INDEX_OU = 1.
-      ENDIF.
-      INSERT  ZDB_OU2ACTOR FROM @LS_DB_ROW_OU2ACTOR.
+         LS_DB_ROW_ACTOR-UUID_ORG_UNIT =  LT_DB_ROW_ORG_UNIT[ LV_INDEX_OU  ]-UUID.
+
+*        LS_DB_ROW-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+*        LS_DB_ROW_OU2ACTOR-UUID_ACTOR = LS_DB_ROW_ACTOR-UUID.
+*        LS_DB_ROW_OU2ACTOR-UUID_ORG_UNIT = LT_DB_ROW_ORG_UNIT[ LV_INDEX_OU  ]-UUID.
+
+            LV_INDEX_OU = LV_INDEX_OU + 1.
+         IF LV_INDEX_OU > LV_INDEX_OU_MAX.
+            LV_INDEX_OU = 1.
+         ENDIF.
+         UPDATE  ZDB_ACTOR FROM @LS_DB_ROW_ACTOR.
+*        INSERT  ZDB_OU2ACTOR FROM @LS_DB_ROW_OU2ACTOR.
     ENDLOOP.
   ENDMETHOD.
 
@@ -215,30 +220,9 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     me->Build_Data( ).
     COMMIT WORK.
     OUT->WRITE( 'DATA CREATED' ).
-
-
-
-*   --------------------------------------------------------------------------------------
-*   CALENDAR
-*   --------------------------------------------------------------------------------------
-*    LS_ROW_CALENDAR-PL_THEO_UUID    = LS_ROW_PLAN_THEO-UUID.
-
-    " out->WRITE( | UUID => { ls_row_course1-uuid } | ).
-
-*    LS_ROW_CALENDAR-UUID            = SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_CALENDAR-COURSE_DATE     = CL_ABAP_CONTEXT_INFO=>GET_SYSTEM_DATE( ).
-*    LS_ROW_CALENDAR-COURSE_UUID     = LS_ROW_COURSE1-UUID.
-*    INSERT  ZDB_CALENDAR FROM @LS_ROW_CALENDAR.
-*
-*    LS_ROW_CALENDAR-UUID            = SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_CALENDAR-COURSE_DATE     = LS_ROW_CALENDAR-COURSE_DATE + 1.
-*    LS_ROW_CALENDAR-COURSE_UUID     = LS_ROW_COURSE2-UUID.
-*    INSERT  ZDB_CALENDAR FROM @LS_ROW_CALENDAR.
-*   --------------------------------------------------------------------------------------
-*   --------------------------------------------------------------------------------------
-
-
   ENDMETHOD.
+
+
 
   METHOD RESET_TABLES.
 *   -----------------------------------------------------------------------------------------------
@@ -250,51 +234,31 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     DELETE  FROM ZDB_PLAN_TH2CRS.
     DELETE  FROM ZDB_PLAN_TH2ACS.
     DELETE  FROM ZDB_SCHDLE_ITEM.
+    DELETE  FROM ZDB_SCHDITM2LRNR.
     DELETE  FROM ZDB_ORG_UNIT.
     DELETE  FROM ZDB_OU2ACTOR.
+*   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
+
+
 
 
   METHOD CREATE_COURSES.
 *   -----------------------------------------------------------------------------------------------
 *   COURSES
 *   -----------------------------------------------------------------------------------------------
-    DATA LV_Courses_AMOUNT      TYPE I.
+    DATA LV_Courses_Amount      TYPE I.
+    DATA LV_Courses_Index       TYPE I.
     DATA LS_ROW_COURSE          TYPE ZDB_COURSE.
 
         LV_Courses_AMOUNT = 5.
     DO  LV_Courses_AMOUNT TIMES.
         LS_ROW_COURSE-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-        LS_ROW_COURSE-TEXT = |Conduite en ville - 0{ LV_COURSES_AMOUNT } (bus)|.
-        LS_ROW_COURSE-MAXTAINEE = 5.
+        LS_ROW_COURSE-TEXT = |Conduite en ville - 0{ LV_Courses_Index } (bus)|.
+        LS_ROW_COURSE-MAX_TRAINEE = 5.
         INSERT  ZDB_COURSE FROM @LS_ROW_COURSE.
+        LV_Courses_Index = LV_Courses_Index + 1.
     ENDDO.
-
-
-*    DATA LS_ROW_COURSE1 TYPE ZDB_COURSE.
-*    DATA LS_ROW_COURSE2 TYPE ZDB_COURSE.
-*    DATA LS_ROW_COURSE3 TYPE ZDB_COURSE.
-*    DATA LS_ROW_COURSE4 TYPE ZDB_COURSE.
-*
-*    LS_ROW_COURSE1-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_COURSE1-TEXT         = 'Conduite en ville - 01 (bus)'.
-*    LS_ROW_COURSE1-MAXTAINEE    = 10.
-*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE1.
-*
-*    LS_ROW_COURSE2-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_COURSE2-TEXT         = 'Conduite en ville - 02 (bus)'.
-*    LS_ROW_COURSE2-MAXTAINEE    = 10.
-*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE2.
-*
-*    LS_ROW_COURSE3-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_COURSE3-TEXT         = 'Conduite en ville - 03 (bus)'.
-*    LS_ROW_COURSE3-MAXTAINEE    = 10.
-*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE3.
-*
-*    LS_ROW_COURSE4-UUID         = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-*    LS_ROW_COURSE4-TEXT         = 'Conduite en ville - 04 (bus)'.
-*    LS_ROW_COURSE4-MAXTAINEE    = 10.
-*    INSERT  ZDB_COURSE FROM @LS_ROW_COURSE4.
 *   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
 
@@ -339,9 +303,15 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+
+
+
   METHOD CONSTRUCTOR.
     ME->PTR2_SYSTEM_UUID =  CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
   ENDMETHOD.
+
+
+
 
 
   METHOD CREATE_PLANNING.
@@ -354,12 +324,16 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     LS_ROW_PLAN_THEO-ATTENDEE_AMOUNT = '10'.
     LS_ROW_PLAN_THEO-DATESTART       = '20250115'.
     INSERT  ZDB_PLAN_THEO FROM @LS_ROW_PLAN_THEO.
-
     APPEND LS_ROW_PLAN_THEO TO ME->TBL_PLANNINGS.
+*   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
 
 
+
+
+
   METHOD BUILD_DATA.
+*   -----------------------------------------------------------------------------------------------
     ZCLS_GPI_PLANNING_THEO_BUILDER=>RESET_TABLES( ).
 
     ME->CREATE_ACTORS( ).
@@ -371,7 +345,9 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     ME->CREATE_PLANNING(  ).
     ME->CREATE_COURSES_2_PLANNINGTHEO( ).
     ME->CREATE_ACTOR_2_PlanningTheo(  ).
-
+*   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
+
+
 
 ENDCLASS.

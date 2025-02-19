@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZI_GPI_ORG_UNIT</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Actor</DDTEXT>
+    <DDTEXT>Org. Unit</DDTEXT>
     <SOURCE_TYPE>W</SOURCE_TYPE>
    </DDLS>
   </asx:values>

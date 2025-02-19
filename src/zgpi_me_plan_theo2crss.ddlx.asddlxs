@@ -2,46 +2,37 @@
 // ------------------------------------------------------------------------------------------------
 @UI:{ 
     headerInfo:{ 
-        title           : {  label:'Panification théorique' },
-        typeName        :  'Planning To Courses',
-        typeNamePlural  : 'Planning To Courses'
+        title           : {  label:'Types de cours' },
+        typeName        : 'Type de cours',
+        typeNamePlural  : 'Types de cours'
     }
 }
 // ------------------------------------------------------------------------------------------------
 annotate entity ZI_GPI_PLAN_THEO2COURSE    with 
 {
-
- // --------------------------------------------------------------------------------------------
-    @UI.facet:  [   
-        {   
-            id      : 'Facet_Main',
-            label   : 'Détails',
-            type    : #COLLECTION,
-            position: 10
-        },
-        {   
-            label           : 'Données de base',
-            type            : #FIELDGROUP_REFERENCE,
-            parentId        : 'Facet_Main',
-            targetQualifier : 'TQ_DataBasic'
-        }
-     ]
-
     // --------------------------------------------------------------------------------------------
+    @UI.facet:  [   
+        { type : #COLLECTION           , id       : 'Facet_Main' , position: 10 , label: 'Type de cours (détails)'  },
+        { type : #FIELDGROUP_REFERENCE , parentId : 'Facet_Main' , targetQualifier : 'TQ_DataBasic'                 }
+     ]
+    // --------------------------------------------------------------------------------------------
+    
+    /*
     @UI: { lineItem : [{ position: 10 } ]} 
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 10 } ] }    Uuid;
     
     @UI: { lineItem : [{ position: 20 } ]}   
-    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }    UuidCourse;
-    
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 20 } ] }    UuidCourse;    
 
     @UI: { lineItem : [{ position: 30 } ]}    
-    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }    UuidPlanningTheo;    
-
-          
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 30 } ] }    UuidPlanningTheo;
+    */    
     
-    @UI: { lineItem : [{ position: 40 } ]} 
+    @UI: { lineItem : [{ position: 40 , label: 'Intitulé'} ]} 
     @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 40 } ] }   CourseTxt;
     
-
+    @UI: { lineItem : [{ position: 50 , label: 'Max. Participant(s)'} ]} 
+    @UI:{fieldGroup:[{ qualifier: 'TQ_DataBasic',position: 50 } ] }   CourseMaxTrainee;    
 }
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------

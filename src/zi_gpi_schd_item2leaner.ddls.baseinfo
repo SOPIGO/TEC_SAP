@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZI_GPI_ACTOR",
 "ZDB_SCHDITM2LRNR"
 ],
 "ASSOCIATED":

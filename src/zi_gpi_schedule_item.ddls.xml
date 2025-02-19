@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZI_GPI_SCHEDULE_ITEM</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Calendar</DDTEXT>
+    <DDTEXT>Scheduling Item</DDTEXT>
     <SOURCE_TYPE>W</SOURCE_TYPE>
    </DDLS>
   </asx:values>

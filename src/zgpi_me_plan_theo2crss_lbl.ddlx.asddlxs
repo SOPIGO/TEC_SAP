@@ -6,6 +6,8 @@ annotate entity ZI_GPI_PLAN_THEO2COURSE    with
     // --------------------------------------------------------------------------------------------
     @EndUserText.label: 'ID'                    Uuid;         
     @EndUserText.label: 'ID-Course'             UuidCourse;
-    @EndUserText.label: 'ID-Planning'           UuidPlanningTheo;   
+    @EndUserText.label: 'ID-Planning'           UuidPlanningTheo;
+    @EndUserText.label: 'Max. Participant(s)'   CourseMaxTrainee;
+    @EndUserText.label: 'Intitutlé'             CourseTxt;          
     // -------------------------------------------------------------------------------------------- 
 }

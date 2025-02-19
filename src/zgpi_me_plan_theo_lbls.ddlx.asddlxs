@@ -1,4 +1,4 @@
-@Metadata.layer: #CORE
+@Metadata.layer: #CUSTOMER
 // ------------------------------------------------------------------------------------------------
 annotate entity ZI_GPI_PLAN_THEO    with 
 {
@@ -6,3 +6,5 @@ annotate entity ZI_GPI_PLAN_THEO    with
     @EndUserText.label: 'Date de commencement'      Datestart;
     @EndUserText.label: 'Nombre de participants'    AttendeeAmount;
 }
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------

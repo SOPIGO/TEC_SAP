@@ -27,6 +27,9 @@ define view entity ZI_GPI_PLAN_THEO2COURSE
       uuid_course        as UuidCourse,
 
       _Course.Text       as CourseTxt,
+      _Course.MaxTrainee as CourseMaxTrainee,
+
+      //    Association(s)
       _Course,
       _PlanningTheo
 }

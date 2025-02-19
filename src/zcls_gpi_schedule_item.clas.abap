@@ -17,7 +17,7 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM DEFINITION
     DATA Ptr2_coursetype     TYPE REF TO ZCLS_GPI_COURSE_TYPE.
     DATA Ptr2_planning       TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL.
 *    data Tbl_o_Learners         TYPE ZCLS_GPI_LEARNER=>TT_O_LEARNERS.
-    data Tbl_o_Learners         TYPE ZCLS_GPI_ACTOR=>TT_O_ACTORS.
+    DATA Tbl_o_Learners         TYPE ZCLS_GPI_ACTOR=>TT_O_ACTORS.
 * -------------------------------------------------------------------------------------------------
 
 
@@ -36,15 +36,15 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM DEFINITION
     METHODS  : CONSTRUCTOR   IMPORTING
                                IM_Date        TYPE D            OPTIONAL
                                IM_COURSE_UUID TYPE SYSUUID_X16  OPTIONAL
-                               IM_o_planning  TYPE ref to ZCLS_GPI_PLANNING_THEORICAL  OPTIONAL.
+                               IM_o_planning  TYPE REF TO ZCLS_GPI_PLANNING_THEORICAL  OPTIONAL.
 
     METHODS  :   Schedule_Add_Item
       IMPORTING
         IM_COURSE_UUID TYPE SYSUUID_X16
         IM_COUSE_DATE  TYPE D,
 
-      learners_add,
-      learners_db_save,
+      LEARNERS_ADD,
+      LEARNERS_DB_SAVE,
       Add_Learner
         IMPORTING
           IM_S_Learner_UUID TYPE SYSUUID_X16.
@@ -63,7 +63,7 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 
 
   METHOD Add_Learner.
-    learners_add(  ).
+    LEARNERS_ADD(  ).
 * -------------------------------------------------------------------------------------------------
     DATA LS_PLAN2LEARNER TYPE ZDB_PLAN_TH2ACS.
     LS_PLAN2LEARNER-UUID               = Ptr2_system_uuid->CREATE_UUID_X16( ).
@@ -128,12 +128,12 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
   METHOD CONSTRUCTOR.
 * -------------------------------------------------------------------------------------------------
     Me->Ptr2_system_uuid    = CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
-    me->PTR2_PLANNING       = IM_O_PLANNING.
+    ME->PTR2_PLANNING       = IM_O_PLANNING.
     ME->ST_DATA-UUID        = ME->Ptr2_system_uuid->CREATE_UUID_X16( ) .
     ME->ST_DATA-COURSE_UUID = IM_COURSE_UUID.
     ME->ST_DATA-COURSE_DATE = IM_DATE.
 
-    Me->PTR2_COURSETYPE     = ZCLS_GPI_COURSE_TYPE=>GET_INSTANCE_FROM_ID(  IM_COURSE_UUID ).
+    Me->PTR2_COURSETYPE     = ZCLS_GPI_COURSE_TYPE=>GET_INSTANCE_FROM_ID( IM_COURSE_UUID ).
     Me->PTR2_COURSETYPE->DB_READ( ).
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
@@ -162,53 +162,53 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
-  METHOD learners_add.
+  METHOD LEARNERS_ADD.
 * -------------------------------------------------------------------------------------------------
-        Data(lv_max_learners_allowed) = me->PTR2_COURSETYPE->ST_DATA-MAXTAINEE.
-        Data lv_max_learners_4planning type I.
-        data lv_continue type BOOLEAN .
-        Data lv_cnt_learners type I.
-        Data lv_idx_learners type I.
+    DATA(LV_MAX_LEARNERS_ALLOWED) = ME->PTR2_COURSETYPE->ST_DATA-MAX_TRAINEE.
+    DATA LV_MAX_LEARNERS_4PLANNING TYPE I.
+    DATA LV_CONTINUE TYPE BOOLEAN .
+    DATA LV_CNT_LEARNERS TYPE I.
+    DATA LV_IDX_LEARNERS TYPE I.
 
-        lv_continue = 'X'.
-        lv_cnt_learners = 0.
-        lv_idx_learners = 1.
-        lv_max_learners_4planning = lines( me->PTR2_PLANNING->TBL_O_LEARNERS ).
+    LV_CONTINUE = 'X'.
+    LV_CNT_LEARNERS = 0.
+    LV_IDX_LEARNERS = 1.
+    LV_MAX_LEARNERS_4PLANNING = LINES( ME->PTR2_PLANNING->TBL_O_LEARNERS ).
 
-        WHILE ( LV_CONTINUE =  'X').
+    WHILE ( LV_CONTINUE =  'X').
 
-            data(lo_leaner) = PTR2_PLANNING->TBL_O_LEARNERS[ lv_idx_learners ].
-            APPEND LO_LEANER to me->Tbl_o_Learners.
+      DATA(LO_LEANER) = PTR2_PLANNING->TBL_O_LEARNERS[ LV_IDX_LEARNERS ].
+      APPEND LO_LEANER TO ME->Tbl_o_Learners.
 
 
 *           Stop conditions =>
-            if lv_idx_learners >= lv_max_learners_4planning.
-              LV_CONTINUE = ''.
-            endif.
-            if LV_CNT_LEARNERS >= LV_MAX_LEARNERS_ALLOWED.
-            LV_CONTINUE = ''.
-            endif.
+      IF LV_IDX_LEARNERS >= LV_MAX_LEARNERS_4PLANNING.
+        LV_CONTINUE = ''.
+      ENDIF.
+      IF LV_CNT_LEARNERS >= LV_MAX_LEARNERS_ALLOWED.
+        LV_CONTINUE = ''.
+      ENDIF.
 
-            lv_idx_learners = lv_idx_learners + 1.
-            LV_CNT_LEARNERS = LV_CNT_LEARNERS + 1.
+      LV_IDX_LEARNERS = LV_IDX_LEARNERS + 1.
+      LV_CNT_LEARNERS = LV_CNT_LEARNERS + 1.
 
-        ENDWHILE.
+    ENDWHILE.
 
 
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
 
 
-  METHOD learners_db_save.
+  METHOD LEARNERS_DB_SAVE.
 * -------------------------------------------------------------------------------------------------
-    DELETE  FROM ZDB_SCHDITM2LRNR WHERE  UUID_SCHEDULE_ITEM = @me->ST_DATA-UUID.
+    DELETE  FROM ZDB_SCHDITM2LRNR WHERE  UUID_SCHEDULE_ITEM = @ME->ST_DATA-UUID.
 
-    data ls_db_row type  ZDB_SCHDITM2LRNR.
-    LOOP AT TBL_O_LEARNERS into data(lo_leaner).
-        LS_DB_ROW-UUID =  ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-        LS_DB_ROW-UUID_LEARNER = LO_LEANER->ST_DATA-UUID.
-        LS_DB_ROW-UUID_SCHEDULE_ITEM = me->ST_DATA-UUID.
-        INSERT  ZDB_SCHDITM2LRNR FROM @LS_DB_ROW.
+    DATA LS_DB_ROW TYPE  ZDB_SCHDITM2LRNR.
+    LOOP AT TBL_O_LEARNERS INTO DATA(LO_LEANER).
+      LS_DB_ROW-UUID =  ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+      LS_DB_ROW-UUID_LEARNER = LO_LEANER->ST_DATA-UUID.
+      LS_DB_ROW-UUID_SCHEDULE_ITEM = ME->ST_DATA-UUID.
+      INSERT  ZDB_SCHDITM2LRNR FROM @LS_DB_ROW.
     ENDLOOP.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.

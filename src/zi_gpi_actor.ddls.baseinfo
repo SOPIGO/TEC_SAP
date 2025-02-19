@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZI_GPI_ORG_UNIT",
 "ZDB_ACTOR"
 ],
 "ASSOCIATED":

@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZI_GPI_OU2ACTOR</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Planning Theorical To Courses</DDTEXT>
+    <DDTEXT>Org. Unit -&gt; Actors</DDTEXT>
     <SOURCE_TYPE>W</SOURCE_TYPE>
    </DDLS>
   </asx:values>
