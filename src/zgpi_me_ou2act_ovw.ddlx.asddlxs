@@ -5,10 +5,10 @@
 @Metadata.layer: #CUSTOMER
 // ------------------------------------------------------------------------------------------------
 @UI.headerInfo.description.label            : 'Acteur'
-@UI.headerInfo.description.value            : 'NameLast'
+//@UI.headerInfo.description.value            : 'NameLast'
 @UI.headerInfo.typeName                     : 'Acteur'
 @UI.headerInfo.typeNamePlural               : 'Acteurs'
-@UI.headerInfo.title.value                  : 'NameLast'
+//@UI.headerInfo.title.value                  : 'NameLast'
 // ------------------------------------------------------------------------------------------------
 
 //@UI.presentationVariant                     : [{
@@ -45,12 +45,13 @@ annotate entity ZI_GPI_OU2ACTOR with
   @Consumption.valueHelpDefinition: [{         entity: { name: 'ZI_GPI_ORG_UNIT', element: 'Uuid' }      }]
   UuidOrgUnit;
   @EndUserText.label: 'Unité structurelle'
-  OrgUnitTxt;
+  orgunittxt;
   @EndUserText.label: 'Nom'  
-  NameLast;
+  namelast;
   @EndUserText.label: 'Prénom'
-  NameFirst;
+  namefirst;
   // ----------------------------------------------------------------------------------------------
+  /*
   @UI.fieldGroup: [
     { type:#STANDARD , position: 10 , qualifier: 'TQ_DataBasic', value: 'OrgUnitTxt'    },
     { type:#STANDARD , position: 20 , qualifier: 'TQ_DataBasic', value: 'NameLast'      },
@@ -65,7 +66,9 @@ annotate entity ZI_GPI_OU2ACTOR with
                                                                 invocationGrouping : #CHANGE_SET ,
                                                                 label              : 'Ajouter planification' }
   ]
+  */
   // ----------------------------------------------------------------------------------------------
+  @EndUserText.label: 'uuid'
   Uuid;
   // ----------------------------------------------------------------------------------------------
 }

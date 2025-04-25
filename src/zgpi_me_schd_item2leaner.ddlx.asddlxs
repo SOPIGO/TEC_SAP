@@ -23,7 +23,7 @@ annotate entity ZI_GPI_SCHD_ITEM2LEANER with
   // --------------------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------------------
   @UI.lineItem: [
-    { type:#STANDARD    , position: 10 , value: 'LearnerOrgUnit', label: 'Unité structurelle'   },
+//  { type:#STANDARD    , position: 10 , value: 'LearnerOrgUnit', label: 'Unité structurelle'   },
     { type:#STANDARD    , position: 20 , value: 'LearnerNameL'  , label: 'Nom'                  },
     { type:#STANDARD    , position: 30 , value: 'LearnerNameF'  , label: 'Prénom'               }
     /*
