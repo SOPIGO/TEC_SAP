@@ -7,10 +7,11 @@
     sizeCategory: #S,
     dataClass: #MIXED
 }
+@Metadata.allowExtensions: true
 // ------------------------------------------------------------------------------------------------
 define view entity ZI_GPI_ER_ATTRIBUTE 
 // ------------------------------------------------------------------------------------------------
-as select from zdb_gpi_er_fld
+as select from zdb_gpi_er_att
     // -------------------------------------------------------------------------------------------- 
     // Link to parent -> used for composition !! ==>
     association        to parent ZI_GPI_ER_ENTITY as _Entity on $projection.UuidEntity = _Entity.Uuid

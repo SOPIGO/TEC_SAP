@@ -9,12 +9,14 @@
 }
 @Metadata.allowExtensions: true
 // ------------------------------------------------------------------------------------------------
+//  Root Entity !! (->Define Root)
+// ------------------------------------------------------------------------------------------------
 define root view entity ZI_GPI_PLAN_THEO
   // ----------------------------------------------------------------------------------------------
   as select from zdb_plan_theo
   composition [0..*] of ZI_GPI_PLAN_THEO2COURSE as _Courses
   composition [0..*] of ZI_GPI_PLAN_THEO2ACTOR  as _Learners
-  composition [0..*] of ZI_GPI_Schedule_item    as _ScheduleItem
+  composition [0..*] of ZI_GPI_SCHEDULE_ITEM    as _ScheduleItem
   // ----------------------------------------------------------------------------------------------
 {
   key uuid            as Uuid,

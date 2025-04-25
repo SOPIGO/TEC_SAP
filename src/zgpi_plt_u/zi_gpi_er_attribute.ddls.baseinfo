@@ -3,7 +3,7 @@
 {
 "FROM":
 [
-"ZDB_GPI_ER_FLD"
+"ZDB_GPI_ER_ATT"
 ],
 "ASSOCIATED":
 [
