@@ -14,6 +14,7 @@
 define root view entity ZI_GPI_ER_SCENARIO as select from zdb_gpi_er_scnr
 // ------------------------------------------------------------------------------------------------
  composition [0..*] of ZI_GPI_ER_ENTITY as _RootEntity
+ composition [0..1] of ZI_GPI_ER_FILE   as _File4CSDL
 // ------------------------------------------------------------------------------------------------ 
 {
     key uuid as Uuid,
@@ -25,7 +26,9 @@ define root view entity ZI_GPI_ER_SCENARIO as select from zdb_gpi_er_scnr
     last_changed_by as LastChangedBy,
     last_changed_at as LastChangedAt,
     
-    _RootEntity
+   
+    _RootEntity,
+    _File4CSDL
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

@@ -1,0 +1,49 @@
+// ------------------------------------------------------------------------------------------------
+
+//  AUTHOR      : PIERRE GODART
+
+//  DESCRIPTION : UI - FOR ENTITIES
+
+// ------------------------------------------------------------------------------------------------
+@Metadata.layer                             : #CUSTOMER
+@UI.headerInfo.description.label            : 'ER-Entity'
+//@UI.headerInfo.description.value            : ''
+@UI.headerInfo.typeName                     : 'ER-Entity-Relation'
+@UI.headerInfo.typeNamePlural               : 'ER-Entity-Relations'
+// ------------------------------------------------------------------------------------------------
+annotate view ZI_GPI_ER_RELATION with
+{
+  //-----------------------------------------------------------------------------------------
+  //  FACETS
+  //-----------------------------------------------------------------------------------------
+  @UI.facet: [{
+               label          : 'General Information',
+               purpose        : #STANDARD,
+               type           : #IDENTIFICATION_REFERENCE,
+               position       : 10
+  }]
+  //-----------------------------------------------------------------------------------------
+  @UI.lineItem        : [
+      { type : #FOR_ACTION    , dataAction    : 'BOPF:HIDE_SHOW_RELATION'   , label : 'Hide-Show'                    },
+      { type : #STANDARD      , value         : 'RelationCardinality'      , label : 'Cardinality'  ,position: 10   },
+      { type : #STANDARD      , value         : 'RelationName'             , label : 'Name'         ,position: 15   },
+      { type : #STANDARD      , value         : 'UuidScnEnttySrc'             , label : 'Relation-Src' ,position: 20   },
+      { type : #STANDARD      , value         : 'UuidScnEnttyDst'             , label : 'Relation-Dst' ,position: 30   },
+      { type : #STANDARD      , value         : 'RelationVisible'          , label : 'Visible'      ,position: 40   }
+  ]
+  //-----------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------
+  @EndUserText.label              : 'Identifier'
+ Uuid;
+
+  @UI.identification              : [{ label: 'Relation-Cardinality'  , position: 10 }]
+  RelationCardinality;
+
+  @UI.identification              : [{ label: 'Relation-Src'          , position: 20 }]
+  UuidScnEnttySrc;
+
+  @UI.identification              : [{ label: 'Relation-Dst'          , position: 30 }]
+  UuidScnEnttyDst;
+}
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------

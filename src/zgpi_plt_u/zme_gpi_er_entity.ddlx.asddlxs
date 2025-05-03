@@ -1,0 +1,87 @@
+// ------------------------------------------------------------------------------------------------
+//  AUTHOR      : PIERRE GODART
+//  DESCRIPTION : UI - FOR ENTITIES
+// ------------------------------------------------------------------------------------------------
+@Metadata.layer                             : #CUSTOMER
+@UI.headerInfo.description.label            : 'ER-Entity'
+@UI.headerInfo.description.value            : 'EntityName'
+@UI.headerInfo.typeName                     : 'ER-Entity'
+@UI.headerInfo.typeNamePlural               : 'ER-Enities'
+// ------------------------------------------------------------------------------------------------
+annotate view ZI_GPI_ER_ENTITY with
+{
+    //-----------------------------------------------------------------------------------------
+    //  FACETS
+    //-----------------------------------------------------------------------------------------             
+    @UI.facet: [
+            { purpose : #STANDARD, type : #COLLECTION               , position : 10 , label    : 'General Information'  , id            : 'GeneralInfo'     },
+            { purpose : #STANDARD, type : #IDENTIFICATION_REFERENCE , position : 10 , parentId : 'GeneralInfo'                                              },        
+            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 50 , label    : 'Attributes'           , targetElement : '_Attributes'     },
+            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 60 , label    : 'Relations'            , targetElement : '_Relations'       }                                     
+    ]            
+    // ----------------------------------------------------------------------------------------
+    @UI.identification  : [
+        { type : #FOR_ACTION , dataAction : 'BOPF:HIDE'     , label : 'Hide'       },
+        { type : #FOR_ACTION , dataAction : 'BOPF:SHW_HDE'  , label : 'Hide-Show'  }
+    ]          
+    //-----------------------------------------------------------------------------------------
+    @UI.lineItem        : [           
+        { type : #FOR_ACTION    , dataAction    : 'BOPF:HIDE'      , label : 'Hide'                },
+        { type : #FOR_ACTION    , dataAction    : 'BOPF:SHW_HDE'   , label : 'Hide-Show'           },
+        { type : #STANDARD      , value         : 'ScenarioCode'   , label : 'Scenario'            },
+        { type : #STANDARD      , value         : 'EntityName'     , label : 'Entity-Name'         }, 
+        { type : #STANDARD      , value         : 'EntityVisible'  , label : 'Entity-Visibility'   },
+        { type : #STANDARD      , value         : 'EntityIndex'    , label : 'Entity-Index'        }
+    ]
+    //-----------------------------------------------------------------------------------------
+    /*
+    @UI.selectionField              : [
+        { element: 'scenario_code'      , position: 10 },
+        { element: 'entity_name'        , position: 20 },
+        { element: 'entity_visible'     , position: 30 }
+    ] 
+    */                                     
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+    @EndUserText.label              : 'Identifier'
+    Uuid;
+    
+
+//    @EndUserText.label              : 'Scenario'            
+//    @UI.identification              : [ { position: 10 } ]
+//    @UI.selectionField              : [ { position: 10 } ]
+//    /*
+//    @Consumption.valueHelpDefinition: [{
+//                                            entity            : { 
+//                                            name              : 'ZB_GPI_ER_ENTITIES', 
+//                                            element           : 'scenario_code'  }
+//                                      }]
+//    */
+//    @Consumption.valueHelpDefinition: [{
+//                                            entity            : { 
+//                                            name              : 'ZVHLP_GPI_ER_SCENARIO', 
+//                                            element           : 'scenario_code'  }
+//                                      }]
+//    ScenarioCode;
+
+
+    @EndUserText.label              : 'Entity-Name'            
+    @UI.identification              : [ { position: 20 } ]
+    @UI.selectionField              : [ { position: 20 } ]
+    EntityName;
+
+
+    @EndUserText.label              : 'Entity-Visible' 
+    @UI.identification              : [ { position: 30 } ]
+    @UI.selectionField              : [ { position: 30 } ]
+    EntityVisible;
+    
+
+    /*    
+    @UI.identification              : [{ position: 30 }]    crea_date_time  ; 
+    @UI.identification              : [{ position: 40 }]    crea_uname      ;
+    */
+    @UI.identification              : [{ position: 50 }]    lchg_date_time  ;
+    @UI.identification              : [{ position: 60 }]    lchg_uname      ;
+}
+// ------------------------------------------------------------------------------------------------

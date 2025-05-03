@@ -3,7 +3,8 @@
 {
 "FROM":
 [
-"ZDB_GPI_ER_SCNR"
+"ZI_GPI_ER_FILE",
+"ZI_GPI_ER_SCENARIO"
 ],
 "ASSOCIATED":
 [
@@ -11,7 +12,9 @@
 "ZI_GPI_ER_FILE"
 ],
 "BASE":
-[],
+[
+"ZI_GPI_ER_SCENARIO"
+],
 "ANNO_REF":
 [],
 "SCALAR_FUNCTION":
