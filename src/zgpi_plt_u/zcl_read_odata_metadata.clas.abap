@@ -28,7 +28,11 @@ CLASS zcl_read_odata_metadata DEFINITION PUBLIC FINAL CREATE PUBLIC.
         et_associations  TYPE ty_association_table.
 ENDCLASS.
 
-CLASS zcl_read_odata_metadata IMPLEMENTATION.
+
+
+CLASS ZCL_READ_ODATA_METADATA IMPLEMENTATION.
+
+
   METHOD get_entity_associations.
 *    DATA: lo_http_client TYPE REF TO if_web_http_client.
 *    DATA: lv_metadata_url TYPE string.
@@ -55,6 +59,7 @@ CLASS zcl_read_odata_metadata IMPLEMENTATION.
 *      RAISE lx_http_error.
 *    ENDTRY.
   ENDMETHOD.
+
 
   METHOD parse_metadata.
 *    DATA: lo_xml_parser   TYPE REF TO cl_xml_document.
@@ -91,4 +96,3 @@ CLASS zcl_read_odata_metadata IMPLEMENTATION.
 *    ENDLOOP.
   ENDMETHOD.
 ENDCLASS.
-

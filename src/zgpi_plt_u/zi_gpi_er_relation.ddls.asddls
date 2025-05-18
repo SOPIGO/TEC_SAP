@@ -14,7 +14,8 @@ define view entity ZI_GPI_ER_RELATION
 as select from zdb_gpi_er_relat
     // -------------------------------------------------------------------------------------------- 
     // Link to parent -> used for composition !! ==>
-    association        to parent ZI_GPI_ER_ENTITY as _Entity on $projection.UuidScnEnttySrc = _Entity.Uuid
+    association        to parent    ZI_GPI_ER_ENTITY    as _Entity      on $projection.UuidScnEnttySrc  = _Entity.Uuid
+    association        to           ZI_GPI_ER_SCENARIO  as _Scenario    on $projection.UuidScenario     = _Scenario.Uuid
 // ------------------------------------------------------------------------------------------------    
 {
     key uuid as Uuid,
@@ -28,7 +29,9 @@ as select from zdb_gpi_er_relat
     created_at as CreatedAt,
     last_changed_by as LastChangedBy,
     last_changed_at as LastChangedAt,
+    _Scenario,
     _Entity
+    
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

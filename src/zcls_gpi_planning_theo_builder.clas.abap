@@ -45,6 +45,28 @@ ENDCLASS.
 CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
 
 
+  METHOD BUILD_DATA.
+*   -----------------------------------------------------------------------------------------------
+    ZCLS_GPI_PLANNING_THEO_BUILDER=>RESET_TABLES( ).
+
+    ME->CREATE_ACTORS( ).
+    ME->CREATE_ORG_UNITS( ).
+    ME->CREATE_COURSES( ).
+
+    ME->CREATE_ACTOR_2_ORG_UNIT( ).
+
+    ME->CREATE_PLANNING(  ).
+    ME->CREATE_COURSES_2_PLANNINGTHEO( ).
+    ME->CREATE_ACTOR_2_PlanningTheo(  ).
+*   -----------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+  METHOD CONSTRUCTOR.
+    ME->PTR2_SYSTEM_UUID =  CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
+  ENDMETHOD.
+
+
   METHOD CREATE_ACTORS.
 *   -----------------------------------------------------------------------------------------------
 *   Actors
@@ -134,6 +156,67 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
   ENDMETHOD.
 
 
+  METHOD CREATE_COURSES.
+*   -----------------------------------------------------------------------------------------------
+*   COURSES
+*   -----------------------------------------------------------------------------------------------
+    DATA LV_Courses_Amount      TYPE I.
+    DATA LV_Courses_Index       TYPE I.
+    DATA LS_ROW_COURSE          TYPE ZDB_COURSE.
+
+        LV_Courses_AMOUNT = 5.
+    DO  LV_Courses_AMOUNT TIMES.
+        LS_ROW_COURSE-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+        LS_ROW_COURSE-TEXT = |Conduite en ville - 0{ LV_Courses_Index } (bus)|.
+        LS_ROW_COURSE-MAX_TRAINEE = 5.
+        INSERT  ZDB_COURSE FROM @LS_ROW_COURSE.
+        LV_Courses_Index = LV_Courses_Index + 1.
+    ENDDO.
+*   -----------------------------------------------------------------------------------------------
+  ENDMETHOD.
+
+
+  METHOD CREATE_COURSES_2_PLANNINGTHEO.
+*   -----------------------------------------------------------------------------------------------
+*    Add XXX course(s) to all planning theorical
+*   -----------------------------------------------------------------------------------------------
+    DATA LS_DB_ROW_PLAN2Course      TYPE ZDB_PLAN_TH2CRS.
+    DATA LV_Courses_AMOUNT         TYPE I.
+
+    LV_Courses_AMOUNT   =  IM_Amount_courses.
+    if LV_COURSES_AMOUNT is INITIAL.
+        LV_Courses_AMOUNT   =  3.
+    endif.
+
+    SELECT *
+    FROM   ZDB_COURSE
+    INTO   TABLE @DATA(LT_DB_ROW_Course).
+
+    SELECT *
+    FROM   ZDB_PLAN_THEO
+    INTO   TABLE @DATA(LT_DB_ROW_PLANNING).
+
+    DATA LV_INDEX TYPE I.
+    DATA LV_INDEX_MAX TYPE I.
+
+    LV_INDEX = 1.
+    LV_INDEX_MAX = LINES( LT_DB_ROW_Course ).
+
+    LOOP AT LT_DB_ROW_PLANNING INTO DATA(LS_DB_ROW_PLANNING).
+      DO LV_Courses_AMOUNT TIMES.
+        LS_DB_ROW_PLAN2Course-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+        LS_DB_ROW_PLAN2Course-UUID_PLANNING_THEO = LS_DB_ROW_PLANNING-UUID.
+        LS_DB_ROW_PLAN2Course-UUID_COURSE = LT_DB_ROW_Course[ LV_INDEX ]-UUID.
+        INSERT  ZDB_PLAN_TH2CRS FROM @LS_DB_ROW_PLAN2Course.
+        LV_INDEX = LV_INDEX + 1.
+        IF LV_INDEX > LV_INDEX_MAX.
+          LV_INDEX = 1.
+        ENDIF.
+      ENDDO.
+    ENDLOOP.
+  ENDMETHOD.
+
+
   METHOD CREATE_ORG_UNITS.
 *   -----------------------------------------------------------------------------------------------
 *   Org. Units
@@ -145,6 +228,21 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
       LS_DB_ROW-TEXT       = LV_OU.
       INSERT  ZDB_ORG_UNIT FROM @LS_DB_ROW.
     ENDLOOP.
+  ENDMETHOD.
+
+
+  METHOD CREATE_PLANNING.
+*   -----------------------------------------------------------------------------------------------
+*   PLANNING THEORICAL
+*   -----------------------------------------------------------------------------------------------
+    DATA LS_ROW_PLAN_THEO        TYPE ZDB_PLAN_THEO.
+    LS_ROW_PLAN_THEO-UUID            = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
+    LS_ROW_PLAN_THEO-DESCRIPTION     = 'Planning recyclage'.
+    LS_ROW_PLAN_THEO-ATTENDEE_AMOUNT = '10'.
+    LS_ROW_PLAN_THEO-DATESTART       = '20250115'.
+    INSERT  ZDB_PLAN_THEO FROM @LS_ROW_PLAN_THEO.
+    APPEND LS_ROW_PLAN_THEO TO ME->TBL_PLANNINGS.
+*   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
 
 
@@ -223,7 +321,6 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
   ENDMETHOD.
 
 
-
   METHOD RESET_TABLES.
 *   -----------------------------------------------------------------------------------------------
 *   RESET
@@ -239,115 +336,4 @@ CLASS ZCLS_GPI_PLANNING_THEO_BUILDER IMPLEMENTATION.
     DELETE  FROM ZDB_OU2ACTOR.
 *   -----------------------------------------------------------------------------------------------
   ENDMETHOD.
-
-
-
-
-  METHOD CREATE_COURSES.
-*   -----------------------------------------------------------------------------------------------
-*   COURSES
-*   -----------------------------------------------------------------------------------------------
-    DATA LV_Courses_Amount      TYPE I.
-    DATA LV_Courses_Index       TYPE I.
-    DATA LS_ROW_COURSE          TYPE ZDB_COURSE.
-
-        LV_Courses_AMOUNT = 5.
-    DO  LV_Courses_AMOUNT TIMES.
-        LS_ROW_COURSE-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-        LS_ROW_COURSE-TEXT = |Conduite en ville - 0{ LV_Courses_Index } (bus)|.
-        LS_ROW_COURSE-MAX_TRAINEE = 5.
-        INSERT  ZDB_COURSE FROM @LS_ROW_COURSE.
-        LV_Courses_Index = LV_Courses_Index + 1.
-    ENDDO.
-*   -----------------------------------------------------------------------------------------------
-  ENDMETHOD.
-
-
-  METHOD CREATE_COURSES_2_PLANNINGTHEO.
-*   -----------------------------------------------------------------------------------------------
-*    Add XXX course(s) to all planning theorical
-*   -----------------------------------------------------------------------------------------------
-    DATA LS_DB_ROW_PLAN2Course      TYPE ZDB_PLAN_TH2CRS.
-    DATA LV_Courses_AMOUNT         TYPE I.
-
-    LV_Courses_AMOUNT   =  IM_Amount_courses.
-    if LV_COURSES_AMOUNT is INITIAL.
-        LV_Courses_AMOUNT   =  3.
-    endif.
-
-    SELECT *
-    FROM   ZDB_COURSE
-    INTO   TABLE @DATA(LT_DB_ROW_Course).
-
-    SELECT *
-    FROM   ZDB_PLAN_THEO
-    INTO   TABLE @DATA(LT_DB_ROW_PLANNING).
-
-    DATA LV_INDEX TYPE I.
-    DATA LV_INDEX_MAX TYPE I.
-
-    LV_INDEX = 1.
-    LV_INDEX_MAX = LINES( LT_DB_ROW_Course ).
-
-    LOOP AT LT_DB_ROW_PLANNING INTO DATA(LS_DB_ROW_PLANNING).
-      DO LV_Courses_AMOUNT TIMES.
-        LS_DB_ROW_PLAN2Course-UUID = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-        LS_DB_ROW_PLAN2Course-UUID_PLANNING_THEO = LS_DB_ROW_PLANNING-UUID.
-        LS_DB_ROW_PLAN2Course-UUID_COURSE = LT_DB_ROW_Course[ LV_INDEX ]-UUID.
-        INSERT  ZDB_PLAN_TH2CRS FROM @LS_DB_ROW_PLAN2Course.
-        LV_INDEX = LV_INDEX + 1.
-        IF LV_INDEX > LV_INDEX_MAX.
-          LV_INDEX = 1.
-        ENDIF.
-      ENDDO.
-    ENDLOOP.
-  ENDMETHOD.
-
-
-
-
-  METHOD CONSTRUCTOR.
-    ME->PTR2_SYSTEM_UUID =  CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
-  ENDMETHOD.
-
-
-
-
-
-  METHOD CREATE_PLANNING.
-*   -----------------------------------------------------------------------------------------------
-*   PLANNING THEORICAL
-*   -----------------------------------------------------------------------------------------------
-    DATA LS_ROW_PLAN_THEO        TYPE ZDB_PLAN_THEO.
-    LS_ROW_PLAN_THEO-UUID            = ME->PTR2_SYSTEM_UUID->CREATE_UUID_X16( ).
-    LS_ROW_PLAN_THEO-DESCRIPTION     = 'Planning recyclage'.
-    LS_ROW_PLAN_THEO-ATTENDEE_AMOUNT = '10'.
-    LS_ROW_PLAN_THEO-DATESTART       = '20250115'.
-    INSERT  ZDB_PLAN_THEO FROM @LS_ROW_PLAN_THEO.
-    APPEND LS_ROW_PLAN_THEO TO ME->TBL_PLANNINGS.
-*   -----------------------------------------------------------------------------------------------
-  ENDMETHOD.
-
-
-
-
-
-  METHOD BUILD_DATA.
-*   -----------------------------------------------------------------------------------------------
-    ZCLS_GPI_PLANNING_THEO_BUILDER=>RESET_TABLES( ).
-
-    ME->CREATE_ACTORS( ).
-    ME->CREATE_ORG_UNITS( ).
-    ME->CREATE_COURSES( ).
-
-    ME->CREATE_ACTOR_2_ORG_UNIT( ).
-
-    ME->CREATE_PLANNING(  ).
-    ME->CREATE_COURSES_2_PLANNINGTHEO( ).
-    ME->CREATE_ACTOR_2_PlanningTheo(  ).
-*   -----------------------------------------------------------------------------------------------
-  ENDMETHOD.
-
-
-
 ENDCLASS.

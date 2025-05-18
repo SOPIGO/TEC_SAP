@@ -13,14 +13,14 @@ define view entity ZI_GPI_ER_ENTITY
 // ------------------------------------------------------------------------------------------------
     as select from zdb_gpi_er_entty
     // -------------------------------------------------------------------------------------------- 
-    // Link to parent   -> used for composition !! ==>
+    // Link to parent / root   -> used for composition !! ==>
     association         to parent ZI_GPI_ER_SCENARIO as _Scenario on $projection.UuidScenario = _Scenario.Uuid
     // Link to children -> used for composition !! ==>
     composition [0..*]  of ZI_GPI_ER_ATTRIBUTE as _Attributes
-    composition [0..*]  of ZI_GPI_ER_RELATION  as _Relations
+    composition [0..*]  of ZI_GPI_ER_RELATION  as _Relations    
 // ------------------------------------------------------------------------------------------------
 {
-    key uuid as Uuid,
+    key uuid as Uuid,   
     uuid_scenario as UuidScenario,
     scenario_code as ScenarioCode,
     entity_name as EntityName,

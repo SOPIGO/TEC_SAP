@@ -90,41 +90,6 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD Schedule_Add_Item.
-* -------------------------------------------------------------------------------------------------
-**       direct DB update ==>
-*        data system_uuid TYPE REF TO if_system_uuid.
-*        data ls_calendar_item type ZDB_CALENDAR.
-*        system_uuid = cl_uuid_factory=>create_system_uuid( ).
-*        LS_CALENDAR_ITEM-UUID =  system_uuid->create_uuid_x16( ).
-*        LS_CALENDAR_ITEM-COURSEDATE = IM_COUSE_DATE.
-*        LS_CALENDAR_ITEM-COURSE_UUID = IM_COURSE_UUID.
-*        LS_CALENDAR_ITEM-PL_THEO_UUID = me->ST_DATA-UUID.
-*        INSERT ZDB_CALENDAR from  @LS_CALENDAR_ITEM.
-
-    MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
-    ENTITY ZI_GPI_PLAN_THEO
-      CREATE BY \_ScheduleItem
-      FIELDS ( CourseDate CourseUuid   ) WITH
-      VALUE #(
-      ( %KEY-Uuid = ME->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
-        %TARGET   = VALUE #( (
-                         CourseDate = IM_COUSE_DATE
-                         CourseUuid = IM_COURSE_UUID
-                         ) )
-      )
-    )
-     MAPPED DATA(MAPPED)
-            FAILED DATA(FAILED)
-            REPORTED DATA(REPORTED).
-* -------------------------------------------------------------------------------------------------
-  ENDMETHOD.
-
-
-
-
-
-
   METHOD CONSTRUCTOR.
 * -------------------------------------------------------------------------------------------------
     Me->Ptr2_system_uuid    = CL_UUID_FACTORY=>CREATE_SYSTEM_UUID( ).
@@ -137,12 +102,6 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
     Me->PTR2_COURSETYPE->DB_READ( ).
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
-
-
-
-
-
-
 
 
   METHOD GET_INSTANCE.
@@ -161,6 +120,7 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
 *    RETURN RET_RESULT.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
+
 
   METHOD LEARNERS_ADD.
 * -------------------------------------------------------------------------------------------------
@@ -214,5 +174,33 @@ CLASS ZCLS_GPI_SCHEDULE_ITEM IMPLEMENTATION.
   ENDMETHOD.
 
 
+  METHOD Schedule_Add_Item.
+* -------------------------------------------------------------------------------------------------
+**       direct DB update ==>
+*        data system_uuid TYPE REF TO if_system_uuid.
+*        data ls_calendar_item type ZDB_CALENDAR.
+*        system_uuid = cl_uuid_factory=>create_system_uuid( ).
+*        LS_CALENDAR_ITEM-UUID =  system_uuid->create_uuid_x16( ).
+*        LS_CALENDAR_ITEM-COURSEDATE = IM_COUSE_DATE.
+*        LS_CALENDAR_ITEM-COURSE_UUID = IM_COURSE_UUID.
+*        LS_CALENDAR_ITEM-PL_THEO_UUID = me->ST_DATA-UUID.
+*        INSERT ZDB_CALENDAR from  @LS_CALENDAR_ITEM.
 
+    MODIFY ENTITIES OF ZI_GPI_PLAN_THEO IN LOCAL MODE
+    ENTITY ZI_GPI_PLAN_THEO
+      CREATE BY \_ScheduleItem
+      FIELDS ( CourseDate CourseUuid   ) WITH
+      VALUE #(
+      ( %KEY-Uuid = ME->ST_DATA-UUID  " The %key-id specifies the existing root entity to which the children will be associated.
+        %TARGET   = VALUE #( (
+                         CourseDate = IM_COUSE_DATE
+                         CourseUuid = IM_COURSE_UUID
+                         ) )
+      )
+    )
+     MAPPED DATA(MAPPED)
+            FAILED DATA(FAILED)
+            REPORTED DATA(REPORTED).
+* -------------------------------------------------------------------------------------------------
+  ENDMETHOD.
 ENDCLASS.

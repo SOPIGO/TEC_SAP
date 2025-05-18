@@ -13,7 +13,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_gpi_main_run IMPLEMENTATION.
+CLASS ZCL_GPI_MAIN_RUN IMPLEMENTATION.
+
 
  METHOD if_oo_adt_classrun~main.
     out->write( 'Hello world!' ).
@@ -107,6 +108,4 @@ CLASS zcl_gpi_main_run IMPLEMENTATION.
 
 
   ENDMETHOD.
-
-
 ENDCLASS.

@@ -17,8 +17,17 @@ define view entity ZI_GPI_ER_FILE
 {
     key uuid as Uuid,
     uuid_scenario as UuidScenario,
+    
+    @Semantics.largeObject: {
+      mimeType                      : 'Mimetype',
+      fileName                      : 'Filename',
+      contentDispositionPreference  : #INLINE
+    }    
     attachment as Attachment,
-    mimetype as Mimetype,
+    
+    @Semantics.mimeType :   true
+    mimetype            as  Mimetype    ,
+    
     filename as Filename ,
     
     _Scenario

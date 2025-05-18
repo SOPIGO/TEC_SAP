@@ -8,15 +8,16 @@
 @UI.headerInfo.typeName                     : 'ER-Entity-Scenario'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Scenarios'
 // ------------------------------------------------------------------------------------------------
-annotate view ZI_GPI_ER_SCENARIO    with 
+annotate view ZC_GPI_ER_SCENARIO    with 
 { 
     //-----------------------------------------------------------------------------------------
     //  FACETS
     //-----------------------------------------------------------------------------------------             
     @UI.facet: [
-            { purpose : #STANDARD, type : #COLLECTION               , position : 10 , label    : 'General Information'  , id            : 'GeneralInfo'                 },
-            { purpose : #STANDARD, type : #IDENTIFICATION_REFERENCE , position : 10 , parentId : 'GeneralInfo'                                                          },        
-            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 50 , label    : 'Attributes'           , targetElement : '_RootEntity._Attributes'     }                                             
+            { purpose : #STANDARD, type : #COLLECTION               , position : 10 , label    : 'General Information'  , id              : 'GeneralInfo'                 },
+            { purpose : #STANDARD, type : #IDENTIFICATION_REFERENCE , position : 20 , parentId : 'GeneralInfo'                                                          },        
+            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 50 , label    : 'Attributes'           , targetElement   : '_RootEntity._Attributes'     }
+    //        {                      type : #IDENTIFICATION_REFERENCE , position : 60 , label    : 'Files'                , targetQualifier : 'FILE' ,  id         : 'idFiles' }                                                         
     ]    
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           

@@ -1,4 +1,6 @@
 CLASS zbp_plan_theo DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_gpi_plan_theo.
+protected section.
+private section.
 ENDCLASS.
 
 

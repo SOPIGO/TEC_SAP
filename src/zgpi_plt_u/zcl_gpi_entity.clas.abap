@@ -83,7 +83,6 @@ ENDCLASS.
 CLASS ZCL_GPI_ENTITY IMPLEMENTATION.
 
 
-
 method DB_READ.
 *--------------------------------------------------------------------------------------------------
 * Author : Pierre Godart
@@ -610,6 +609,4 @@ METHOD SERIALIZE_TO_DB_CORE.
 *  INSERT ZDB_GPI_ER_ENTTY FROM @LS_DB_ENTITY.
 
 ENDMETHOD.
-
-
 ENDCLASS.

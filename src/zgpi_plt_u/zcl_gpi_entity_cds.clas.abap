@@ -110,7 +110,6 @@ METHOD CONSTRUCTOR.
 ENDMETHOD.
 
 
-
 METHOD EXIST_ENTITY.
 *--------------------------------------------------------------------------------------------------
 * Author : Pierre Godart
@@ -405,8 +404,4 @@ method INIT_RELATIONS.
 **  ENDIF.
 *ENDMETHOD.
 endmethod.
-
-
-
-
 ENDCLASS.

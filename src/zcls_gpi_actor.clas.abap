@@ -28,6 +28,7 @@ ENDCLASS.
 
 CLASS ZCLS_GPI_ACTOR IMPLEMENTATION.
 
+
   METHOD DB_READ.
 * -------------------------------------------------------------------------------------------------
     SELECT SINGLE *
@@ -38,8 +39,6 @@ CLASS ZCLS_GPI_ACTOR IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
   METHOD GET_INSTANCE_FROM_ID.
 * -------------------------------------------------------------------------------------------------
     CREATE OBJECT RET_RESULT.
@@ -47,5 +46,4 @@ CLASS ZCLS_GPI_ACTOR IMPLEMENTATION.
     RETURN RET_RESULT.
 * -------------------------------------------------------------------------------------------------
   ENDMETHOD.
-
 ENDCLASS.

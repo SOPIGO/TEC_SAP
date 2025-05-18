@@ -13,11 +13,14 @@ define view entity ZI_GPI_ER_ATTRIBUTE
 // ------------------------------------------------------------------------------------------------
 as select from zdb_gpi_er_att
     // -------------------------------------------------------------------------------------------- 
-    // Link to parent -> used for composition !! ==>
-    association        to parent ZI_GPI_ER_ENTITY as _Entity on $projection.UuidEntity = _Entity.Uuid
+    // Link to root   -> used for composition !! ==>    
+    // Link to parent -> used for composition !! ==>    
+    association to          ZI_GPI_ER_SCENARIO  as _Scenario    on $projection.UuidScenario = _Scenario.Uuid
+    association to parent   ZI_GPI_ER_ENTITY    as _Entity      on $projection.UuidEntity = _Entity.Uuid
+    
 // ------------------------------------------------------------------------------------------------
 {
-    key uuid as Uuid,
+    key uuid as Uuid,    
     uuid_scenario as UuidScenario,
     uuid_entity as UuidEntity,
     field_id as FieldId,
@@ -30,7 +33,9 @@ as select from zdb_gpi_er_att
     last_changed_by as LastChangedBy,
     last_changed_at as LastChangedAt,
     
+    _Scenario,
     _Entity
+    
 }
 // ------------------------------------------------------------------------------------------------
 
