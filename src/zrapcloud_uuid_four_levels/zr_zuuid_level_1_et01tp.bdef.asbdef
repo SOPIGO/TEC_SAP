@@ -1,0 +1,129 @@
+managed;
+strict ( 2 );
+with draft;
+define behavior for ZR_zuuid_level_1_ET01TP alias zuuid_level_1_ET
+implementation in class ZBP_R_zuuid_level_1_ET01TP unique
+persistent table ZUUID_LEVEL_1
+draft table ZZUUID_LEVEL_00D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+
+{
+  field ( readonly )
+   UuidLevel1,
+   SemanticKey1,
+   LocalCreatedBy,
+   LocalCreatedAt,
+   LocalLastChangedAt,
+   LastChangedAt;
+
+  field ( numbering : managed )
+   UuidLevel1;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZUUID_LEVEL_1
+  {
+    UuidLevel1 = UUID_LEVEL_1;
+    SemanticKey1 = SEMANTIC_KEY_1;
+    Description = DESCRIPTION;
+    LocalCreatedBy = LOCAL_CREATED_BY;
+    LocalCreatedAt = LOCAL_CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    LastChangedAt = LAST_CHANGED_AT;
+  }
+
+  association _zuuid_level_2_ET { create; with draft; }
+
+  determination CalculateSemanticKey1 on save { create; }
+
+}
+
+define behavior for ZR_zuuid_level_2_ETTP alias zuuid_level_2_ET
+implementation in class ZBP_R_zuuid_level_2_ETTP unique
+persistent table ZUUID_LEVEL_2
+draft table ZZUUID_LEVEL_01D
+etag master LocalLastChangedAt
+lock dependent by _zuuid_level_1_ET
+authorization dependent by _zuuid_level_1_ET
+
+{
+  field ( readonly )
+   UuidLevel2,
+   ParentUUID,
+   SemanticKey2,
+   LocalLastChangedAt;
+
+  field ( numbering : managed )
+   UuidLevel2;
+
+
+  update;
+  delete;
+
+  mapping for ZUUID_LEVEL_2
+  {
+    UuidLevel2 = UUID_LEVEL_2;
+    ParentUUID = PARENT_UUID;
+    SemanticKey2 = SEMANTIC_KEY_2;
+    Description = DESCRIPTION;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _zuuid_level_1_ET { with draft; }
+  association _zuuid_level_3_ET { create; with draft; }
+
+  determination CalculateSemanticKey2 on save { create; }
+
+}
+
+define behavior for ZR_zuuid_level_3_ETTP alias zuuid_level_3_ET
+implementation in class ZBP_R_zuuid_level_3_ETTP unique
+persistent table ZUUID_LEVEL_3
+draft table ZZUUID_LEVEL_02D
+etag master LocalLastChangedAt
+lock dependent by _zuuid_level_1_ET
+authorization dependent by _zuuid_level_1_ET
+
+{
+  field ( readonly )
+   UuidLevel3,
+   ParentUUID,
+   RootUUID,
+   SemanticKey3,
+   LocalLastChangedAt;
+
+  field ( numbering : managed )
+   UuidLevel3;
+
+
+  update;
+  delete;
+
+  mapping for ZUUID_LEVEL_3
+  {
+    UuidLevel3 = UUID_LEVEL_3;
+    ParentUUID = PARENT_UUID;
+    RootUUID = ROOT_UUID;
+    SemanticKey3 = SEMANTIC_KEY_3;
+    Description = DESCRIPTION;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _zuuid_level_2_ET { with draft; }
+  association _zuuid_level_1_ET { with draft; }
+
+  determination CalculateSemanticKey3 on save { create; }
+
+}

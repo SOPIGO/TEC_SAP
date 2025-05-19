@@ -1,0 +1,6 @@
+@ObjectModel.leadingEntity.name: 'ZC_zuuid_level_1_ET01TP'
+define service ZUI_zuuid_level_1_ET01 {
+  expose ZC_ZUUID_LEVEL_1_ET01TP as zuuid_level_1_ET;
+  expose ZC_ZUUID_LEVEL_2_ETTP as zuuid_level_2_ET;
+  expose ZC_ZUUID_LEVEL_3_ETTP as zuuid_level_3_ET;
+}

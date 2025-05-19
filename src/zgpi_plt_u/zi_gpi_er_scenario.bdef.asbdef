@@ -1,6 +1,9 @@
 managed implementation in class zbp_i_gpi_er_scenario unique;
 //strict ( 2 );
 
+//-------------------------------------------------------------------------------------------------
+//  ROOT
+//-------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_ER_SCENARIO //alias <alias_name>
 persistent table zdb_gpi_er_scnr
 lock master
@@ -20,7 +23,8 @@ lock master
       EntityType   = entity_type;
     }
 }
-//-------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_ER_ENTITY //alias <alias_name>
 persistent table zdb_gpi_er_entty
 lock dependent by _Scenario
@@ -38,9 +42,11 @@ lock dependent by _Scenario
     {
       Uuid         = uuid;
       UuidScenario = uuid_scenario;
+      EntityName   = entity_name;
     }
 }
-
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 define behavior for ZI_GPI_ER_ATTRIBUTE //alias <alias_name>
 persistent table zdb_gpi_er_att
 lock dependent by _Scenario
@@ -73,7 +79,7 @@ lock dependent by _Scenario
   association _Scenario;
   association _Entity;
 }
-
+/*
 define behavior for ZI_GPI_ER_FILE //alias <alias_name>
 persistent table zdb_gpi_er_file
 lock dependent by _Scenario
@@ -86,3 +92,4 @@ lock dependent by _Scenario
   field ( readonly ) UuidScenario;
   association _Scenario;
 }
+*/

@@ -1,0 +1,68 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'zuuid_level_2_ET', 
+    typeNamePlural: 'zuuid_level_2_ETs', 
+    title: {
+      type: #STANDARD, 
+      label: 'zuuid_level_2_ET', 
+      value: 'SemanticKey2'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'SemanticKey2', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZC_zuuid_level_2_ETTP with
+{
+  @UI.facet: [ {
+    id: 'idzuuid_level_2_ET', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'zuuid_level_2_ET', 
+    position: 10 
+  }, 
+  {
+    id: 'idzuuid_level_3_ET', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'zuuid_level_3_ET', 
+    position: 20 , 
+    targetElement: '_zuuid_level_3_ET'
+  } ]
+  @UI.hidden: true
+  UuidLevel2;
+  
+  @UI.hidden: true
+  ParentUUID;
+  
+  @UI.lineItem: [ {
+    position: 30 , 
+    importance: #HIGH, 
+    label: 'SemanticKey2'
+  } ]
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'SemanticKey2'
+  } ]
+  SemanticKey2;
+  
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH, 
+    label: 'Description'
+  } ]
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'Description'
+  } ]
+  Description;
+  
+  @UI.hidden: true
+  LocalLastChangedAt;
+}
