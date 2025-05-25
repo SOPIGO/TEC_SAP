@@ -1,6 +1,8 @@
 managed;
 strict ( 2 );
 with draft;
+
+
 define behavior for ZR_zuuid_level_1_ET01TP alias zuuid_level_1_ET
 implementation in class ZBP_R_zuuid_level_1_ET01TP unique
 persistent table ZUUID_LEVEL_1

@@ -8,7 +8,7 @@
 @UI.headerInfo.typeName                     : 'ER-Entity-Scenario'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Scenarios'
 // ------------------------------------------------------------------------------------------------
-annotate view ZC_GPI_ER_SCENARIO    with 
+annotate view ZI_GPI_ER_SCENARIO    with 
 { 
     //-----------------------------------------------------------------------------------------
     //  FACETS
@@ -22,7 +22,8 @@ annotate view ZC_GPI_ER_SCENARIO    with
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           
         { type : #STANDARD      , value         : 'ScenarioTxt'                 , label : 'Description'          },
-        { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'          }  
+        { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'          },  
+        { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'          }  
     ]                                      
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------

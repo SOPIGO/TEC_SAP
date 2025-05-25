@@ -1,0 +1,109 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Relation', 
+    typeNamePlural: 'Relations', 
+    title: {
+      type: #STANDARD, 
+      label: 'Relation', 
+      value: 'UUID'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'UUID', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZC_Relation01TP with
+{
+  @UI.facet: [ {
+    id: 'idRelation', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Relation', 
+    position: 10 
+  } ]
+  @UI.hidden: true
+  UUID;
+  
+  @UI.hidden: true
+  UuidScenario;
+  
+  @UI.hidden: true
+  UuidScnEnttySrc;
+  
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 40 
+  } ]
+  UuidScnEnttyDst;
+  
+  @UI.lineItem: [ {
+    position: 50 , 
+    importance: #HIGH, 
+    label: 'RelationCardinality'
+  } ]
+  @UI.identification: [ {
+    position: 50 , 
+    label: 'RelationCardinality'
+  } ]
+  RelationCardinality;
+  
+  @UI.lineItem: [ {
+    position: 60 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 60 
+  } ]
+  RelationVisible;
+  
+  @UI.lineItem: [ {
+    position: 70 , 
+    importance: #HIGH, 
+    label: 'RelationName'
+  } ]
+  @UI.identification: [ {
+    position: 70 , 
+    label: 'RelationName'
+  } ]
+  RelationName;
+  
+  @UI.lineItem: [ {
+    position: 80 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 80 
+  } ]
+  CreatedBy;
+  
+  @UI.lineItem: [ {
+    position: 90 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  CreatedAt;
+  
+  @UI.lineItem: [ {
+    position: 100 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 100 
+  } ]
+  LastChangedBy;
+  
+  @UI.hidden: true
+  LastChangedAt;
+}

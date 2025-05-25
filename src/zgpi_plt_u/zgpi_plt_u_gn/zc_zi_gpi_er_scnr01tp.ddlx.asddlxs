@@ -1,0 +1,117 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'ZI_GPI_ER_SCNR', 
+    typeNamePlural: 'ZI_GPI_ER_SCNRs', 
+    title: {
+      type: #STANDARD, 
+      label: 'ZI_GPI_ER_SCNR', 
+      value: 'ScenarioTxt'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'ScenarioTxt', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZC_ZI_GPI_ER_SCNR01TP with
+{
+  @UI.facet: [ {
+    id: 'idCollection', 
+    type: #COLLECTION, 
+    label: 'ZI_GPI_ER_SCNR', 
+    position: 10 
+  }, 
+  {
+    id: 'idIdentification', 
+    parentId: 'idCollection', 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'General Information', 
+    position: 20 
+  }, 
+  {
+    id: 'idEntity', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Entity', 
+    position: 30 , 
+    targetElement: '_Entity'
+  } ]
+  @UI.hidden: true
+  UUID;
+  
+  @UI.lineItem: [ {
+    position: 20 , 
+    importance: #HIGH, 
+    label: 'ScenarioIndx'
+  } ]
+  @UI.identification: [ {
+    position: 20 , 
+    label: 'ScenarioIndx'
+  } ]
+  ScenarioIndx;
+  
+  @UI.lineItem: [ {
+    position: 30 , 
+    importance: #HIGH, 
+    label: 'ScenarioTxt'
+  } ]
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'ScenarioTxt'
+  } ]
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  ScenarioTxt;
+  
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH, 
+    label: 'EntityType'
+  } ]
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'EntityType'
+  } ]
+  EntityType;
+  
+  @UI.lineItem: [ {
+    position: 50 , 
+    importance: #HIGH, 
+    label: 'EntityName'
+  } ]
+  @UI.identification: [ {
+    position: 50 , 
+    label: 'EntityName'
+  } ]
+  EntityName;
+  
+  @UI.lineItem: [ {
+    position: 60 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 60 
+  } ]
+  CreatedBy;
+  
+  @UI.hidden: true
+  CreatedAt;
+  
+  @UI.lineItem: [ {
+    position: 80 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 80 
+  } ]
+  LastChangedBy;
+  
+  @UI.hidden: true
+  LastChangedAt;
+}

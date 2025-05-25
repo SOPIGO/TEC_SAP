@@ -1,0 +1,120 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Attribute', 
+    typeNamePlural: 'Attributes', 
+    title: {
+      type: #STANDARD, 
+      label: 'Attribute', 
+      value: 'UUID'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'UUID', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZC_AttributeTP with
+{
+  @UI.facet: [ {
+    id: 'idAttribute', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Attribute', 
+    position: 10 
+  } ]
+  @UI.hidden: true
+  UUID;
+  
+  @UI.hidden: true
+  UuidScenario;
+  
+  @UI.hidden: true
+  UuidEntity;
+  
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH, 
+    label: 'FieldID'
+  } ]
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'FieldID'
+  } ]
+  FieldID;
+  
+  @UI.lineItem: [ {
+    position: 50 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 50 
+  } ]
+  FieldVisible;
+  
+  @UI.lineItem: [ {
+    position: 60 , 
+    importance: #HIGH, 
+    label: 'FieldIndex'
+  } ]
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'FieldIndex'
+  } ]
+  FieldIndex;
+  
+  @UI.lineItem: [ {
+    position: 70 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 70 
+  } ]
+  FieldIsKey;
+  
+  @UI.lineItem: [ {
+    position: 80 , 
+    importance: #HIGH, 
+    label: 'FieldName'
+  } ]
+  @UI.identification: [ {
+    position: 80 , 
+    label: 'FieldName'
+  } ]
+  FieldName;
+  
+  @UI.lineItem: [ {
+    position: 90 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  CreatedBy;
+  
+  @UI.lineItem: [ {
+    position: 100 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 100 
+  } ]
+  CreatedAt;
+  
+  @UI.lineItem: [ {
+    position: 110 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 110 
+  } ]
+  LastChangedBy;
+  
+  @UI.hidden: true
+  LastChangedAt;
+}

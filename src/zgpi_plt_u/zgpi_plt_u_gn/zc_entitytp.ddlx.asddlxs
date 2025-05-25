@@ -1,0 +1,122 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Entity', 
+    typeNamePlural: 'Entitys', 
+    title: {
+      type: #STANDARD, 
+      label: 'Entity', 
+      value: 'UUID'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'UUID', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZC_EntityTP with
+{
+  @UI.facet: [ {
+    id: 'idEntity', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Entity', 
+    position: 10 
+  }, 
+  {
+    id: 'idRelation', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Relation', 
+    position: 20 , 
+    targetElement: '_Relation'
+  }, 
+  {
+    id: 'idAttribute', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Attribute', 
+    position: 30 , 
+    targetElement: '_Attribute'
+  } ]
+  @UI.hidden: true
+  UUID;
+  
+  @UI.hidden: true
+  UuidScenario;
+  
+  @UI.lineItem: [ {
+    position: 30 , 
+    importance: #HIGH, 
+    label: 'ScenarioCode'
+  } ]
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'ScenarioCode'
+  } ]
+  ScenarioCode;
+  
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH, 
+    label: 'EntityName'
+  } ]
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'EntityName'
+  } ]
+  EntityName;
+  
+  @UI.lineItem: [ {
+    position: 50 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 50 
+  } ]
+  EntityVisible;
+  
+  @UI.lineItem: [ {
+    position: 60 , 
+    importance: #HIGH, 
+    label: 'EntityIndex'
+  } ]
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'EntityIndex'
+  } ]
+  EntityIndex;
+  
+  @UI.lineItem: [ {
+    position: 70 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 70 
+  } ]
+  CreatedBy;
+  
+  @UI.lineItem: [ {
+    position: 80 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 80 
+  } ]
+  CreatedAt;
+  
+  @UI.lineItem: [ {
+    position: 90 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  LastChangedBy;
+  
+  @UI.hidden: true
+  LastChangedAt;
+}

@@ -1,8 +1,0 @@
-@EndUserText.label: 'ZGPI_SRVD_ER_Extractor'
-define service ZGPI_SRVD_ER_Extractor {
-  expose ZC_GPI_ER_SCENARIO;
-  expose ZI_GPI_ER_SCENARIO;
-  expose ZI_GPI_ER_ENTITY;
-  expose ZI_GPI_ER_ATTRIBUTE;
-  expose ZI_GPI_ER_RELATION;
-}

@@ -3,12 +3,12 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <SRVD>
-    <NAME>ZGPI_SRVD_ER_EXTRACTOR</NAME>
+    <NAME>ZUI_ZI_GPI_ER_SCNR01</NAME>
     <TYPE>SRVD/SRV</TYPE>
-    <DESCRIPTION>ZGPI_SRVD_ER_Extractor</DESCRIPTION>
+    <DESCRIPTION>Service definition for ZI_GPI_ER_SCNR</DESCRIPTION>
     <LANGUAGE>EN</LANGUAGE>
     <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
-    <SOURCE_URI>./zgpi_srvd_er_extractor/source/main</SOURCE_URI>
+    <SOURCE_URI>./zui_zi_gpi_er_scnr01/source/main</SOURCE_URI>
     <SOURCE_TYPE>ABAP_SOURCE</SOURCE_TYPE>
     <SOURCE_ORIGIN_DESCRIPTION>ABAP Development Tools</SOURCE_ORIGIN_DESCRIPTION>
     <SRVD_SOURCE_TYPE>S</SRVD_SOURCE_TYPE>

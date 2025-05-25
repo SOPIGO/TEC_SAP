@@ -1,45 +1,23 @@
-@AbapCatalog.viewEnhancementCategory: [#NONE]
+@EndUserText.label: 'Zi_GPI_ER_SCNR'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'ZC_GPI_ER_SCENARIO'
-// @Metadata.ignorePropagatedAnnotations: true
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-@Metadata.allowExtensions: true
 // ------------------------------------------------------------------------------------------------
 //  Root Entity !! (->Define Root)
 // ------------------------------------------------------------------------------------------------
-define view entity ZC_GPI_ER_SCENARIO as select from ZI_GPI_ER_SCENARIO
-// ------------------------------------------------------------------------------------------------ 
+define root view entity ZC_GPI_ER_SCENARIO
+  provider contract transactional_interface
+  as projection on ZR_GPI_ER_SCENARIO
+  // ------------------------------------------------------------------------------------------------
 {
-    key Uuid,
-    ScenarioIndx,
-    ScenarioTxt,
-    EntityType,
-    CreatedBy,
-    CreatedAt,
-    LastChangedBy,
-    LastChangedAt,
-    
-    /*
-    @Semantics.mimeType: true
-    _File4CSDL.Mimetype,
-    
-    _File4CSDL.Filename,
-    
-    @Semantics.largeObject: {
-        mimeType : 'Mimetype',
-        fileName : 'Filename',
-        contentDispositionPreference: #INLINE,
-        acceptableMimeTypes: [ 'application/xml '  ]
-      }    
-    _File4CSDL.Attachment,
-    */
-    
-    /* Associations */
-    //_File4CSDL,
-    
-    _RootEntity
+  key Uuid,
+      ScenarioIndx,
+      ScenarioTxt,
+      EntityType,
+      EntityName,
+      CreatedBy,
+      CreatedAt,
+      LastChangedBy,
+      LastChangedAt,
+      _RootEntity : redirected to composition child ZC_GPI_ER_ENTITY
 }
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
