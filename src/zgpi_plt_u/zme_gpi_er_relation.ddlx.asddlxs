@@ -11,7 +11,7 @@
 @UI.headerInfo.typeName                     : 'ER-Entity-Relation'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Relations'
 // ------------------------------------------------------------------------------------------------
-annotate view ZI_GPI_ER_RELATION with
+annotate view ZC_GPI_ER_RELATION with
 {
   //-----------------------------------------------------------------------------------------
   //  FACETS

@@ -17,6 +17,9 @@ define root view entity ZR_zuuid_level_1_ET01TP
   LOCAL_LAST_CHANGED_AT as LocalLastChangedAt,
   @Semantics.systemDateTime.lastChangedAt: true
   LAST_CHANGED_AT as LastChangedAt,
+  
+  
+  
   _zuuid_level_2_ET
   
 }

@@ -8,7 +8,7 @@
 @UI.headerInfo.typeName                     : 'ER-Entity-Scenario'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Scenarios'
 // ------------------------------------------------------------------------------------------------
-annotate view ZI_GPI_ER_SCENARIO    with 
+annotate view ZC_GPI_ER_SCENARIO    with 
 { 
     //-----------------------------------------------------------------------------------------
     //  FACETS

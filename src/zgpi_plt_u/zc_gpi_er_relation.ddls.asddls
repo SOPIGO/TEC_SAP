@@ -1,5 +1,6 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label:'GPI-ER-Relation'
+@EndUserText.label                  : 'Projection-ER-Relation'
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@Metadata.allowExtensions           : true
 // ------------------------------------------------------------------------------------------------
 define view entity ZC_GPI_ER_RELATION
 // ------------------------------------------------------------------------------------------------

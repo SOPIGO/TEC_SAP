@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZR_GPI_ER_SCENARIO</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Zi_GPI_ER_SCNR</DDTEXT>
+    <DDTEXT>Basic - ER - Scenario</DDTEXT>
     <SOURCE_TYPE>W</SOURCE_TYPE>
    </DDLS>
   </asx:values>

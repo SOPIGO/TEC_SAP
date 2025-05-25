@@ -8,7 +8,7 @@
 @UI.headerInfo.typeName                     : 'ER-Entity-Attribute'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Attributes'
 // ------------------------------------------------------------------------------------------------
-annotate view ZI_GPI_ER_ATTRIBUTE with
+annotate view ZC_GPI_ER_ATTRIBUTE with
 {
     //-----------------------------------------------------------------------------------------
     //  FACETS

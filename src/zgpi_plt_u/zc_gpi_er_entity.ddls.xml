@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZC_GPI_ER_ENTITY</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>ZI_GPI_ER_ENTTY</DDTEXT>
+    <DDTEXT>Projection - ER - Entity</DDTEXT>
     <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>

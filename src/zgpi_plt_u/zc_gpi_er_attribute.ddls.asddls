@@ -1,10 +1,12 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'GPI-ER-Attribute'
+// ------------------------------------------------------------------------------------------------
+@EndUserText.label                  : 'Projection-ER-Attribute'
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@Metadata.allowExtensions           : true
 // ------------------------------------------------------------------------------------------------
 define view entity ZC_GPI_ER_ATTRIBUTE
-  // ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
   as projection on ZR_GPI_ER_ATTRIBUTE
-  // ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 {
   key  Uuid,
        UuidScenario,
@@ -20,7 +22,5 @@ define view entity ZC_GPI_ER_ATTRIBUTE
        LastChangedAt,
        _Entity   : redirected to parent ZC_GPI_ER_ENTITY,
        _Scenario : redirected to ZC_GPI_ER_SCENARIO
-
-
 }
 // ------------------------------------------------------------------------------------------------

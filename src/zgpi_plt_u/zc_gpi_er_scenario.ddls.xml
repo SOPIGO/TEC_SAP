@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZC_GPI_ER_SCENARIO</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>ZC_GPI_ER_SCENARIO</DDTEXT>
+    <DDTEXT>Projection - ER - Scenario</DDTEXT>
     <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>

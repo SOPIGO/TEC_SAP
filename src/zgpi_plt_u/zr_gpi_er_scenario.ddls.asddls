@@ -1,26 +1,16 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'ZR_GPI_ER_SCENARIO'
-@Metadata.allowExtensions: true
-
-/*
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-@AbapCatalog.viewEnhancementCategory: [#NONE]
-@Metadata.ignorePropagatedAnnotations: true
-*/
-
+// ------------------------------------------------------------------------------------------------
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@Metadata.allowExtensions           : true
+@EndUserText.label                  : 'Base View-GPI-ER-Scenario'
 // ------------------------------------------------------------------------------------------------
 //  Root Entity !! (->Define Root)
 // ------------------------------------------------------------------------------------------------
 define root view entity ZR_GPI_ER_SCENARIO
-  as select from zdb_gpi_er_scnr
-  // ------------------------------------------------------------------------------------------------
-  composition [0..*] of ZR_GPI_ER_ENTITY as _RootEntity
-  // composition [0..1] of ZI_GPI_ER_FILE   as _File4CSDL
-  // ------------------------------------------------------------------------------------------------
+as select from zdb_gpi_er_scnr
+// ------------------------------------------------------------------------------------------------
+   composition [0..*] of ZR_GPI_ER_ENTITY as _RootEntity
+// composition [0..1] of ZI_GPI_ER_FILE   as _File4CSDL
+// ------------------------------------------------------------------------------------------------
 {
   key uuid                  as Uuid,
       scenario_indx         as ScenarioIndx,

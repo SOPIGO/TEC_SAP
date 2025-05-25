@@ -1,14 +1,15 @@
 managed;
 strict ( 2 );
 with draft;
-
-
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------
 define behavior for ZR_zuuid_level_1_ET01TP alias zuuid_level_1_ET
 implementation in class ZBP_R_zuuid_level_1_ET01TP unique
 persistent table ZUUID_LEVEL_1
 draft table ZZUUID_LEVEL_00D
 etag master LocalLastChangedAt
-lock master total etag LastChangedAt
+lock master
+total etag LastChangedAt
 authorization master( global )
 
 {
@@ -51,7 +52,8 @@ authorization master( global )
   determination CalculateSemanticKey1 on save { create; }
 
 }
-
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------
 define behavior for ZR_zuuid_level_2_ETTP alias zuuid_level_2_ET
 implementation in class ZBP_R_zuuid_level_2_ETTP unique
 persistent table ZUUID_LEVEL_2
@@ -89,7 +91,8 @@ authorization dependent by _zuuid_level_1_ET
   determination CalculateSemanticKey2 on save { create; }
 
 }
-
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------
 define behavior for ZR_zuuid_level_3_ETTP alias zuuid_level_3_ET
 implementation in class ZBP_R_zuuid_level_3_ETTP unique
 persistent table ZUUID_LEVEL_3
@@ -129,3 +132,5 @@ authorization dependent by _zuuid_level_1_ET
   determination CalculateSemanticKey3 on save { create; }
 
 }
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------

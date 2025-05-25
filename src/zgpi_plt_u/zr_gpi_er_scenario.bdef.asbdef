@@ -1,0 +1,124 @@
+managed implementation in class zbp_r_gpi_er_scenario unique;
+strict ( 2 );
+with draft;
+// ---------------------------------------------------------------------------------------------
+//  SCENARIO
+// ---------------------------------------------------------------------------------------------
+define behavior for ZR_GPI_ER_SCENARIO
+persistent table zdb_gpi_er_scnr
+draft table zdb_gpi_er_sc_d
+etag master LocalLastChangedAt
+lock master
+total etag LastChangedAt
+authorization master ( global )
+{
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+    field ( readonly, numbering : managed ) Uuid;
+    field ( readonly )   LocalCreatedBy;
+    field ( readonly )   LocalCreatedAt;
+    field ( readonly )   LocalLastChangedAt;
+    field ( readonly )   LastChangedAt;
+
+
+  mapping for zdb_gpi_er_scnr
+    {
+      Uuid                  = uuid;
+      ScenarioIndx          = scenario_indx;
+      ScenarioTxt           = scenario_txt;
+      EntityType            = entity_type;
+      EntityName            = entity_name;
+      LastChangedAt         = last_changed_at;
+      LocalCreatedAt        = local_created_at;
+      LocalCreatedBy        = local_created_by;
+      LocalLastChangedAt    = local_last_changed_at;
+    }
+
+  association _RootEntity { create; with draft; }
+}
+// ---------------------------------------------------------------------------------------------
+//  ENTITY
+// ---------------------------------------------------------------------------------------------
+define behavior for ZR_GPI_ER_ENTITY //alias <alias_name>
+persistent table zdb_gpi_er_entty
+draft table zdb_gpi_er_ent_d
+
+lock dependent by _Scenario
+authorization dependent by _Scenario
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) UuidScenario;
+
+  mapping for zdb_gpi_er_entty
+    {
+      Uuid         = uuid;
+      UuidScenario = uuid_scenario;
+      EntityName   = entity_name;
+    }
+
+  association _Scenario     {           with draft; }
+  association _Attributes   { create;   with draft; }
+  association _Relations    { create;   with draft; }
+}
+// ---------------------------------------------------------------------------------------------
+//  ATTRIBUTES
+// ---------------------------------------------------------------------------------------------
+define behavior for ZR_GPI_ER_ATTRIBUTE //alias <alias_name>
+persistent table zdb_gpi_er_att
+draft table zdb_gpi_er_a_d
+lock dependent by _Scenario
+authorization dependent by _Scenario
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) UuidEntity;
+  field ( readonly ) UuidScenario;
+
+  mapping for zdb_gpi_er_att
+    {
+      Uuid         = uuid;
+      UuidScenario = uuid_scenario;
+    }
+
+  association _Scenario { with draft; }
+  association _Entity   { with draft; }
+}
+// ---------------------------------------------------------------------------------------------
+//  RELATIONS
+// ---------------------------------------------------------------------------------------------
+define behavior for ZR_GPI_ER_RELATION //alias <alias_name>
+persistent table zdb_gpi_er_relat
+draft table zdb_gpi_er_rel_d
+lock dependent by _Scenario
+authorization dependent by _Scenario
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) UuidScnEnttySrc;
+  field ( readonly ) UuidScenario;
+
+  mapping for zdb_gpi_er_relat
+    {
+      Uuid            = uuid;
+      UuidScnEnttySrc = uuid_scn_entty_src;
+      UuidScnEnttyDst = uuid_scn_entty_dst;
+      UuidScenario    = uuid_scenario;
+    }
+  association _Scenario     { with draft; }
+  association _Entity       { with draft; }
+}
