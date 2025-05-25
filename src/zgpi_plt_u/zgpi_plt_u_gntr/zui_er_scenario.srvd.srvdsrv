@@ -1,4 +1,0 @@
-@ObjectModel.leadingEntity.name: 'ZC_ER_ScenarioTP'
-define service ZUI_ER_Scenario {
-  expose ZC_ER_SCENARIOTP as ER_Scenario;
-}

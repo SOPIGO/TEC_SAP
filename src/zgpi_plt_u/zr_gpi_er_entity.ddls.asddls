@@ -1,17 +1,7 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'GPI-ER-Entity'
-@Metadata.allowExtensions: true
-
-/*
-@AbapCatalog.viewEnhancementCategory: [#NONE]
-@Metadata.ignorePropagatedAnnotations: true
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-
-*/
+// ------------------------------------------------------------------------------------------------
+@EndUserText.label                  : 'GPI-ER-Entity'
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@Metadata.allowExtensions           : true
 // ------------------------------------------------------------------------------------------------
 define view entity ZR_GPI_ER_ENTITY
   // ------------------------------------------------------------------------------------------------
@@ -41,7 +31,6 @@ define view entity ZR_GPI_ER_ENTITY
       _Scenario,
       _Attributes,
       _Relations
-
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

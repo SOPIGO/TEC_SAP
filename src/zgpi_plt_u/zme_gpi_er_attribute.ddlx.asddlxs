@@ -58,6 +58,9 @@ annotate view ZC_GPI_ER_ATTRIBUTE with
     @UI.identification              : [{ label: 'Attribute-Name' , position: 10 }]
     FieldId;
 
+    @UI.identification              : [{ label: 'Attribute-Name' , position: 15 }]
+    FieldName;
+
     @UI.identification              : [{ label: 'Attribute-Visibility' , position: 20 }]
     FieldVisible;
 }

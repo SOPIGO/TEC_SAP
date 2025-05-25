@@ -1,7 +1,0 @@
-@ObjectModel.leadingEntity.name: 'ZC_ZI_GPI_ER_SCNR01TP'
-define service ZUI_ZI_GPI_ER_SCNR01 {
-  expose ZC_ZI_GPI_ER_SCNR01TP as ZI_GPI_ER_SCNR;
-  expose ZC_EntityTP           as ScnEntity;
-  expose ZC_Relation01TP       as ScnEnttyRelation;
-  expose ZC_AttributeTP        as ScnEnttyAttribute;
-}

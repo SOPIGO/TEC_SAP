@@ -91,8 +91,12 @@ etag master LocalLastChangedAt
 
   mapping for zdb_gpi_er_att
     {
-      Uuid         = uuid;
-      UuidScenario = uuid_scenario;
+      Uuid          = uuid;
+      UuidEntity    = uuid_entity;
+      UuidScenario  = uuid_scenario;
+      FieldName     = field_name;
+      FieldIsKey    = field_is_key;
+      FieldVisible  = field_visible;
     }
 
   association _Scenario { with draft; }

@@ -1,16 +1,7 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'GPI-ER-Attribute'
-@Metadata.allowExtensions: true
-
-/*
-@AbapCatalog.viewEnhancementCategory: [#NONE]
-@Metadata.ignorePropagatedAnnotations: true
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-*/
+// ------------------------------------------------------------------------------------------------
+@EndUserText.label                  : 'GPI-ER-Attribute'
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@Metadata.allowExtensions           : true
 // ------------------------------------------------------------------------------------------------
 define view entity ZR_GPI_ER_ATTRIBUTE
   // ------------------------------------------------------------------------------------------------
@@ -37,9 +28,7 @@ define view entity ZR_GPI_ER_ATTRIBUTE
       last_changed_at       as LastChangedAt,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       local_last_changed_at as LocalLastChangedAt,
-
       _Scenario,
       _Entity
-
 }
 // ------------------------------------------------------------------------------------------------

@@ -1,4 +1,7 @@
 @EndUserText.label: 'Service Definition - Entity-Relation'
 define service ZGPI_SRVD_ER {
   expose ZC_GPI_ER_SCENARIO;
+  expose ZC_GPI_ER_ENTITY;
+  expose ZC_GPI_ER_ATTRIBUTE;
+  expose ZC_GPI_ER_RELATION;
 }
