@@ -9,21 +9,21 @@
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Scenarios'
 // ------------------------------------------------------------------------------------------------
 annotate view ZC_GPI_ER_SCENARIO    with 
-{ 
+{   
     //-----------------------------------------------------------------------------------------
     //  FACETS
     //-----------------------------------------------------------------------------------------             
     @UI.facet: [
-            { purpose : #STANDARD, type : #COLLECTION               , position : 10 , label    : 'General Information'  , id              : 'GeneralInfo'                 },
-            { purpose : #STANDARD, type : #IDENTIFICATION_REFERENCE , position : 20 , parentId : 'GeneralInfo'                                                          },        
-            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 50 , label    : 'Attributes'           , targetElement   : '_RootEntity._Attributes'     }
-    //        {                      type : #IDENTIFICATION_REFERENCE , position : 60 , label    : 'Files'                , targetQualifier : 'FILE' ,  id         : 'idFiles' }                                                         
+            { purpose : #STANDARD, type : #COLLECTION               , position : 10 , label    : 'General Information'  , id            : 'GeneralInfo'     },
+            { purpose : #STANDARD, type : #IDENTIFICATION_REFERENCE , position : 20 ,                                     parentId      : 'GeneralInfo'     },        
+            { purpose : #STANDARD, type : #LINEITEM_REFERENCE       , position : 50 , label    : 'Root Entity'          , targetElement : '_RootEntity'     }                                                        
     ]    
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           
         { type : #STANDARD      , value         : 'ScenarioTxt'                 , label : 'Description'          },
         { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'          },  
-        { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'          }  
+        { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'          }  ,
+         {  type: #FOR_ACTION, dataAction: 'BuildModel'  , label: 'Build'   }  
     ]                                      
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
@@ -34,5 +34,6 @@ annotate view ZC_GPI_ER_SCENARIO    with
     @UI.identification              : [ { position: 10 } ]
     @UI.selectionField              : [ { position: 10 } ]
     ScenarioTxt;    
+    
     
 }

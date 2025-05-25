@@ -81,7 +81,7 @@ annotate view ZC_GPI_ER_ENTITY with
     @UI.identification              : [{ position: 30 }]    crea_date_time  ; 
     @UI.identification              : [{ position: 40 }]    crea_uname      ;
     */
-    @UI.identification              : [{ position: 50 }]    lchg_date_time  ;
-    @UI.identification              : [{ position: 60 }]    lchg_uname      ;
+    @UI.identification              : [{ position: 50 }]    LastChangedAt   ;
+    @UI.identification              : [{ position: 60 }]    LastChangedBy   ;
 }
 // ------------------------------------------------------------------------------------------------
