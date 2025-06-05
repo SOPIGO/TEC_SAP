@@ -1,7 +1,9 @@
 projection;
 strict ( 2 );
 use draft;
-
+// ---------------------------------------------------------------------------------------------
+//  ATTRIBUTES
+// ---------------------------------------------------------------------------------------------
 define behavior for ZC_GPI_ER_SCENARIO //alias <alias_name>
 {
   use create;
@@ -18,26 +20,34 @@ define behavior for ZC_GPI_ER_SCENARIO //alias <alias_name>
 
   use association _RootEntity  { create; with draft; }
 }
-
+// ---------------------------------------------------------------------------------------------
+//  ENTITY
+// ---------------------------------------------------------------------------------------------
 define behavior for ZC_GPI_ER_ENTITY //alias <alias_name>
 {
   use update;
   use delete;
-
   use association _Scenario     {           with draft; }
   use association _Attributes   { create;   with draft; }
   use association _Relations    { create;   with draft; }
 }
-
+// ---------------------------------------------------------------------------------------------
+//  ATTRIBUTES
+// ---------------------------------------------------------------------------------------------
 define behavior for ZC_GPI_ER_ATTRIBUTE //alias <alias_name>
 {
+
   use update;
   use delete;
+
+  use action HideShow_Attribute ;
 
   use association _Scenario     { with draft; }
   use association _Entity       { with draft; }
 }
-
+// ---------------------------------------------------------------------------------------------
+//  RELATION
+// ---------------------------------------------------------------------------------------------
 define behavior for ZC_GPI_ER_RELATION //alias <alias_name>
 {
   use update;
@@ -46,3 +56,5 @@ define behavior for ZC_GPI_ER_RELATION //alias <alias_name>
   use association _Scenario      { with draft; }
   use association _Entity        { with draft; }
 }
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------

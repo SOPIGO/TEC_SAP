@@ -1,16 +1,5 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'GPI-ER-Entity'
-
-/*
-@AbapCatalog.viewEnhancementCategory: [#NONE]
-@Metadata.ignorePropagatedAnnotations: true
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-@Metadata.allowExtensions: true
-*/
 // ------------------------------------------------------------------------------------------------
 define view entity ZI_GPI_ER_ENTITY
   // ------------------------------------------------------------------------------------------------

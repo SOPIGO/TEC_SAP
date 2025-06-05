@@ -1,11 +1,12 @@
-managed implementation in class zbp_r_gpi_er_scenario unique;
+managed;
 strict ( 2 );
 with draft;
 // ---------------------------------------------------------------------------------------------
 //  SCENARIO
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_SCENARIO
-persistent table zdb_gpi_er_scnr
+implementation in class zbp_r_gpi_er_scenario unique
+persistent table zdb_gpi_er_sc_a
 draft table zdb_gpi_er_sc_d
 etag master LocalLastChangedAt
 lock master
@@ -31,17 +32,18 @@ authorization master ( global )
     field ( readonly )   LastChangedAt;
 
 
-  mapping for zdb_gpi_er_scnr
+  mapping for zdb_gpi_er_sc_a
     {
       Uuid                  = uuid;
-      ScenarioIndx          = scenario_indx;
-      ScenarioTxt           = scenario_txt;
+      ScenarioCode          = scenario_code;
+      ScenarioDescription   = scenario_description;
       EntityType            = entity_type;
       EntityName            = entity_name;
       LastChangedAt         = last_changed_at;
       LocalCreatedAt        = local_created_at;
       LocalCreatedBy        = local_created_by;
       LocalLastChangedAt    = local_last_changed_at;
+      LocalLastChangedBy    = local_last_changed_by;
     }
 
   association _RootEntity { create; with draft; }
@@ -50,9 +52,9 @@ authorization master ( global )
 //  ENTITY
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_ENTITY //alias <alias_name>
+implementation in class zbp_r_gpi_er_entity unique
 persistent table zdb_gpi_er_entty
 draft table zdb_gpi_er_ent_d
-
 lock dependent by _Scenario
 authorization dependent by _Scenario
 etag master LocalLastChangedAt
@@ -77,12 +79,16 @@ etag master LocalLastChangedAt
 //  ATTRIBUTES
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_ATTRIBUTE //alias <alias_name>
+implementation in class zbp_r_gpi_er_attribute unique
 persistent table zdb_gpi_er_att
 draft table zdb_gpi_er_a_d
 lock dependent by _Scenario
 authorization dependent by _Scenario
 etag master LocalLastChangedAt
 {
+
+  action HideShow_Attribute ;
+
   update;
   delete;
   field ( readonly, numbering : managed ) Uuid;
@@ -128,3 +134,5 @@ etag master LocalLastChangedAt
   association _Scenario     { with draft; }
   association _Entity       { with draft; }
 }
+// ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------

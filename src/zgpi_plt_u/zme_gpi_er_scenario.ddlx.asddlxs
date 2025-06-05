@@ -4,7 +4,7 @@
 // ------------------------------------------------------------------------------------------------
 @Metadata.layer                             : #CUSTOMER
 @UI.headerInfo.description.label            : 'ER-Scenario'
-@UI.headerInfo.description.value            : 'ScenarioTxt'
+@UI.headerInfo.description.value            : 'ScenarioCode'
 @UI.headerInfo.typeName                     : 'ER-Entity-Scenario'
 @UI.headerInfo.typeNamePlural               : 'ER-Entity-Scenarios'
 // ------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ annotate view ZC_GPI_ER_SCENARIO    with
     ]    
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           
-        { type : #STANDARD      , value         : 'ScenarioTxt'                 , label : 'Description'          },
+        { type : #STANDARD      , value         : 'ScenarioCode'                , label : 'Scenario-Code'        },
         { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'          },  
         { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'          }  ,
          {  type: #FOR_ACTION, dataAction: 'BuildModel'  , label: 'Build'   }  
@@ -30,10 +30,13 @@ annotate view ZC_GPI_ER_SCENARIO    with
     @EndUserText.label              : 'Identifier'
     Uuid;  
     
-    @EndUserText.label              : 'Scenario'            
+    @EndUserText.label              : 'Scenario-Code'            
     @UI.identification              : [ { position: 10 } ]
     @UI.selectionField              : [ { position: 10 } ]
-    ScenarioTxt;    
+    ScenarioCode;    
     
-    
+       @EndUserText.label              : 'Scenario-Description'            
+    @UI.identification              : [ { position: 10 } ]
+    @UI.selectionField              : [ { position: 10 } ]
+    ScenarioDescription;    
 }

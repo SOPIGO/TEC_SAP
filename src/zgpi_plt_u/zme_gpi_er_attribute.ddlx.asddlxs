@@ -29,7 +29,7 @@ annotate view ZC_GPI_ER_ATTRIBUTE with
                  type           : #IDENTIFICATION_REFERENCE,
                  position       : 10,
                  parentId       : 'GeneralInfo' 
-            }
+            } 
             /*
             ,          
             {
@@ -43,7 +43,7 @@ annotate view ZC_GPI_ER_ATTRIBUTE with
     ]                
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           
-        { type : #FOR_ACTION    , dataAction    : 'BOPF:HIDE_SHOW_ATTRIBUTE'    , label : 'Hide-Show'               },
+        { type : #FOR_ACTION    , dataAction    : 'HideShow_Attribute'         , label : 'Hide-Show'               },
         { type : #STANDARD      , value         : 'FieldId'                    , label : 'Attribute-ID'            },
         { type : #STANDARD      , value         : 'FieldName'                  , label : 'Attribute-Name'          },  
         { type : #STANDARD      , value         : 'FieldVisible'               , label : 'Attribute-Visibility'    },

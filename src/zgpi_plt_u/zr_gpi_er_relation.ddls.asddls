@@ -1,16 +1,6 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label:'GPI-ER-Relation'
-@Metadata.allowExtensions: true
-
-/*
-@Metadata.ignorePropagatedAnnotations: true
-@ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
-}
-@AbapCatalog.viewEnhancementCategory: [#NONE]
-*/
+@AccessControl.authorizationCheck   : #NOT_REQUIRED
+@EndUserText.label                  : 'GPI-ER-Relation'
+@Metadata.allowExtensions           : true
 // ------------------------------------------------------------------------------------------------
 define view entity ZR_GPI_ER_RELATION
   // ------------------------------------------------------------------------------------------------
