@@ -21,7 +21,7 @@ public section.
     TT_RELATIONs_CDS TYPE TABLE OF  ST_RELATION_CDS WITH DEFAULT KEY .
   types:
     BEGIN OF ST_ENTITY_CDS,
-    INCLUDE TYPE zdb_gpi_er_entty ,
+    INCLUDE TYPE zdb_gpi_er_ent_a ,
     NAME TYPE STRING,
     LEVEL TYPE I,
     PTR_OBJECT TYPE REF TO ZCL_GPI_ENTITY_CDS,

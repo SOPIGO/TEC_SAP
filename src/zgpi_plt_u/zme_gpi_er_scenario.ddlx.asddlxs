@@ -20,13 +20,16 @@ annotate view ZC_GPI_ER_SCENARIO    with
     ]    
     //-----------------------------------------------------------------------------------------
     @UI.lineItem        : [           
-        { type : #STANDARD      , value         : 'ScenarioCode'                , label : 'Scenario-Code'        },
-        { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'          },  
-        { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'          }  ,
-         {  type: #FOR_ACTION, dataAction: 'BuildModel'  , label: 'Build'   }  
+        { type: #FOR_ACTION     , dataAction    : 'BuildModel'                  , label: 'Build'            },
+        { type : #STANDARD      , value         : 'ScenarioCode'                , label : 'Scenario-Code'   },
+        { type : #STANDARD      , value         : 'EntityType'                  , label : 'Entity-Type'     },  
+        { type : #STANDARD      , value         : 'EntityName'                  , label : 'Entity-Name'     }            
     ]                                      
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
+    @UI.identification              : [ {   type        : #FOR_ACTION , 
+                                            dataAction  : 'BuildModel', 
+                                            label       : 'Build'   }]
     @EndUserText.label              : 'Identifier'
     Uuid;  
     
@@ -35,8 +38,20 @@ annotate view ZC_GPI_ER_SCENARIO    with
     @UI.selectionField              : [ { position: 10 } ]
     ScenarioCode;    
     
-       @EndUserText.label              : 'Scenario-Description'            
-    @UI.identification              : [ { position: 10 } ]
-    @UI.selectionField              : [ { position: 10 } ]
-    ScenarioDescription;    
+    @EndUserText.label              : 'Scenario-Description'            
+    @UI.identification              : [ { position: 20 } ]
+    @UI.selectionField              : [ { position: 20 } ]
+    ScenarioDescription;
+    
+    @EndUserText.label              : 'Entity-Type'            
+    @UI.identification              : [ { position: 30 } ]
+    @UI.selectionField              : [ { position: 30 } ]
+    EntityType   ; 
+
+    @EndUserText.label              : 'Entity-Name'            
+    @UI.identification              : [ { position: 40 } ]
+    @UI.selectionField              : [ { position: 40 } ]
+    EntityName;
+    
+        
 }

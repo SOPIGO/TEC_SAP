@@ -28,7 +28,6 @@ annotate view ZC_GPI_ER_ENTITY with
     @UI.lineItem        : [           
         { type : #FOR_ACTION    , dataAction    : 'BOPF:HIDE'      , label : 'Hide'                },
         { type : #FOR_ACTION    , dataAction    : 'BOPF:SHW_HDE'   , label : 'Hide-Show'           },
-        { type : #STANDARD      , value         : 'ScenarioCode'   , label : 'Scenario'            },
         { type : #STANDARD      , value         : 'EntityName'     , label : 'Entity-Name'         }, 
         { type : #STANDARD      , value         : 'EntityVisible'  , label : 'Entity-Visibility'   },
         { type : #STANDARD      , value         : 'EntityIndex'    , label : 'Entity-Index'        }

@@ -3,7 +3,7 @@
 {
 "FROM":
 [
-"ZDB_GPI_ER_ENTTY"
+"ZDB_GPI_ER_ENT_A"
 ],
 "ASSOCIATED":
 [

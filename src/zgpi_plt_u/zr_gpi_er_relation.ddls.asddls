@@ -4,7 +4,7 @@
 // ------------------------------------------------------------------------------------------------
 define view entity ZR_GPI_ER_RELATION
   // ------------------------------------------------------------------------------------------------
-  as select from zdb_gpi_er_relat
+  as select from zdb_gpi_er_rel_a
   // --------------------------------------------------------------------------------------------
   // Link to parent -> used for composition !! ==>
   association to parent ZR_GPI_ER_ENTITY as _Entity   on $projection.UuidScnEnttySrc = _Entity.Uuid

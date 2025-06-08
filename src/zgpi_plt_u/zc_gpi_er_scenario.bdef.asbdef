@@ -11,6 +11,10 @@ define behavior for ZC_GPI_ER_SCENARIO //alias <alias_name>
   use delete;
 
   use action BuildModel;
+  side effects
+  {
+    action BuildModel affects entity _RootEntity;
+  }
 
   use action Edit;
   use action Activate;
@@ -25,6 +29,7 @@ define behavior for ZC_GPI_ER_SCENARIO //alias <alias_name>
 // ---------------------------------------------------------------------------------------------
 define behavior for ZC_GPI_ER_ENTITY //alias <alias_name>
 {
+  // use create;
   use update;
   use delete;
   use association _Scenario     {           with draft; }

@@ -39,7 +39,7 @@ public section.
    TYPES: END OF  ST_RELATION .
   types:
     TT_RELATIONS TYPE TABLE OF ST_RELATION WITH DEFAULT KEY .
-  data DATA_CORE type ZDB_GPI_ER_ENTTY .
+  data DATA_CORE type ZDB_GPI_ER_ENT_a .
 
   data lo_adt_out type ref to if_oo_adt_classrun_out.
 
@@ -346,7 +346,7 @@ METHOD DB_RESET_ALL.
 * Author : Pierre Godart
 *--------------------------------------------------------------------------------------------------
  DELETE FROM ZDB_GPI_ER_ATT.
- DELETE FROM ZDB_GPI_ER_ENTTY.
+ DELETE FROM ZDB_GPI_ER_ENT_A.
  DELETE FROM ZDB_GPI_ER_RELAT.
 ENDMETHOD.
 

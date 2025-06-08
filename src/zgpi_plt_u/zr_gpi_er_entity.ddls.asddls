@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------------------------
 define view entity ZR_GPI_ER_ENTITY
   // ------------------------------------------------------------------------------------------------
-  as select from zdb_gpi_er_entty
+  as select from zdb_gpi_er_ent_a
   // --------------------------------------------------------------------------------------------
   // Link to parent / root   -> used for composition !! ==>
   association to parent ZR_GPI_ER_SCENARIO  as _Scenario on $projection.UuidScenario = _Scenario.Uuid
@@ -16,7 +16,7 @@ define view entity ZR_GPI_ER_ENTITY
 {
   key uuid                  as Uuid,
       uuid_scenario         as UuidScenario,
-      scenario_code         as ScenarioCode,
+
       entity_name           as EntityName,
       entity_visible        as EntityVisible,
       entity_index          as EntityIndex,

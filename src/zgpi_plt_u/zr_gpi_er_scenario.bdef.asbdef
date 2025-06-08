@@ -25,25 +25,24 @@ authorization master ( global )
   draft action Resume;
   draft determine action Prepare;
 
-    field ( readonly, numbering : managed ) Uuid;
-    field ( readonly )   LocalCreatedBy;
-    field ( readonly )   LocalCreatedAt;
-    field ( readonly )   LocalLastChangedAt;
-    field ( readonly )   LastChangedAt;
-
+  field ( readonly, numbering : managed ) Uuid;
+  field ( readonly ) LocalCreatedBy;
+  field ( readonly ) LocalCreatedAt;
+  field ( readonly ) LocalLastChangedAt;
+  field ( readonly ) LastChangedAt;
 
   mapping for zdb_gpi_er_sc_a
     {
-      Uuid                  = uuid;
-      ScenarioCode          = scenario_code;
-      ScenarioDescription   = scenario_description;
-      EntityType            = entity_type;
-      EntityName            = entity_name;
-      LastChangedAt         = last_changed_at;
-      LocalCreatedAt        = local_created_at;
-      LocalCreatedBy        = local_created_by;
-      LocalLastChangedAt    = local_last_changed_at;
-      LocalLastChangedBy    = local_last_changed_by;
+      Uuid                = uuid;
+      ScenarioCode        = scenario_code;
+      ScenarioDescription = scenario_description;
+      EntityType          = entity_type;
+      EntityName          = entity_name;
+      LastChangedAt       = last_changed_at;
+      LocalCreatedAt      = local_created_at;
+      LocalCreatedBy      = local_created_by;
+      LocalLastChangedAt  = local_last_changed_at;
+      LocalLastChangedBy  = local_last_changed_by;
     }
 
   association _RootEntity { create; with draft; }
@@ -53,7 +52,7 @@ authorization master ( global )
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_ENTITY //alias <alias_name>
 implementation in class zbp_r_gpi_er_entity unique
-persistent table zdb_gpi_er_entty
+persistent table zdb_gpi_er_ent_a
 draft table zdb_gpi_er_ent_d
 lock dependent by _Scenario
 authorization dependent by _Scenario
@@ -64,16 +63,16 @@ etag master LocalLastChangedAt
   field ( readonly, numbering : managed ) Uuid;
   field ( readonly ) UuidScenario;
 
-  mapping for zdb_gpi_er_entty
+  mapping for zdb_gpi_er_ent_a
     {
       Uuid         = uuid;
       UuidScenario = uuid_scenario;
       EntityName   = entity_name;
     }
 
-  association _Scenario     {           with draft; }
-  association _Attributes   { create;   with draft; }
-  association _Relations    { create;   with draft; }
+  association _Scenario { with draft; }
+  association _Attributes { create; with draft; }
+  association _Relations { create; with draft; }
 }
 // ---------------------------------------------------------------------------------------------
 //  ATTRIBUTES
@@ -87,7 +86,7 @@ authorization dependent by _Scenario
 etag master LocalLastChangedAt
 {
 
-  action HideShow_Attribute ;
+  action HideShow_Attribute;
 
   update;
   delete;
@@ -97,22 +96,22 @@ etag master LocalLastChangedAt
 
   mapping for zdb_gpi_er_att
     {
-      Uuid          = uuid;
-      UuidEntity    = uuid_entity;
-      UuidScenario  = uuid_scenario;
-      FieldName     = field_name;
-      FieldIsKey    = field_is_key;
-      FieldVisible  = field_visible;
+      Uuid         = uuid;
+      UuidEntity   = uuid_entity;
+      UuidScenario = uuid_scenario;
+      FieldName    = field_name;
+      FieldIsKey   = field_is_key;
+      FieldVisible = field_visible;
     }
 
   association _Scenario { with draft; }
-  association _Entity   { with draft; }
+  association _Entity { with draft; }
 }
 // ---------------------------------------------------------------------------------------------
 //  RELATIONS
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_RELATION //alias <alias_name>
-persistent table zdb_gpi_er_relat
+persistent table zdb_gpi_er_rel_a
 draft table zdb_gpi_er_rel_d
 lock dependent by _Scenario
 authorization dependent by _Scenario
@@ -131,8 +130,8 @@ etag master LocalLastChangedAt
       UuidScnEnttyDst = uuid_scn_entty_dst;
       UuidScenario    = uuid_scenario;
     }
-  association _Scenario     { with draft; }
-  association _Entity       { with draft; }
+  association _Scenario { with draft; }
+  association _Entity { with draft; }
 }
 // ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------

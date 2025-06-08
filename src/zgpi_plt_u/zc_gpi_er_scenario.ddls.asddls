@@ -21,7 +21,7 @@ define root view entity ZC_GPI_ER_SCENARIO
       LocalLastChangedAt,
       LastChangedAt,
 
-      _RootEntity : redirected to composition child ZC_GPI_ER_ENTITY
+      _RootEntity : redirected to composition child ZC_GPI_ER_ENTITY  
 }
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
