@@ -1,4 +1,8 @@
-CLASS ZBP_OU2ACTOR DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF ZI_GPI_OU2ACTOR.
+class ZBP_OU2ACTOR definition
+  public
+  create private .
+
+public section.
 protected section.
 private section.
 ENDCLASS.

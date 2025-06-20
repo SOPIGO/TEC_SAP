@@ -1,11 +1,10 @@
-CLASS zcl_gpi_scenario DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class ZCL_GPI_SCENARIO definition
+  public
+  create private .
 
-  PUBLIC SECTION.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+public section.
+protected section.
+private section.
 ENDCLASS.
 
 

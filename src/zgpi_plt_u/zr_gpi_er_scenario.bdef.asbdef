@@ -123,7 +123,7 @@ etag master LocalLastChangedAt
   field ( readonly ) UuidScnEnttySrc;
   field ( readonly ) UuidScenario;
 
-  mapping for zdb_gpi_er_relat
+  mapping for zdb_gpi_er_rel_a
     {
       Uuid            = uuid;
       UuidScnEnttySrc = uuid_scn_entty_src;

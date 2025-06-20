@@ -1,8 +1,6 @@
 class ZBP_R_ZUUID_LEVEL_2_ETTP definition
   public
-  abstract
-  final
-  for behavior of ZR_ZUUID_LEVEL_1_ET01TP .
+  create private .
 
 public section.
 protected section.
