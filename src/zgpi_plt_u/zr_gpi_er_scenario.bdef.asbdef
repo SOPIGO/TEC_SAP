@@ -79,8 +79,8 @@ etag master LocalLastChangedAt
 // ---------------------------------------------------------------------------------------------
 define behavior for ZR_GPI_ER_ATTRIBUTE //alias <alias_name>
 implementation in class zbp_r_gpi_er_attribute unique
-persistent table zdb_gpi_er_att
-draft table zdb_gpi_er_a_d
+persistent table zdb_gpi_er_att_a
+draft table zdb_gpi_er_att_d
 lock dependent by _Scenario
 authorization dependent by _Scenario
 etag master LocalLastChangedAt
@@ -94,7 +94,7 @@ etag master LocalLastChangedAt
   field ( readonly ) UuidEntity;
   field ( readonly ) UuidScenario;
 
-  mapping for zdb_gpi_er_att
+  mapping for zdb_gpi_er_att_a
     {
       Uuid         = uuid;
       UuidEntity   = uuid_entity;
