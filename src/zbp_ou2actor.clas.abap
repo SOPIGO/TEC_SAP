@@ -6,7 +6,7 @@ public section.
 protected section.
 private section.
 ENDCLASS.
-
+   
 
 
 CLASS ZBP_OU2ACTOR IMPLEMENTATION.
